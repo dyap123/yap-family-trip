@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Yap Family CA">
+<meta name="theme-color" content="#1A1D23">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Yap Family California 2026</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇸🇬</text></svg>">
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiWWFwIEZhbWlseSBDYWxpZm9ybmlhIDIwMjYiLCJzaG9ydF9uYW1lIjoiWWFwIFRyaXAiLCJzdGFydF91cmwiOiIvd2ViL3RyaXAuaHRtbCIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiMxQTFEMjMiLCJ0aGVtZV9jb2xvciI6IiMxQTFEMjMiLCJpY29ucyI6W119">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --sg-red:#EF3340;
+  --sg-red-dim:rgba(239,51,64,0.15);
+  --sg-red-glow:rgba(239,51,64,0.3);
+  --white:#FFFFFF;
+  --navy:#1A1D23;
+  --navy-light:#242830;
+  --navy-lighter:#2E323A;
+  --navy-card:#1E2229;
+  --text-primary:rgba(255,255,255,0.95);
+  --text-secondary:rgba(255,255,255,0.6);
+  --text-muted:rgba(255,255,255,0.35);
+  --safe-top:env(safe-area-inset-top,0px);
+  --safe-bottom:env(safe-area-inset-bottom,0px);
+  --safe-left:env(safe-area-inset-left,0px);
+  --safe-right:env(safe-area-inset-right,0px);
+  --tab-height:64px;
+  --header-height:52px;
+  /* vibe colors */
+  --vibe-party:linear-gradient(135deg,#EF3340,#FF6B6B);
+  --vibe-beach:linear-gradient(135deg,#0077B6,#48CAE4);
+  --vibe-road:linear-gradient(135deg,#E76F51,#F4A261);
+  --vibe-chill:linear-gradient(135deg,#2D6A4F,#52B788);
+  --vibe-shop:linear-gradient(135deg,#7B2CBF,#C77DFF);
+  --vibe-food:linear-gradient(135deg,#E07A5F,#F2CC8F);
+  --vibe-fun:linear-gradient(135deg,#F72585,#B5179E);
+  --vibe-wine:linear-gradient(135deg,#722F37,#C97C5D);
+  --vibe-home:linear-gradient(135deg,#457B9D,#A8DADC);
+  --vibe-farewell:linear-gradient(135deg,#EF3340,#1A1D23);
+}
+html,body{
+  height:100%;width:100%;overflow:hidden;
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  background:var(--navy);color:var(--text-primary);
+  -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:pan-y;
+}
+body{
+  display:flex;flex-direction:column;
+  padding-top:var(--safe-top);
+  padding-bottom:var(--safe-bottom);
+}
+
+/* ── Header ── */
+.header{
+  height:var(--header-height);min-height:var(--header-height);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 16px;
+  background:var(--navy);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  position:relative;z-index:100;
+}
+.header-title{
+  font-size:15px;font-weight:700;letter-spacing:-0.3px;
+  color:var(--text-primary);
+  display:flex;align-items:center;gap:8px;
+}
+.sg-flag{
+  width:22px;height:15px;border-radius:2px;overflow:hidden;
+  display:inline-flex;flex-direction:column;flex-shrink:0;
+}
+.sg-flag-top{background:#EF3340;flex:1}
+.sg-flag-bot{background:#fff;flex:1}
+.sg-flag .moon-star{
+  position:absolute;left:3px;top:1px;
+  font-size:8px;line-height:1;color:#fff;
+}
+.person-select{
+  background:var(--navy-light);
+  border:1px solid rgba(255,255,255,0.1);
+  color:var(--text-primary);
+  font-size:13px;font-weight:500;
+  padding:6px 28px 6px 10px;
+  border-radius:8px;
+  appearance:none;-webkit-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='rgba(255,255,255,0.5)' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 8px center;
+  cursor:pointer;min-width:0;max-width:140px;
+  text-overflow:ellipsis;
+}
+.person-select:focus{outline:none;border-color:var(--sg-red)}
+
+/* ── Main Content ── */
+.main{
+  flex:1;overflow:hidden;position:relative;
+}
+.tab-content{
+  position:absolute;inset:0;
+  overflow-y:auto;overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  padding:0 0 8px;
+  opacity:0;pointer-events:none;
+  transition:opacity 0.2s ease;
+  scrollbar-width:none;
+}
+.tab-content::-webkit-scrollbar{display:none}
+.tab-content.active{opacity:1;pointer-events:auto}
+
+/* ── Bottom Nav ── */
+.bottom-nav{
+  height:var(--tab-height);min-height:var(--tab-height);
+  display:flex;align-items:stretch;
+  background:var(--navy);
+  border-top:1px solid rgba(255,255,255,0.06);
+  padding-bottom:calc(var(--safe-bottom) - 0px);
+  position:relative;z-index:100;
+}
+.nav-tab{
+  flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:3px;
+  background:none;border:none;color:var(--text-muted);
+  font-size:10px;font-weight:600;letter-spacing:0.3px;
+  cursor:pointer;transition:color 0.2s;
+  -webkit-tap-highlight-color:transparent;
+  position:relative;padding:6px 0;
+}
+.nav-tab.active{color:var(--sg-red)}
+.nav-tab.active::before{
+  content:'';position:absolute;top:0;left:20%;right:20%;
+  height:2px;background:var(--sg-red);border-radius:0 0 2px 2px;
+}
+.nav-tab svg{width:22px;height:22px;fill:currentColor}
+.nav-tab span{text-transform:uppercase}
+
+/* ── Day Cards (Schedule) ── */
+.schedule-container{
+  padding:12px 16px;
+}
+.day-card{
+  background:var(--navy-card);
+  border-radius:16px;
+  margin-bottom:12px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,0.04);
+  transition:opacity 0.3s;
+}
+.day-card.past{opacity:0.55}
+.day-card.today{
+  border-color:var(--sg-red);
+  box-shadow:0 0 20px var(--sg-red-dim),0 0 40px rgba(239,51,64,0.05);
+}
+.day-card-accent{
+  height:4px;width:100%;
+}
+.day-card-header{
+  padding:14px 16px 0;
+  display:flex;justify-content:space-between;align-items:flex-start;
+}
+.day-label{
+  font-size:11px;font-weight:700;text-transform:uppercase;
+  letter-spacing:1px;color:var(--text-muted);
+}
+.day-date{
+  font-size:22px;font-weight:800;letter-spacing:-0.5px;
+  margin-top:2px;
+}
+.day-dow{
+  font-size:13px;font-weight:500;color:var(--text-secondary);
+}
+.day-vibe{
+  font-size:28px;line-height:1;
+}
+.day-card-body{
+  padding:10px 16px 14px;
+  display:flex;flex-direction:column;gap:8px;
+}
+.day-info-row{
+  display:flex;align-items:center;gap:8px;
+  font-size:13px;color:var(--text-secondary);
+}
+.day-info-row svg{
+  width:16px;height:16px;fill:var(--text-muted);flex-shrink:0;
+}
+.day-info-row .info-label{
+  color:var(--text-primary);font-weight:500;
+}
+.day-events{
+  margin-top:4px;padding:10px 12px;
+  background:rgba(255,255,255,0.03);
+  border-radius:10px;
+  font-size:13px;line-height:1.5;
+  color:var(--text-secondary);
+}
+.day-events strong{color:var(--text-primary);font-weight:600}
+.group-tag{
+  display:inline-block;
+  padding:2px 8px;border-radius:4px;
+  font-size:11px;font-weight:600;
+  margin-top:6px;
+}
+.group-tag.g1{background:rgba(239,51,64,0.15);color:#EF3340}
+.group-tag.g2{background:rgba(72,202,228,0.15);color:#48CAE4}
+.group-tag.all{background:rgba(82,183,136,0.15);color:#52B788}
+
+/* ── Today pulse ── */
+.today-indicator{
+  display:inline-block;width:8px;height:8px;
+  background:var(--sg-red);border-radius:50%;
+  margin-right:6px;
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{
+  0%,100%{box-shadow:0 0 0 0 var(--sg-red-glow)}
+  50%{box-shadow:0 0 0 8px rgba(239,51,64,0)}
+}
+
+/* ── Today Tab ── */
+.today-container{padding:16px}
+.today-hero{
+  background:var(--navy-card);border-radius:16px;
+  padding:20px;margin-bottom:16px;
+  border:1px solid rgba(239,51,64,0.2);
+  position:relative;overflow:hidden;
+}
+.today-hero::before{
+  content:'';position:absolute;top:0;left:0;right:0;
+  height:4px;background:var(--sg-red);
+}
+.today-hero h2{font-size:24px;font-weight:800;margin-bottom:4px}
+.today-hero .subtitle{font-size:14px;color:var(--text-secondary)}
+.today-detail-card{
+  background:var(--navy-card);border-radius:12px;
+  padding:14px 16px;margin-bottom:10px;
+  border:1px solid rgba(255,255,255,0.04);
+}
+.today-detail-card h3{
+  font-size:13px;font-weight:700;text-transform:uppercase;
+  letter-spacing:0.5px;color:var(--text-muted);margin-bottom:8px;
+}
+.today-detail-card p{
+  font-size:14px;color:var(--text-secondary);line-height:1.5;
+}
+.countdown-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--sg-red-dim);color:var(--sg-red);
+  padding:6px 12px;border-radius:8px;
+  font-size:13px;font-weight:700;
+  margin-top:8px;
+}
+
+/* ── Food Tab ── */
+.food-container{padding:12px 16px}
+.food-city-header{
+  font-size:13px;font-weight:700;text-transform:uppercase;
+  letter-spacing:1px;color:var(--sg-red);
+  padding:12px 0 6px;
+  position:sticky;top:0;z-index:10;
+  background:var(--navy);
+}
+.food-card{
+  background:var(--navy-card);border-radius:12px;
+  padding:12px 14px;margin-bottom:8px;
+  border:1px solid rgba(255,255,255,0.04);
+}
+.food-name{font-size:15px;font-weight:700;margin-bottom:3px}
+.food-cuisine{font-size:12px;color:var(--text-muted);margin-bottom:6px}
+.food-meta{
+  display:flex;gap:12px;flex-wrap:wrap;
+  font-size:12px;color:var(--text-secondary);
+}
+.food-meta span{display:flex;align-items:center;gap:4px}
+.food-price{
+  color:var(--sg-red);font-weight:600;
+}
+.food-rec-card{
+  background:var(--navy-card);border-radius:12px;
+  padding:14px;margin-bottom:8px;
+  border:1px solid rgba(255,255,255,0.04);
+}
+.food-rec-card h4{font-size:14px;font-weight:700;margin-bottom:4px}
+.food-rec-card p{font-size:13px;color:var(--text-secondary);line-height:1.4}
+.food-tabs{
+  display:flex;gap:6px;padding:8px 0 4px;
+  overflow-x:auto;scrollbar-width:none;
+}
+.food-tabs::-webkit-scrollbar{display:none}
+.food-tab-btn{
+  background:var(--navy-lighter);border:none;color:var(--text-secondary);
+  padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;
+  white-space:nowrap;cursor:pointer;
+}
+.food-tab-btn.active{background:var(--sg-red);color:#fff}
+
+/* ── People Tab ── */
+.people-container{padding:12px 16px}
+.group-section{
+  background:var(--navy-card);border-radius:14px;
+  padding:16px;margin-bottom:12px;
+  border:1px solid rgba(255,255,255,0.04);
+}
+.group-section h3{
+  font-size:14px;font-weight:700;margin-bottom:10px;
+  display:flex;align-items:center;gap:8px;
+}
+.group-badge{
+  padding:2px 8px;border-radius:4px;
+  font-size:11px;font-weight:700;
+}
+.group-badge.g1{background:rgba(239,51,64,0.15);color:#EF3340}
+.group-badge.g2{background:rgba(72,202,228,0.15);color:#48CAE4}
+.person-chip{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--navy-lighter);
+  padding:8px 12px;border-radius:10px;
+  margin:0 6px 6px 0;font-size:13px;font-weight:500;
+}
+.person-chip.selected{
+  background:var(--sg-red-dim);
+  border:1px solid var(--sg-red);
+  color:var(--sg-red);
+}
+.person-avatar{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--navy);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;color:var(--text-muted);
+}
+
+/* ── Tasks Tab ── */
+.tasks-container{padding:12px 16px}
+.task-item{
+  background:var(--navy-card);border-radius:12px;
+  padding:12px 14px;margin-bottom:8px;
+  border:1px solid rgba(255,255,255,0.04);
+  display:flex;align-items:flex-start;gap:10px;
+}
+.task-status{
+  width:22px;height:22px;border-radius:6px;
+  border:2px solid var(--text-muted);
+  flex-shrink:0;margin-top:1px;
+  display:flex;align-items:center;justify-content:center;
+}
+.task-status.done{
+  border-color:var(--sg-red);background:var(--sg-red);
+}
+.task-status.done::after{
+  content:'';width:10px;height:6px;
+  border-left:2px solid #fff;border-bottom:2px solid #fff;
+  transform:rotate(-45deg) translateY(-1px);
+}
+.task-text{font-size:14px;line-height:1.4}
+.task-text.done{text-decoration:line-through;color:var(--text-muted)}
+.task-assignee{
+  font-size:11px;color:var(--text-muted);margin-top:2px;
+}
+
+/* ── Loading & Empty ── */
+.loading-spinner{
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:60px 20px;gap:16px;
+}
+.spinner{
+  width:32px;height:32px;
+  border:3px solid var(--navy-lighter);
+  border-top-color:var(--sg-red);
+  border-radius:50%;
+  animation:spin 0.8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font-size:13px;color:var(--text-muted)}
+
+.empty-state{
+  text-align:center;padding:60px 20px;
+  color:var(--text-muted);font-size:14px;
+}
+
+/* ── Pull to Refresh ── */
+.pull-indicator{
+  text-align:center;padding:12px;
+  font-size:12px;color:var(--text-muted);
+  display:none;
+}
+
+/* ── Scroll fade ── */
+.tab-content::after{
+  content:'';position:sticky;bottom:0;left:0;right:0;
+  height:20px;display:block;
+  background:linear-gradient(transparent,var(--navy));
+  pointer-events:none;
+}
+
+/* Budget cards */
+.budget-container{padding:12px 16px}
+.budget-card{
+  background:var(--navy-card);border-radius:12px;
+  padding:14px 16px;margin-bottom:8px;
+  border:1px solid rgba(255,255,255,0.04);
+}
+.budget-card h4{font-size:13px;color:var(--text-muted);font-weight:600;margin-bottom:4px}
+.budget-card .amount{font-size:22px;font-weight:800;color:var(--sg-red)}
+.budget-row{
+  display:flex;justify-content:space-between;
+  padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);
+  font-size:13px;
+}
+.budget-row:last-child{border:none}
+.budget-row .label{color:var(--text-secondary)}
+.budget-row .val{font-weight:600}
+
+/* Animations */
+.fade-in{animation:fadeIn 0.3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* Responsive: slightly bigger on tablets */
+@media(min-width:768px){
+  .schedule-container,.today-container,.food-container,.people-container,.tasks-container,.budget-container{
+    max-width:560px;margin:0 auto;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-title">
+    <span class="sg-flag" style="position:relative">
+      <div class="sg-flag-top"></div>
+      <div class="sg-flag-bot"></div>
+    </span>
+    Yap Family California 2026
+  </div>
+  <select class="person-select" id="personSelect">
+    <option value="all">Everyone</option>
+  </select>
+</header>
+
+<!-- Main Content -->
+<main class="main" id="mainContent">
+  <!-- Schedule Tab -->
+  <div class="tab-content active" id="tabSchedule">
+    <div class="pull-indicator" id="pullIndicator">Pull to refresh</div>
+    <div class="schedule-container" id="scheduleList">
+      <div class="loading-spinner"><div class="spinner"></div><div class="loading-text">Loading schedule...</div></div>
+    </div>
+  </div>
+
+  <!-- Today Tab -->
+  <div class="tab-content" id="tabToday">
+    <div class="today-container" id="todayContent">
+      <div class="loading-spinner"><div class="spinner"></div><div class="loading-text">Loading today...</div></div>
+    </div>
+  </div>
+
+  <!-- Food Tab -->
+  <div class="tab-content" id="tabFood">
+    <div class="food-container" id="foodContent">
+      <div class="loading-spinner"><div class="spinner"></div><div class="loading-text">Loading food recs...</div></div>
+    </div>
+  </div>
+
+  <!-- People Tab -->
+  <div class="tab-content" id="tabPeople">
+    <div class="people-container" id="peopleContent">
+      <div class="loading-spinner"><div class="spinner"></div><div class="loading-text">Loading people...</div></div>
+    </div>
+  </div>
+
+  <!-- Tasks Tab -->
+  <div class="tab-content" id="tabTasks">
+    <div class="tasks-container" id="tasksContent">
+      <div class="loading-spinner"><div class="spinner"></div><div class="loading-text">Loading tasks...</div></div>
+    </div>
+  </div>
+</main>
+
+<!-- Bottom Navigation -->
+<nav class="bottom-nav">
+  <button class="nav-tab active" data-tab="tabSchedule">
+    <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11zM7 11h5v5H7z"/></svg>
+    <span>Schedule</span>
+  </button>
+  <button class="nav-tab" data-tab="tabToday">
+    <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+    <span>Today</span>
+  </button>
+  <button class="nav-tab" data-tab="tabFood">
+    <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>
+    <span>Food</span>
+  </button>
+  <button class="nav-tab" data-tab="tabPeople">
+    <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+    <span>People</span>
+  </button>
+  <button class="nav-tab" data-tab="tabTasks">
+    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM17.99 9l-1.41-1.42-6.59 6.59-2.58-2.57-1.42 1.41 4 3.99z"/></svg>
+    <span>Tasks</span>
+  </button>
+</nav>
+
+<script>
+// ─── Configuration ───
+const SHEET_ID = '1DBGY85rvSrGTGqw4dTYXGiMesSY9LLnvCdyI7On53BQ';
+const CACHE_KEY = 'yap_trip_cache';
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
+const TRIP_START = new Date('2026-05-14T00:00:00-07:00');
+const TRIP_END = new Date('2026-05-26T23:59:59-07:00');
+
+// ─── People & Groups ───
+const PEOPLE = {
+  'Danzel': { group: 1 },
+  'Alvin': { group: 1 },
+  'Angel': { group: 1 },
+  'Eugene': { group: 1, leavesDay: 8 },
+  'Vanessa': { group: 1 },
+  'Jujuhub': { group: 1 },
+  'Amazi': { group: 1 },
+  'Mom 1': { group: 2 },
+  'Mom 2': { group: 2 },
+  'Mom 3': { group: 2 },
+  'Mom 4': { group: 2 },
+  'Uncle Yap': { group: 2 },
+  'Uncle Jimy': { group: 2 },
+  'Uncle Steven': { group: 2 },
+  'Ah Gong': { group: 2 },
+  'Margaret': { group: 2 },
+  'Da ma': { group: 2 },
+  'Dad': { group: 2 },
+  'Aunty Margaret': { group: 2 },
+};
+
+// ─── Fallback Schedule ───
+const FALLBACK_SCHEDULE = [
+  { day:1, date:'May 14',dow:'Thursday', location:'SFO → San Jose', accommodation:'Holiday Inn', events:'Arrive SFO, settle in, chill evening', driveTime:'30 min', vibe:'chill' },
+  { day:2, date:'May 15',dow:'Friday', location:'San Jose → LA', accommodation:'Ayres Suites Diamond Bar', events:'Road trip down the 5! Stop for In-N-Out', driveTime:'5-6 hr', vibe:'road' },
+  { day:3, date:'May 16',dow:'Saturday', location:'LA → Las Vegas', accommodation:'Horseshoe', events:'Graduation ceremony! Drive to Vegas after', driveTime:'5 hr', vibe:'party' },
+  { day:4, date:'May 17',dow:'Sunday', location:'Las Vegas', accommodation:'Horseshoe', events:'Group 1: EDC Day 1 | Group 2: Vegas Strip, shows, buffet', driveTime:'—', vibe:'party', groupSplit:true },
+  { day:5, date:'May 18',dow:'Monday', location:'Las Vegas', accommodation:'Horseshoe', events:'Recovery morning, shopping at Premium Outlets, pool time', driveTime:'—', vibe:'shop' },
+  { day:6, date:'May 19',dow:'Tuesday', location:'Vegas → OC', accommodation:'Pixar Hotel (Disneyland)', events:'Drive to Orange County, check in, Downtown Disney evening', driveTime:'4 hr', vibe:'road' },
+  { day:7, date:'May 20',dow:'Wednesday', location:'Orange County', accommodation:'Pixar Hotel', events:'DISNEYLAND! Full day at the parks', driveTime:'—', vibe:'fun' },
+  { day:8, date:'May 21',dow:'Thursday', location:'OC → Malibu', accommodation:'Malibu Airbnb', events:'Beach day, PCH drive, sunset at El Matador. Eugene departs.', driveTime:'1.5 hr', vibe:'beach' },
+  { day:9, date:'May 22',dow:'Friday', location:'Malibu → Paso Robles', accommodation:'Paso Robles rental', events:'Drive up PCH/101, wine country check-in, evening tasting', driveTime:'3.5 hr', vibe:'wine' },
+  { day:10, date:'May 23',dow:'Saturday', location:'Paso → San Jose', accommodation:'San Jose home', events:'Morning wine tasting, drive home, homecoming dinner', driveTime:'2.5 hr', vibe:'home' },
+  { day:11, date:'May 24',dow:'Sunday', location:'San Jose', accommodation:'San Jose home', events:'Pickleball tournament, brunch at local spot, chill afternoon', driveTime:'—', vibe:'chill' },
+  { day:12, date:'May 25',dow:'Monday', location:'San Jose', accommodation:'San Jose home', events:'Free day — Santana Row, Great Mall, San Pedro Market, family time', driveTime:'—', vibe:'shop' },
+  { day:13, date:'May 26',dow:'Tuesday', location:'San Jose → SFO', accommodation:'—', events:'Pack up, farewell brunch, airport drop-offs', driveTime:'30 min', vibe:'farewell' },
+];
+
+const VIBE_EMOJI = {
+  chill:'😌', road:'🚗', party:'🎉', shop:'🛍️', food:'🍜', fun:'🏰',
+  beach:'🏖️', wine:'🍷', home:'🏠', farewell:'✈️'
+};
+
+const VIBE_GRADIENT = {
+  chill:'var(--vibe-chill)', road:'var(--vibe-road)', party:'var(--vibe-party)',
+  shop:'var(--vibe-shop)', food:'var(--vibe-food)', fun:'var(--vibe-fun)',
+  beach:'var(--vibe-beach)', wine:'var(--vibe-wine)', home:'var(--vibe-home)',
+  farewell:'var(--vibe-farewell)'
+};
+
+// ─── State ───
+let state = {
+  schedule: FALLBACK_SCHEDULE,
+  food: [],
+  foodRecs: [],
+  people: [],
+  tasks: [],
+  budget: [],
+  spending: [],
+  selectedPerson: 'all',
+  activeTab: 'tabSchedule',
+  dataLoaded: false
+};
+
+// ─── Sheet Fetcher ───
+function sheetUrl(sheetName) {
+  return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}`;
+}
+
+function parseGvizJson(text) {
+  // Google returns: google.visualization.Query.setResponse({...})
+  const match = text.match(/google\.visualization\.Query\.setResponse\((.+)\);?\s*$/s);
+  if (!match) return null;
+  try {
+    const data = JSON.parse(match[1]);
+    if (!data.table) return null;
+    const cols = data.table.cols.map(c => c.label || '');
+    const rows = data.table.rows.map(r => {
+      const obj = {};
+      r.c.forEach((cell, i) => {
+        obj[cols[i]] = cell ? (cell.v !== null && cell.v !== undefined ? String(cell.v) : (cell.f || '')) : '';
+      });
+      return obj;
+    });
+    return { cols, rows };
+  } catch(e) { return null; }
+}
+
+async function fetchSheet(sheetName) {
+  try {
+    const resp = await fetch(sheetUrl(sheetName));
+    const text = await resp.text();
+    return parseGvizJson(text);
+  } catch(e) {
+    console.warn(`Failed to fetch ${sheetName}:`, e);
+    return null;
+  }
+}
+
+// ─── Data Loading ───
+async function loadAllData() {
+  // Check cache
+  try {
+    const cached = localStorage.getItem(CACHE_KEY);
+    if (cached) {
+      const { data, ts } = JSON.parse(cached);
+      if (Date.now() - ts < CACHE_TTL) {
+        applySheetData(data);
+        renderAll();
+        // Still refresh in background
+        fetchAllSheets().then(d => { if (d) { applySheetData(d); cacheData(d); renderAll(); }});
+        return;
+      }
+    }
+  } catch(e) {}
+
+  const data = await fetchAllSheets();
+  if (data) {
+    applySheetData(data);
+    cacheData(data);
+  }
+  state.dataLoaded = true;
+  renderAll();
+}
+
+async function fetchAllSheets() {
+  const [schedule, people, food, foodRecs, tasks, budget, spending] = await Promise.allSettled([
+    fetchSheet('Schedule Overview'),
+    fetchSheet('People Logistics'),
+    fetchSheet('FOOD'),
+    fetchSheet('Food Recs (First Timer)'),
+    fetchSheet('To-Do List'),
+    fetchSheet('Budget'),
+    fetchSheet('Actual Spending'),
+  ]);
+  const result = {};
+  if (schedule.status === 'fulfilled' && schedule.value) result.schedule = schedule.value.rows;
+  if (people.status === 'fulfilled' && people.value) result.people = people.value.rows;
+  if (food.status === 'fulfilled' && food.value) result.food = food.value.rows;
+  if (foodRecs.status === 'fulfilled' && foodRecs.value) result.foodRecs = foodRecs.value.rows;
+  if (tasks.status === 'fulfilled' && tasks.value) result.tasks = tasks.value.rows;
+  if (budget.status === 'fulfilled' && budget.value) result.budget = budget.value.rows;
+  if (spending.status === 'fulfilled' && spending.value) result.spending = spending.value.rows;
+  return Object.keys(result).length > 0 ? result : null;
+}
+
+function cacheData(data) {
+  try {
+    localStorage.setItem(CACHE_KEY, JSON.stringify({ data, ts: Date.now() }));
+  } catch(e) {}
+}
+
+function applySheetData(data) {
+  if (data.schedule && data.schedule.length > 0) {
+    state.schedule = data.schedule.map((r, i) => {
+      const dayNum = parseInt(r['Day'] || r['day'] || '') || (i + 1);
+      const rawDate = r['Date'] || r['date'] || FALLBACK_SCHEDULE[i]?.date || '';
+      const dow = r['Day of Week'] || r['day_of_week'] || r['DOW'] || FALLBACK_SCHEDULE[i]?.dow || '';
+      const loc = r['Location'] || r['location'] || FALLBACK_SCHEDULE[i]?.location || '';
+      const acc = r['Accommodation'] || r['accommodation'] || FALLBACK_SCHEDULE[i]?.accommodation || '';
+      const events = r['Key Events'] || r['key_events'] || r['Events'] || FALLBACK_SCHEDULE[i]?.events || '';
+      const drive = r['Drive Time'] || r['drive_time'] || FALLBACK_SCHEDULE[i]?.driveTime || '';
+      const vibe = (r['Vibe'] || r['vibe'] || FALLBACK_SCHEDULE[i]?.vibe || 'chill').toLowerCase().trim();
+      const groupSplit = events.includes('Group 1') || events.includes('Group 2') || events.includes('EDC');
+      return { day: dayNum, date: rawDate, dow, location: loc, accommodation: acc, events, driveTime: drive, vibe, groupSplit };
+    });
+    // Filter out empty rows
+    state.schedule = state.schedule.filter(s => s.location || s.events);
+  }
+  if (data.food) state.food = data.food;
+  if (data.foodRecs) state.foodRecs = data.foodRecs;
+  if (data.people) state.people = data.people;
+  if (data.tasks) state.tasks = data.tasks;
+  if (data.budget) state.budget = data.budget;
+  if (data.spending) state.spending = data.spending;
+}
+
+// ─── Rendering ───
+function getTripDay() {
+  const now = new Date();
+  const diffMs = now - TRIP_START;
+  if (diffMs < 0) return -1; // before trip
+  const day = Math.floor(diffMs / 86400000) + 1;
+  if (day > 13) return 14; // after trip
+  return day;
+}
+
+function getDaysUntilTrip() {
+  const now = new Date();
+  const diff = TRIP_START - now;
+  return Math.ceil(diff / 86400000);
+}
+
+function getPersonGroup(name) {
+  if (name === 'all') return 0;
+  return PEOPLE[name]?.group || 0;
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function renderAll() {
+  renderSchedule();
+  renderToday();
+  renderFood();
+  renderPeople();
+  renderTasks();
+}
+
+// ── Schedule ──
+function renderSchedule() {
+  const container = document.getElementById('scheduleList');
+  const currentDay = getTripDay();
+  const selectedGroup = getPersonGroup(state.selectedPerson);
+
+  let html = '';
+  state.schedule.forEach(s => {
+    const isPast = s.day < currentDay;
+    const isToday = s.day === currentDay;
+    const vibeGrad = VIBE_GRADIENT[s.vibe] || VIBE_GRADIENT.chill;
+    const vibeEmoji = VIBE_EMOJI[s.vibe] || '📅';
+
+    // Format events based on group selection
+    let eventText = escHtml(s.events);
+    if (s.groupSplit && selectedGroup > 0) {
+      // Try to highlight the relevant group's activity
+      const parts = s.events.split('|').map(p => p.trim());
+      if (selectedGroup === 1) {
+        const g1 = parts.find(p => /group\s*1|edc/i.test(p));
+        if (g1) eventText = '<strong>' + escHtml(g1) + '</strong>';
+      } else if (selectedGroup === 2) {
+        const g2 = parts.find(p => /group\s*2|strip|family/i.test(p));
+        if (g2) eventText = '<strong>' + escHtml(g2) + '</strong>';
+      }
+    }
+
+    // Check if Eugene has left
+    let eugeneNote = '';
+    if (state.selectedPerson === 'Eugene' && s.day >= 8) {
+      eugeneNote = '<div style="margin-top:6px;font-size:12px;color:var(--sg-red);font-weight:600">✈ Eugene departs this day</div>';
+      if (s.day > 8) {
+        eugeneNote = '<div style="margin-top:6px;font-size:12px;color:var(--text-muted);font-style:italic">Eugene has departed</div>';
+      }
+    }
+
+    // Group tag
+    let groupTag = '';
+    if (s.groupSplit) {
+      if (selectedGroup === 1) groupTag = '<span class="group-tag g1">Group 1 — Young</span>';
+      else if (selectedGroup === 2) groupTag = '<span class="group-tag g2">Group 2 — Family</span>';
+      else groupTag = '<span class="group-tag g1" style="margin-right:4px">G1</span><span class="group-tag g2">G2</span>';
+    }
+
+    html += `
+      <div class="day-card fade-in ${isPast ? 'past' : ''} ${isToday ? 'today' : ''}">
+        <div class="day-card-accent" style="background:${vibeGrad}"></div>
+        <div class="day-card-header">
+          <div>
+            <div class="day-label">${isToday ? '<span class="today-indicator"></span>' : ''}Day ${s.day}</div>
+            <div class="day-date">${escHtml(s.date)}</div>
+            <div class="day-dow">${escHtml(s.dow)}</div>
+          </div>
+          <div class="day-vibe">${vibeEmoji}</div>
+        </div>
+        <div class="day-card-body">
+          <div class="day-info-row">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            <span class="info-label">${escHtml(s.location)}</span>
+          </div>
+          ${s.accommodation && s.accommodation !== '—' ? `
+          <div class="day-info-row">
+            <svg viewBox="0 0 24 24"><path d="M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V5H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z"/></svg>
+            <span>${escHtml(s.accommodation)}</span>
+          </div>` : ''}
+          ${s.driveTime && s.driveTime !== '—' ? `
+          <div class="day-info-row">
+            <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+            <span>${escHtml(s.driveTime)}</span>
+          </div>` : ''}
+          <div class="day-events">${eventText}${eugeneNote}</div>
+          ${groupTag ? '<div>' + groupTag + '</div>' : ''}
+        </div>
+      </div>`;
+  });
+
+  container.innerHTML = html;
+}
+
+// ── Today ──
+function renderToday() {
+  const container = document.getElementById('todayContent');
+  const currentDay = getTripDay();
+  const daysUntil = getDaysUntilTrip();
+
+  if (currentDay < 1) {
+    // Before trip
+    container.innerHTML = `
+      <div class="today-hero fade-in">
+        <h2>California Awaits!</h2>
+        <div class="subtitle">Your adventure starts soon</div>
+        <div class="countdown-badge">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+          ${daysUntil} days to go
+        </div>
+      </div>
+      <div class="today-detail-card fade-in">
+        <h3>Trip Overview</h3>
+        <p>May 14-26, 2026<br>13 days across California &amp; Vegas<br>21 family members, 2 groups, 1 epic trip</p>
+      </div>
+      <div class="today-detail-card fade-in">
+        <h3>First Stop</h3>
+        <p>Arrive at SFO, head to Holiday Inn San Jose.<br>Rest up for the road trip ahead!</p>
+      </div>
+      <div class="today-detail-card fade-in">
+        <h3>Highlights</h3>
+        <p>🎓 Graduation in LA<br>🎰 Las Vegas (EDC for the young ones!)<br>🏰 Disneyland<br>🏖 Malibu Beach<br>🍷 Paso Robles Wine Country</p>
+      </div>`;
+    return;
+  }
+
+  if (currentDay > 13) {
+    container.innerHTML = `
+      <div class="today-hero fade-in">
+        <h2>Trip Complete!</h2>
+        <div class="subtitle">What an amazing family adventure</div>
+      </div>
+      <div class="today-detail-card fade-in">
+        <h3>Memories Made</h3>
+        <p>13 days, 6 cities, 21 family members, countless memories.<br>Until next time, California! 🇸🇬 → 🇺🇸</p>
+      </div>`;
+    return;
+  }
+
+  const today = state.schedule.find(s => s.day === currentDay);
+  const tomorrow = state.schedule.find(s => s.day === currentDay + 1);
+  const selectedGroup = getPersonGroup(state.selectedPerson);
+
+  if (!today) return;
+
+  let eventText = today.events;
+  if (today.groupSplit && selectedGroup === 1) {
+    const parts = today.events.split('|');
+    const g1 = parts.find(p => /group\s*1|edc/i.test(p));
+    if (g1) eventText = g1.trim();
+  } else if (today.groupSplit && selectedGroup === 2) {
+    const parts = today.events.split('|');
+    const g2 = parts.find(p => /group\s*2|strip|family/i.test(p));
+    if (g2) eventText = g2.trim();
+  }
+
+  const vibeEmoji = VIBE_EMOJI[today.vibe] || '📅';
+
+  container.innerHTML = `
+    <div class="today-hero fade-in">
+      <h2>${vibeEmoji} Day ${today.day}</h2>
+      <div class="subtitle">${escHtml(today.date)}, ${escHtml(today.dow)}</div>
+      <div class="countdown-badge">
+        <span class="today-indicator" style="margin:0"></span>
+        Day ${currentDay} of 13
+      </div>
+    </div>
+    <div class="today-detail-card fade-in">
+      <h3>Location</h3>
+      <p>${escHtml(today.location)}</p>
+    </div>
+    ${today.accommodation && today.accommodation !== '—' ? `
+    <div class="today-detail-card fade-in">
+      <h3>Accommodation</h3>
+      <p>${escHtml(today.accommodation)}</p>
+    </div>` : ''}
+    <div class="today-detail-card fade-in">
+      <h3>Today's Plan</h3>
+      <p>${escHtml(eventText)}</p>
+    </div>
+    ${today.driveTime && today.driveTime !== '—' ? `
+    <div class="today-detail-card fade-in">
+      <h3>Drive Time</h3>
+      <p>🚗 ${escHtml(today.driveTime)}</p>
+    </div>` : ''}
+    ${today.groupSplit ? `
+    <div class="today-detail-card fade-in">
+      <h3>Group Split Today</h3>
+      <p><span class="group-tag g1" style="margin-right:4px">Group 1</span> ${escHtml(today.events.split('|')[0] || '')}<br>
+         <span class="group-tag g2" style="margin-top:6px;display:inline-block">Group 2</span> ${escHtml(today.events.split('|')[1] || '')}</p>
+    </div>` : ''}
+    ${state.selectedPerson === 'Eugene' && currentDay >= 8 ? `
+    <div class="today-detail-card fade-in" style="border-color:var(--sg-red)">
+      <h3>Note</h3>
+      <p style="color:var(--sg-red)">Eugene ${currentDay === 8 ? 'departs today' : 'has departed'}</p>
+    </div>` : ''}
+    ${tomorrow ? `
+    <div class="today-detail-card fade-in" style="opacity:0.7">
+      <h3>Tomorrow Preview</h3>
+      <p><strong>Day ${tomorrow.day}:</strong> ${escHtml(tomorrow.location)}<br>${escHtml(tomorrow.events)}</p>
+    </div>` : ''}`;
+}
+
+// ── Food ──
+function renderFood() {
+  const container = document.getElementById('foodContent');
+  let html = '';
+
+  // Food sub-tabs
+  html += '<div class="food-tabs" id="foodTabs">';
+  html += '<button class="food-tab-btn active" data-ftab="list">Restaurants</button>';
+  html += '<button class="food-tab-btn" data-ftab="recs">First Timer Recs</button>';
+  html += '</div>';
+
+  // Restaurant list
+  html += '<div id="foodList">';
+  if (state.food.length > 0) {
+    // Group by city/area
+    const grouped = {};
+    state.food.forEach(f => {
+      const city = f['City'] || f['city'] || f['Area'] || f['area'] || f['Location'] || f['location'] || 'Other';
+      if (!grouped[city]) grouped[city] = [];
+      grouped[city].push(f);
+    });
+
+    for (const [city, items] of Object.entries(grouped)) {
+      if (!city || city === 'undefined') continue;
+      html += `<div class="food-city-header">${escHtml(city)}</div>`;
+      items.forEach(f => {
+        const name = f['Restaurant'] || f['restaurant'] || f['Name'] || f['name'] || '';
+        const cuisine = f['Cuisine'] || f['cuisine'] || f['Type'] || f['type'] || '';
+        const price = f['Price'] || f['price'] || f['Cost'] || f['cost'] || '';
+        const notes = f['Notes'] || f['notes'] || f['Description'] || f['description'] || '';
+        const sgComp = f['SG Comparison'] || f['sg_comparison'] || f['SG Price'] || '';
+        if (!name) return;
+        html += `
+          <div class="food-card fade-in">
+            <div class="food-name">${escHtml(name)}</div>
+            ${cuisine ? `<div class="food-cuisine">${escHtml(cuisine)}</div>` : ''}
+            <div class="food-meta">
+              ${price ? `<span class="food-price">$${escHtml(price)}</span>` : ''}
+              ${sgComp ? `<span>SG: ${escHtml(sgComp)}</span>` : ''}
+            </div>
+            ${notes ? `<div style="margin-top:6px;font-size:12px;color:var(--text-secondary)">${escHtml(notes)}</div>` : ''}
+          </div>`;
+      });
+    }
+  } else {
+    html += `
+      <div class="food-city-header">San Jose</div>
+      <div class="food-card"><div class="food-name">In-N-Out Burger</div><div class="food-cuisine">Fast Food</div><div class="food-meta"><span class="food-price">~$10</span><span>A must for first timers!</span></div></div>
+      <div class="food-card"><div class="food-name">San Pedro Square Market</div><div class="food-cuisine">Food Hall</div><div class="food-meta"><span class="food-price">$12-20</span></div></div>
+      <div class="food-city-header">Las Vegas</div>
+      <div class="food-card"><div class="food-name">Bacchanal Buffet (Caesars)</div><div class="food-cuisine">Buffet</div><div class="food-meta"><span class="food-price">$75/pp</span><span>World-famous buffet</span></div></div>
+      <div class="food-card"><div class="food-name">Gordon Ramsay Hell's Kitchen</div><div class="food-cuisine">Fine Dining</div><div class="food-meta"><span class="food-price">$60-80/pp</span></div></div>
+      <div class="food-city-header">Orange County</div>
+      <div class="food-card"><div class="food-name">Blue Bayou (Disneyland)</div><div class="food-cuisine">American</div><div class="food-meta"><span class="food-price">$50/pp</span><span>Inside Pirates of the Caribbean!</span></div></div>
+      <div class="food-city-header">Malibu</div>
+      <div class="food-card"><div class="food-name">Nobu Malibu</div><div class="food-cuisine">Japanese</div><div class="food-meta"><span class="food-price">$80-120/pp</span></div></div>
+      <div class="food-city-header">Paso Robles</div>
+      <div class="food-card"><div class="food-name">The Hatch Rotisserie</div><div class="food-cuisine">American</div><div class="food-meta"><span class="food-price">$30-45/pp</span></div></div>`;
+  }
+  html += '</div>';
+
+  // Food recs
+  html += '<div id="foodRecs" style="display:none">';
+  if (state.foodRecs.length > 0) {
+    state.foodRecs.forEach(r => {
+      const city = r['City'] || r['city'] || r['Location'] || '';
+      const item = r['Recommendation'] || r['recommendation'] || r['Food'] || r['food'] || r['Item'] || '';
+      const desc = r['Description'] || r['description'] || r['Notes'] || r['notes'] || r['Why'] || '';
+      if (!item && !city) return;
+      html += `
+        <div class="food-rec-card fade-in">
+          ${city ? `<div style="font-size:11px;color:var(--sg-red);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px">${escHtml(city)}</div>` : ''}
+          <h4>${escHtml(item)}</h4>
+          ${desc ? `<p>${escHtml(desc)}</p>` : ''}
+        </div>`;
+    });
+  } else {
+    html += `
+      <div class="food-rec-card"><div style="font-size:11px;color:var(--sg-red);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px">Must-Try</div><h4>In-N-Out Burger</h4><p>Order "Animal Style" for the full experience. Get a Double-Double. Way cheaper than SG burgers.</p></div>
+      <div class="food-rec-card"><div style="font-size:11px;color:var(--sg-red);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px">Must-Try</div><h4>Raising Cane's</h4><p>Chicken fingers done right. The Cane's sauce is addictive. Not available in SG!</p></div>
+      <div class="food-rec-card"><div style="font-size:11px;color:var(--sg-red);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px">Must-Try</div><h4>Costco Food Court</h4><p>$1.50 hot dog + drink combo. $9.95 pizza. The American dream.</p></div>
+      <div class="food-rec-card"><div style="font-size:11px;color:var(--sg-red);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px">Must-Try</div><h4>Mexican Food (any taqueria)</h4><p>Street tacos, burritos, carne asada fries. Nothing like this in SG.</p></div>
+      <div class="food-rec-card"><div style="font-size:11px;color:var(--sg-red);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px">Tip</div><h4>Tipping Culture</h4><p>15-20% at sit-down restaurants. Not like SG! Budget for this.</p></div>`;
+  }
+  html += '</div>';
+
+  container.innerHTML = html;
+
+  // Wire food sub-tabs
+  document.querySelectorAll('.food-tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.food-tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const tab = btn.dataset.ftab;
+      document.getElementById('foodList').style.display = tab === 'list' ? '' : 'none';
+      document.getElementById('foodRecs').style.display = tab === 'recs' ? '' : 'none';
+    });
+  });
+}
+
+// ── People ──
+function renderPeople() {
+  const container = document.getElementById('peopleContent');
+  const selectedPerson = state.selectedPerson;
+
+  const group1 = ['Danzel','Alvin','Angel','Eugene','Vanessa','Jujuhub','Amazi'];
+  const group2 = ['Mom 1','Mom 2','Mom 3','Mom 4','Uncle Yap','Uncle Jimy','Uncle Steven','Ah Gong','Margaret','Da ma','Dad','Aunty Margaret'];
+
+  function personChip(name) {
+    const isSelected = selectedPerson === name;
+    const initials = name.split(' ').map(w => w[0]).join('').substring(0,2).toUpperCase();
+    return `<div class="person-chip ${isSelected ? 'selected' : ''}" data-person="${escHtml(name)}">
+      <div class="person-avatar">${initials}</div>
+      ${escHtml(name)}
+    </div>`;
+  }
+
+  let html = `
+    <div class="group-section fade-in">
+      <h3><span class="group-badge g1">Group 1</span> Young Crew</h3>
+      <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px">EDC Vegas on May 17 | 7 people</div>
+      <div>${group1.map(personChip).join('')}</div>
+    </div>
+    <div class="group-section fade-in">
+      <h3><span class="group-badge g2">Group 2</span> Family Group</h3>
+      <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px">Vegas Strip on May 17 | ${group2.length} people</div>
+      <div>${group2.map(personChip).join('')}</div>
+    </div>`;
+
+  // Show sheet data if available
+  if (state.people.length > 0) {
+    html += `
+    <div class="group-section fade-in">
+      <h3>Logistics Details</h3>`;
+    state.people.forEach(p => {
+      const vals = Object.values(p).filter(v => v).map(escHtml).join(' — ');
+      if (vals.trim()) html += `<div style="font-size:13px;color:var(--text-secondary);padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.04)">${vals}</div>`;
+    });
+    html += '</div>';
+  }
+
+  html += `
+    <div class="group-section fade-in">
+      <h3>Key Notes</h3>
+      <div style="font-size:13px;color:var(--text-secondary);line-height:1.6">
+        <div style="padding:4px 0">21 family members total</div>
+        <div style="padding:4px 0">Eugene departs May 21 (Day 8)</div>
+        <div style="padding:4px 0">Group split on May 17 (Day 4) — EDC vs Strip</div>
+        <div style="padding:4px 0">Multiple vehicles for road trip</div>
+      </div>
+    </div>`;
+
+  container.innerHTML = html;
+
+  // Wire person chip clicks to person selector
+  container.querySelectorAll('.person-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const name = chip.dataset.person;
+      state.selectedPerson = name;
+      document.getElementById('personSelect').value = name;
+      renderAll();
+    });
+  });
+}
+
+// ── Tasks ──
+function renderTasks() {
+  const container = document.getElementById('tasksContent');
+  let html = '';
+
+  if (state.tasks.length > 0) {
+    state.tasks.forEach(t => {
+      const task = t['Task'] || t['task'] || t['Item'] || t['item'] || t['Description'] || '';
+      const status = (t['Status'] || t['status'] || t['Done'] || '').toLowerCase();
+      const assignee = t['Assignee'] || t['assignee'] || t['Person'] || t['Who'] || '';
+      const isDone = status.includes('done') || status.includes('complete') || status === 'yes' || status === 'true' || status === '✓';
+      if (!task) return;
+      html += `
+        <div class="task-item fade-in">
+          <div class="task-status ${isDone ? 'done' : ''}"></div>
+          <div>
+            <div class="task-text ${isDone ? 'done' : ''}">${escHtml(task)}</div>
+            ${assignee ? `<div class="task-assignee">${escHtml(assignee)}</div>` : ''}
+          </div>
+        </div>`;
+    });
+  } else {
+    // Fallback tasks
+    const fallbackTasks = [
+      { task: 'Book Horseshoe Hotel rooms', done: true, who: 'Danzel' },
+      { task: 'Reserve Pixar Hotel (2 nights)', done: true, who: 'Danzel' },
+      { task: 'Confirm Malibu Airbnb', done: true, who: 'Alvin' },
+      { task: 'Rent vehicles (3 cars?)', done: false, who: 'Uncle Yap' },
+      { task: 'Buy Disneyland tickets (21 pax)', done: false, who: 'Danzel' },
+      { task: 'EDC tickets for Group 1', done: true, who: 'Angel' },
+      { task: 'Book Paso Robles wine tours', done: false, who: 'Vanessa' },
+      { task: 'Confirm SFO pickup logistics', done: false, who: 'Dad' },
+      { task: 'Travel insurance for all', done: false, who: 'Mom 1' },
+      { task: 'Restaurant reservations (Vegas)', done: false, who: 'Jujuhub' },
+      { task: 'Pack portable wifi / SIM cards', done: false, who: 'Eugene' },
+      { task: 'Create shared Google Photos album', done: false, who: 'Amazi' },
+    ];
+    fallbackTasks.forEach(t => {
+      html += `
+        <div class="task-item fade-in">
+          <div class="task-status ${t.done ? 'done' : ''}"></div>
+          <div>
+            <div class="task-text ${t.done ? 'done' : ''}">${escHtml(t.task)}</div>
+            <div class="task-assignee">${escHtml(t.who)}</div>
+          </div>
+        </div>`;
+    });
+  }
+
+  container.innerHTML = html;
+}
+
+// ─── Navigation ───
+document.querySelectorAll('.nav-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const targetId = tab.dataset.tab;
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById(targetId).classList.add('active');
+    state.activeTab = targetId;
+    // Scroll to top on tab change
+    document.getElementById(targetId).scrollTop = 0;
+  });
+});
+
+// ─── Person Selector ───
+function populatePersonSelect() {
+  const select = document.getElementById('personSelect');
+  const allPeople = Object.keys(PEOPLE);
+  allPeople.forEach(name => {
+    const opt = document.createElement('option');
+    opt.value = name;
+    opt.textContent = name;
+    select.appendChild(opt);
+  });
+}
+
+document.getElementById('personSelect').addEventListener('change', (e) => {
+  state.selectedPerson = e.target.value;
+  renderAll();
+});
+
+// ─── Pull to Refresh ───
+let touchStartY = 0;
+let isPulling = false;
+
+document.addEventListener('touchstart', (e) => {
+  const activeContent = document.querySelector('.tab-content.active');
+  if (activeContent && activeContent.scrollTop <= 0) {
+    touchStartY = e.touches[0].clientY;
+    isPulling = true;
+  }
+}, { passive: true });
+
+document.addEventListener('touchmove', (e) => {
+  if (!isPulling) return;
+  const diff = e.touches[0].clientY - touchStartY;
+  if (diff > 80) {
+    document.getElementById('pullIndicator').style.display = 'block';
+    document.getElementById('pullIndicator').textContent = 'Release to refresh';
+  }
+}, { passive: true });
+
+document.addEventListener('touchend', () => {
+  if (!isPulling) return;
+  isPulling = false;
+  const indicator = document.getElementById('pullIndicator');
+  if (indicator.style.display === 'block') {
+    indicator.textContent = 'Refreshing...';
+    localStorage.removeItem(CACHE_KEY);
+    loadAllData().then(() => {
+      indicator.style.display = 'none';
+    });
+  }
+});
+
+// ─── Scroll to Today ───
+function scrollToToday() {
+  const currentDay = getTripDay();
+  if (currentDay < 1 || currentDay > 13) return;
+  setTimeout(() => {
+    const todayCard = document.querySelector('.day-card.today');
+    if (todayCard) {
+      todayCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, 300);
+}
+
+// ─── Initialize ───
+populatePersonSelect();
+loadAllData().then(() => {
+  scrollToToday();
+});
+
+// Refresh data when page becomes visible
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) {
+    loadAllData();
+  }
+});
+</script>
+</body>
+</html>
