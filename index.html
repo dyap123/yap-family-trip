@@ -256,46 +256,121 @@ body{
 
 /* ── Food Tab ── */
 .food-container{padding:12px 16px}
-.food-city-header{
-  font-size:13px;font-weight:700;text-transform:uppercase;
-  letter-spacing:1px;color:var(--sg-red);
-  padding:12px 0 6px;
-  position:sticky;top:0;z-index:10;
-  background:var(--navy);
+.food-card {
+  background: var(--navy-card);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  border: 1px solid rgba(255,255,255,0.04);
 }
-.food-card{
-  background:var(--navy-card);border-radius:12px;
-  padding:12px 14px;margin-bottom:8px;
-  border:1px solid rgba(255,255,255,0.04);
+.food-card-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  background: var(--navy-lighter);
 }
-.food-name{font-size:15px;font-weight:700;margin-bottom:3px}
-.food-cuisine{font-size:12px;color:var(--text-muted);margin-bottom:6px}
-.food-meta{
-  display:flex;gap:12px;flex-wrap:wrap;
-  font-size:12px;color:var(--text-secondary);
+.food-card-placeholder {
+  width: 100%;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  font-weight: 800;
+  color: rgba(255,255,255,0.3);
 }
-.food-meta span{display:flex;align-items:center;gap:4px}
-.food-price{
-  color:var(--sg-red);font-weight:600;
+.food-card-body {
+  padding: 12px 14px;
 }
-.food-rec-card{
-  background:var(--navy-card);border-radius:12px;
-  padding:14px;margin-bottom:8px;
-  border:1px solid rgba(255,255,255,0.04);
+.food-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 6px;
 }
-.food-rec-card h4{font-size:14px;font-weight:700;margin-bottom:4px}
-.food-rec-card p{font-size:13px;color:var(--text-secondary);line-height:1.4}
-.food-tabs{
-  display:flex;gap:6px;padding:8px 0 4px;
-  overflow-x:auto;scrollbar-width:none;
+.food-card-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
 }
-.food-tabs::-webkit-scrollbar{display:none}
-.food-tab-btn{
-  background:var(--navy-lighter);border:none;color:var(--text-secondary);
-  padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;
-  white-space:nowrap;cursor:pointer;
+.food-card-price {
+  font-size: 12px;
+  color: var(--sg-red);
+  font-weight: 600;
+  white-space: nowrap;
 }
-.food-tab-btn.active{background:var(--sg-red);color:#fff}
+.food-card-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+.food-tag {
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+  background: rgba(255,255,255,0.06);
+  color: var(--text-secondary);
+}
+.food-tag.city {
+  background: var(--sg-red-dim);
+  color: var(--sg-red);
+}
+.food-card-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #F4A261;
+  margin-bottom: 6px;
+}
+.food-card-summary {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+.food-card-sg {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+.food-city-header {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--sg-red);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 16px 0 8px;
+  border-bottom: 1px solid rgba(239,51,64,0.2);
+  margin-bottom: 12px;
+}
+.food-filter-bar {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 0 0 12px;
+  -webkit-overflow-scrolling: touch;
+}
+.food-filter-bar::-webkit-scrollbar{display:none}
+.food-filter-btn {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.food-filter-btn.active {
+  background: var(--sg-red);
+  color: white;
+  border-color: var(--sg-red);
+}
 
 /* ── People Tab ── */
 .people-container{padding:12px 16px}
@@ -515,12 +590,6 @@ body{
     </div>
   </div>
 
-  <!-- Tasks Tab -->
-  <div class="tab-content" id="tabTasks">
-    <div class="tasks-container" id="tasksContent">
-      <div class="loading-spinner"><div class="spinner"></div><div class="loading-text">Loading tasks...</div></div>
-    </div>
-  </div>
 </main>
 
 <!-- Bottom Navigation -->
@@ -544,10 +613,6 @@ body{
   <button class="nav-tab" data-tab="tabUpdates">
     <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12zM11 5h2v6h-2zm0 8h2v2h-2z"/></svg>
     <span>Updates</span>
-  </button>
-  <button class="nav-tab" data-tab="tabTasks">
-    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM17.99 9l-1.41-1.42-6.59 6.59-2.58-2.57-1.42 1.41 4 3.99z"/></svg>
-    <span>Tasks</span>
   </button>
 </nav>
 
@@ -598,6 +663,49 @@ const FALLBACK_SCHEDULE = [
   { day:11, date:'May 24',dow:'Sunday', location:'San Jose', accommodation:'San Jose home', events:'Pickleball tournament, brunch at local spot, chill afternoon', driveTime:'—', vibe:'chill' },
   { day:12, date:'May 25',dow:'Monday', location:'San Jose', accommodation:'San Jose home', events:'Free day — Santana Row, Great Mall, San Pedro Market, family time', driveTime:'—', vibe:'shop' },
   { day:13, date:'May 26',dow:'Tuesday', location:'San Jose → SFO', accommodation:'—', events:'Pack up, farewell brunch, airport drop-offs', driveTime:'30 min', vibe:'farewell' },
+];
+
+const FALLBACK_RESTAURANTS = [
+  // SAN JOSE
+  { name:"In-N-Out Burger", cuisine:"American Fast Food", city:"San Jose", rating:4.5, price:"$10-15", summary:"THE iconic California burger chain -- not available in SG. Get the Double-Double Animal Style.", bestFor:"Quick bite, first meal", photo:"https://lh3.googleusercontent.com/places/ANXAkqG-I8P_JCL1ZkLxaUV-_BWqXWI4c7otIJMhb0gVJQ1qY4_JbEWBSk7xKMkD7oB5j5L-AivQ=s1600-w400", sgCompare:"Better than any SG fast food burger" },
+  { name:"Iguanas Burritozilla", cuisine:"Mexican", city:"San Jose", rating:4.3, price:"$12-18", summary:"Famous 5lb burrito challenge -- massive portions, authentic Mexican flavors.", bestFor:"Lunch, food challenge", photo:"", sgCompare:"No equivalent in SG" },
+  { name:"85C Bakery Cafe", cuisine:"Taiwanese Bakery", city:"San Jose", rating:4.2, price:"$5-10", summary:"Familiar Asian bakery with California-exclusive items. Sea Salt Coffee is a must.", bestFor:"Breakfast, snacks", photo:"", sgCompare:"Like BreadTalk but better" },
+  { name:"The Old Spaghetti Factory", cuisine:"Italian American", city:"San Jose", rating:4.0, price:"$15-25", summary:"Classic American Italian dining experience -- huge portions, free ice cream.", bestFor:"Family dinner", photo:"", sgCompare:"Think Pasta Mania but 10x better" },
+  { name:"Falafel's Drive-In", cuisine:"Mediterranean", city:"San Jose", rating:4.4, price:"$8-12", summary:"San Jose institution since 1966. Cash only! Banana shake is legendary.", bestFor:"Lunch", photo:"", sgCompare:"Like a hawker stall but falafel" },
+  { name:"Smoking Pig BBQ", cuisine:"American BBQ", city:"San Jose", rating:4.5, price:"$18-25", summary:"Real low-and-slow BBQ -- tri-tip is a California specialty you can't get in SG.", bestFor:"Dinner", photo:"", sgCompare:"No equivalent in SG" },
+  { name:"Din Tai Fung", cuisine:"Taiwanese", city:"San Jose", rating:4.3, price:"$20-30", summary:"Same chain as SG but fun to compare portions. Valley Fair Mall location.", bestFor:"Comfort meal", photo:"", sgCompare:"Same chain, bigger portions" },
+  // LOS ANGELES
+  { name:"Porto's Bakery", cuisine:"Cuban", city:"Los Angeles", rating:4.7, price:"$8-15", summary:"LA institution -- Cuban pastries + sandwiches. Cheese rolls and potato balls are legendary. Always a queue.", bestFor:"Breakfast, grad day", photo:"", sgCompare:"No equivalent in SG" },
+  { name:"Howlin' Ray's", cuisine:"Nashville Hot Chicken", city:"Los Angeles", rating:4.6, price:"$15-20", summary:"Legendary hot chicken -- will blow a Singaporean's spice tolerance. Worth the wait.", bestFor:"Lunch adventure", photo:"", sgCompare:"Hotter than SG chili crab" },
+  { name:"Zankou Chicken", cuisine:"Armenian", city:"Los Angeles", rating:4.5, price:"$12-18", summary:"Iconic LA garlic chicken with cult following. The garlic sauce is addictive.", bestFor:"Casual dinner", photo:"", sgCompare:"Like chicken rice but Armenian" },
+  { name:"Cali Tacos", cuisine:"Mexican", city:"Orange County", rating:4.3, price:"$12-18", summary:"GIANT burritos the size of a baby -- viral famous. Perfect for big appetites.", bestFor:"Dinner near hotel", photo:"", sgCompare:"Nothing this big in SG" },
+  { name:"Newport Lobster Shack", cuisine:"Seafood", city:"Los Angeles", rating:4.4, price:"$20-30", summary:"Fresh lobster rolls -- New England style in SoCal. Great for group dinner.", bestFor:"Group dinner", photo:"", sgCompare:"Better than SG lobster roll" },
+  { name:"Jollibee", cuisine:"Filipino Fast Food", city:"Los Angeles", rating:4.2, price:"$10-15", summary:"Not in SG! Filipino fried chicken chain. Chickenjoy and Jolly Spaghetti are must-tries.", bestFor:"Fun novelty", photo:"", sgCompare:"Not available in SG" },
+  // DISNEYLAND
+  { name:"Blue Bayou", cuisine:"Creole/American", city:"Disneyland", rating:4.3, price:"$40-60", summary:"Eat INSIDE Pirates of the Caribbean ride -- the most iconic Disney dining experience.", bestFor:"Lunch in park", photo:"", sgCompare:"Nothing like this in SG" },
+  { name:"Trader Sam's", cuisine:"Tiki Bar", city:"Disneyland", rating:4.6, price:"$15-25", summary:"Immersive tiki bar -- order certain drinks and the room transforms! Reservations recommended.", bestFor:"Evening drinks", photo:"", sgCompare:"Better than any SG bar" },
+  // LAS VEGAS
+  { name:"Hell's Kitchen", cuisine:"American/British", city:"Las Vegas", rating:4.4, price:"$60-80", summary:"Gordon Ramsay's flagship -- like eating on the TV show. Beef Wellington is the move. BOOK NOW.", bestFor:"Group dinner", photo:"", sgCompare:"Gordon Ramsay at its best" },
+  { name:"Wynn Buffet", cuisine:"Buffet", city:"Las Vegas", rating:4.5, price:"$60-80", summary:"Best buffet in Vegas -- 15+ stations, all premium. Crab legs, prime rib, sushi, dessert bar.", bestFor:"Blow-out meal", photo:"", sgCompare:"Makes Marina Bay Sands buffet look small" },
+  { name:"Peppermill Fireside Lounge", cuisine:"American Diner", city:"Las Vegas", rating:4.5, price:"$15-30", summary:"Retro neon diner + fire pit lounge -- SO aesthetic. Great for late night after the strip.", bestFor:"Late night vibes", photo:"", sgCompare:"Most Instagrammable diner ever" },
+  { name:"Secret Pizza", cuisine:"Pizza", city:"Las Vegas", rating:4.3, price:"$5-10", summary:"Hidden pizza joint in the Cosmopolitan -- no sign, follow the hallway. NYC-style slices.", bestFor:"Late night snack", photo:"", sgCompare:"Better than any SG pizza" },
+  // MALIBU / PASO ROBLES
+  { name:"Malibu Farm Pier Cafe", cuisine:"Farm to Table", city:"Malibu", rating:4.4, price:"$20-35", summary:"Eat on the Malibu Pier -- incredible ocean views. Farm-fresh brunch with a view.", bestFor:"Breakfast/brunch", photo:"", sgCompare:"No beachfront dining like this in SG" },
+  { name:"Nobu Malibu", cuisine:"Japanese", city:"Malibu", rating:4.5, price:"$80-120", summary:"Celebrity hotspot -- world-class sushi right on the beach. Major splurge.", bestFor:"Splurge dinner", photo:"", sgCompare:"Like Nobu SG but on the ocean" },
+  { name:"Malibu Seafood", cuisine:"Seafood", city:"Malibu", rating:4.3, price:"$15-25", summary:"Fresh catch market + grill with ocean views. No frills, just great seafood.", bestFor:"Casual lunch", photo:"", sgCompare:"Like a beach hawker but fresher" },
+];
+
+const FOOD_CITIES = ['All','San Jose','Los Angeles','Orange County','Disneyland','Las Vegas','Malibu'];
+
+const FOOD_PLACEHOLDER_GRADIENTS = [
+  'linear-gradient(135deg,#E07A5F,#F2CC8F)',
+  'linear-gradient(135deg,#EF3340,#FF6B6B)',
+  'linear-gradient(135deg,#0077B6,#48CAE4)',
+  'linear-gradient(135deg,#2D6A4F,#52B788)',
+  'linear-gradient(135deg,#7B2CBF,#C77DFF)',
+  'linear-gradient(135deg,#E76F51,#F4A261)',
+  'linear-gradient(135deg,#F72585,#B5179E)',
+  'linear-gradient(135deg,#722F37,#C97C5D)',
 ];
 
 const VIBE_EMOJI = {
@@ -762,8 +870,86 @@ function applySheetData(data) {
     // Filter out empty rows
     state.schedule = state.schedule.filter(s => s.location || s.events);
   }
-  if (data.food) state.food = data.food;
-  if (data.foodRecs) state.foodRecs = data.foodRecs;
+  if (data.food || data.foodRecs) {
+    // Parse restaurants from sheet data into card format
+    const parsed = [];
+    const rawFood = data.food || [];
+    const rawRecs = data.foodRecs || [];
+
+    // Parse FOOD sheet (has columns like Restaurant, Cuisine, Price, City, etc.)
+    rawFood.forEach(f => {
+      const name = f['Restaurant'] || f['restaurant'] || f['Name'] || f['name'] || f['Spot'] || '';
+      if (!name) return;
+      const cuisine = f['Cuisine'] || f['cuisine'] || f['Type'] || f['type'] || '';
+      const city = f['City'] || f['city'] || f['Area'] || f['area'] || f['Location'] || f['location'] || f['Address / Area'] || '';
+      const price = f['Price'] || f['price'] || f['Price/Pax'] || f['Cost'] || f['cost'] || '';
+      const summary = f['Notes'] || f['notes'] || f['Description'] || f['description'] || f['Why It\'s Special'] || f["Why It's Special"] || '';
+      const bestFor = f['Best For'] || f['bestFor'] || '';
+      const sgCompare = f['SG Comparison'] || f['sg_comparison'] || f['SG Price'] || '';
+      // Try to match to a fallback for rating/photo
+      const fb = FALLBACK_RESTAURANTS.find(r => r.name.toLowerCase() === name.toLowerCase());
+      parsed.push({
+        name, cuisine, city: city || (fb ? fb.city : ''),
+        rating: fb ? fb.rating : 0,
+        price: price || (fb ? fb.price : ''),
+        summary: summary || (fb ? fb.summary : ''),
+        bestFor: bestFor || (fb ? fb.bestFor : ''),
+        photo: fb ? fb.photo : '',
+        sgCompare: sgCompare || (fb ? fb.sgCompare : ''),
+      });
+    });
+
+    // Parse "Food Recs (First Timer)" sheet — has city section headers like "SAN JOSE - 3 Days"
+    let currentCity = '';
+    rawRecs.forEach(r => {
+      // Check for city section header rows
+      const spot = r['Spot'] || r['spot'] || r['Restaurant'] || r['Name'] || r['name'] || '';
+      const firstCol = spot.trim();
+      // City header detection: all caps with optional dash/numbers like "SAN JOSE - 3 Days"
+      if (firstCol && /^[A-Z\s]+/.test(firstCol) && (firstCol.includes(' — ') || firstCol.includes(' - ') || /^[A-Z\s\/]+$/.test(firstCol))) {
+        currentCity = firstCol.split(/\s*[—\-]\s*/)[0].trim();
+        // Normalize city names
+        if (currentCity.includes('SAN JOSE')) currentCity = 'San Jose';
+        else if (currentCity.includes('LOS ANGELES') || currentCity.includes('LA')) currentCity = 'Los Angeles';
+        else if (currentCity.includes('DISNEYLAND') || currentCity.includes('DISNEY')) currentCity = 'Disneyland';
+        else if (currentCity.includes('LAS VEGAS') || currentCity.includes('VEGAS')) currentCity = 'Las Vegas';
+        else if (currentCity.includes('MALIBU')) currentCity = 'Malibu';
+        else if (currentCity.includes('ORANGE') || currentCity.includes('OC')) currentCity = 'Orange County';
+        else if (currentCity.includes('PASO')) currentCity = 'Malibu';
+        else {
+          // Title case it
+          currentCity = currentCity.split(' ').map(w => w.charAt(0) + w.slice(1).toLowerCase()).join(' ');
+        }
+        return;
+      }
+
+      const name = spot;
+      if (!name) return;
+      const cuisine = r['Cuisine'] || r['cuisine'] || r['Type'] || '';
+      const summary = r['Why It\'s Special'] || r["Why It's Special"] || r['Description'] || r['description'] || r['Notes'] || r['notes'] || '';
+      const price = r['Price/Pax'] || r['Price'] || r['price'] || r['Cost'] || '';
+      const bestFor = r['Best For'] || r['bestFor'] || '';
+      const area = r['Address / Area'] || r['Address'] || r['Area'] || r['Location'] || '';
+      const city = currentCity || area || '';
+
+      // Check if already added from FOOD sheet
+      if (parsed.find(p => p.name.toLowerCase() === name.toLowerCase())) return;
+
+      const fb = FALLBACK_RESTAURANTS.find(fr => fr.name.toLowerCase() === name.toLowerCase());
+      parsed.push({
+        name, cuisine: cuisine || (fb ? fb.cuisine : ''),
+        city: city || (fb ? fb.city : ''),
+        rating: fb ? fb.rating : 0,
+        price: price || (fb ? fb.price : ''),
+        summary: summary || (fb ? fb.summary : ''),
+        bestFor: bestFor || (fb ? fb.bestFor : ''),
+        photo: fb ? fb.photo : '',
+        sgCompare: fb ? fb.sgCompare : '',
+      });
+    });
+
+    if (parsed.length > 0) state.food = parsed;
+  }
   if (data.people) state.people = data.people;
   if (data.tasks) state.tasks = data.tasks;
   if (data.budget) state.budget = data.budget;
@@ -801,7 +987,6 @@ function renderAll() {
   renderToday();
   renderFood();
   renderPeople();
-  renderTasks();
   renderUpdates();
 }
 
@@ -994,101 +1179,108 @@ function renderToday() {
 }
 
 // ── Food ──
+let foodActiveCity = 'All';
+
+function getRestaurants() {
+  // If sheet data loaded restaurants, use them; otherwise fallback
+  if (state.food.length > 0) return state.food;
+  return FALLBACK_RESTAURANTS;
+}
+
+function renderStars(rating) {
+  const full = Math.floor(rating);
+  const half = rating % 1 >= 0.25;
+  let stars = '';
+  for (let i = 0; i < 5; i++) {
+    if (i < full) stars += '\u2605';
+    else if (i === full && half) stars += '\u2605';
+    else stars += '\u2606';
+  }
+  return stars;
+}
+
+function renderFoodCard(r, idx) {
+  const name = r.name || '';
+  const cuisine = r.cuisine || '';
+  const city = r.city || '';
+  const rating = r.rating || 0;
+  const price = r.price || '';
+  const summary = r.summary || '';
+  const bestFor = r.bestFor || '';
+  const sgCompare = r.sgCompare || '';
+  const photo = r.photo || '';
+
+  // Photo or placeholder
+  let imgHtml;
+  if (photo) {
+    imgHtml = `<img class="food-card-img" src="${escHtml(photo)}" alt="${escHtml(name)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="food-card-placeholder" style="display:none;background:${FOOD_PLACEHOLDER_GRADIENTS[idx % FOOD_PLACEHOLDER_GRADIENTS.length]}">${escHtml(name.charAt(0))}</div>`;
+  } else {
+    imgHtml = `<div class="food-card-placeholder" style="background:${FOOD_PLACEHOLDER_GRADIENTS[idx % FOOD_PLACEHOLDER_GRADIENTS.length]}">${escHtml(name.charAt(0))}</div>`;
+  }
+
+  return `
+    <div class="food-card fade-in" data-city="${escHtml(city)}">
+      ${imgHtml}
+      <div class="food-card-body">
+        <div class="food-card-header">
+          <div class="food-card-name">${escHtml(name)}</div>
+          ${price ? `<div class="food-card-price">${escHtml(price)}</div>` : ''}
+        </div>
+        <div class="food-card-tags">
+          ${cuisine ? `<span class="food-tag">${escHtml(cuisine)}</span>` : ''}
+          ${city ? `<span class="food-tag city">${escHtml(city)}</span>` : ''}
+          ${bestFor ? `<span class="food-tag">${escHtml(bestFor)}</span>` : ''}
+        </div>
+        ${rating ? `<div class="food-card-rating">${renderStars(rating)} <span>${rating.toFixed(1)}</span></div>` : ''}
+        ${summary ? `<div class="food-card-summary">${escHtml(summary)}</div>` : ''}
+        ${sgCompare ? `<div class="food-card-sg">SG: ${escHtml(sgCompare)}</div>` : ''}
+      </div>
+    </div>`;
+}
+
 function renderFood() {
   const container = document.getElementById('foodContent');
-  let html = '';
+  const restaurants = getRestaurants();
 
-  // Food sub-tabs
-  html += '<div class="food-tabs" id="foodTabs">';
-  html += '<button class="food-tab-btn active" data-ftab="list">Restaurants</button>';
-  html += '<button class="food-tab-btn" data-ftab="recs">First Timer Recs</button>';
+  // Filter bar
+  let html = '<div class="food-filter-bar">';
+  FOOD_CITIES.forEach(c => {
+    html += `<button class="food-filter-btn ${foodActiveCity === c ? 'active' : ''}" data-city="${escHtml(c)}">${escHtml(c)}</button>`;
+  });
   html += '</div>';
 
-  // Restaurant list
-  html += '<div id="foodList">';
-  if (state.food.length > 0) {
-    // Group by city/area
-    const grouped = {};
-    state.food.forEach(f => {
-      const city = f['City'] || f['city'] || f['Area'] || f['area'] || f['Location'] || f['location'] || 'Other';
-      if (!grouped[city]) grouped[city] = [];
-      grouped[city].push(f);
+  // Filter
+  const filtered = foodActiveCity === 'All' ? restaurants : restaurants.filter(r => (r.city || '') === foodActiveCity);
+
+  // Group by city
+  const grouped = {};
+  const cityOrder = [];
+  filtered.forEach(r => {
+    const city = r.city || 'Other';
+    if (!grouped[city]) { grouped[city] = []; cityOrder.push(city); }
+    grouped[city].push(r);
+  });
+
+  let cardIdx = 0;
+  cityOrder.forEach(city => {
+    html += `<div class="food-city-header">${escHtml(city)}</div>`;
+    grouped[city].forEach(r => {
+      html += renderFoodCard(r, cardIdx);
+      cardIdx++;
     });
+  });
 
-    for (const [city, items] of Object.entries(grouped)) {
-      if (!city || city === 'undefined') continue;
-      html += `<div class="food-city-header">${escHtml(city)}</div>`;
-      items.forEach(f => {
-        const name = f['Restaurant'] || f['restaurant'] || f['Name'] || f['name'] || '';
-        const cuisine = f['Cuisine'] || f['cuisine'] || f['Type'] || f['type'] || '';
-        const price = f['Price'] || f['price'] || f['Cost'] || f['cost'] || '';
-        const notes = f['Notes'] || f['notes'] || f['Description'] || f['description'] || '';
-        const sgComp = f['SG Comparison'] || f['sg_comparison'] || f['SG Price'] || '';
-        if (!name) return;
-        html += `
-          <div class="food-card fade-in">
-            <div class="food-name">${escHtml(name)}</div>
-            ${cuisine ? `<div class="food-cuisine">${escHtml(cuisine)}</div>` : ''}
-            <div class="food-meta">
-              ${price ? `<span class="food-price">$${escHtml(price)}</span>` : ''}
-              ${sgComp ? `<span>SG: ${escHtml(sgComp)}</span>` : ''}
-            </div>
-            ${notes ? `<div style="margin-top:6px;font-size:12px;color:var(--text-secondary)">${escHtml(notes)}</div>` : ''}
-          </div>`;
-      });
-    }
-  } else {
-    html += `
-      <div class="food-city-header">San Jose</div>
-      <div class="food-card"><div class="food-name">In-N-Out Burger</div><div class="food-cuisine">Fast Food</div><div class="food-meta"><span class="food-price">~$10</span><span>A must for first timers!</span></div></div>
-      <div class="food-card"><div class="food-name">San Pedro Square Market</div><div class="food-cuisine">Food Hall</div><div class="food-meta"><span class="food-price">$12-20</span></div></div>
-      <div class="food-city-header">Las Vegas</div>
-      <div class="food-card"><div class="food-name">Bacchanal Buffet (Caesars)</div><div class="food-cuisine">Buffet</div><div class="food-meta"><span class="food-price">$75/pp</span><span>World-famous buffet</span></div></div>
-      <div class="food-card"><div class="food-name">Gordon Ramsay Hell's Kitchen</div><div class="food-cuisine">Fine Dining</div><div class="food-meta"><span class="food-price">$60-80/pp</span></div></div>
-      <div class="food-city-header">Orange County</div>
-      <div class="food-card"><div class="food-name">Blue Bayou (Disneyland)</div><div class="food-cuisine">American</div><div class="food-meta"><span class="food-price">$50/pp</span><span>Inside Pirates of the Caribbean!</span></div></div>
-      <div class="food-city-header">Malibu</div>
-      <div class="food-card"><div class="food-name">Nobu Malibu</div><div class="food-cuisine">Japanese</div><div class="food-meta"><span class="food-price">$80-120/pp</span></div></div>
-      <div class="food-city-header">Paso Robles</div>
-      <div class="food-card"><div class="food-name">The Hatch Rotisserie</div><div class="food-cuisine">American</div><div class="food-meta"><span class="food-price">$30-45/pp</span></div></div>`;
+  if (filtered.length === 0) {
+    html += '<div class="empty-state">No restaurants found for this city.</div>';
   }
-  html += '</div>';
-
-  // Food recs
-  html += '<div id="foodRecs" style="display:none">';
-  if (state.foodRecs.length > 0) {
-    state.foodRecs.forEach(r => {
-      const city = r['City'] || r['city'] || r['Location'] || '';
-      const item = r['Recommendation'] || r['recommendation'] || r['Food'] || r['food'] || r['Item'] || '';
-      const desc = r['Description'] || r['description'] || r['Notes'] || r['notes'] || r['Why'] || '';
-      if (!item && !city) return;
-      html += `
-        <div class="food-rec-card fade-in">
-          ${city ? `<div style="font-size:11px;color:var(--sg-red);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px">${escHtml(city)}</div>` : ''}
-          <h4>${escHtml(item)}</h4>
-          ${desc ? `<p>${escHtml(desc)}</p>` : ''}
-        </div>`;
-    });
-  } else {
-    html += `
-      <div class="food-rec-card"><div style="font-size:11px;color:var(--sg-red);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px">Must-Try</div><h4>In-N-Out Burger</h4><p>Order "Animal Style" for the full experience. Get a Double-Double. Way cheaper than SG burgers.</p></div>
-      <div class="food-rec-card"><div style="font-size:11px;color:var(--sg-red);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px">Must-Try</div><h4>Raising Cane's</h4><p>Chicken fingers done right. The Cane's sauce is addictive. Not available in SG!</p></div>
-      <div class="food-rec-card"><div style="font-size:11px;color:var(--sg-red);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px">Must-Try</div><h4>Costco Food Court</h4><p>$1.50 hot dog + drink combo. $9.95 pizza. The American dream.</p></div>
-      <div class="food-rec-card"><div style="font-size:11px;color:var(--sg-red);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px">Must-Try</div><h4>Mexican Food (any taqueria)</h4><p>Street tacos, burritos, carne asada fries. Nothing like this in SG.</p></div>
-      <div class="food-rec-card"><div style="font-size:11px;color:var(--sg-red);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px">Tip</div><h4>Tipping Culture</h4><p>15-20% at sit-down restaurants. Not like SG! Budget for this.</p></div>`;
-  }
-  html += '</div>';
 
   container.innerHTML = html;
 
-  // Wire food sub-tabs
-  document.querySelectorAll('.food-tab-btn').forEach(btn => {
+  // Wire filter buttons
+  container.querySelectorAll('.food-filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.food-tab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const tab = btn.dataset.ftab;
-      document.getElementById('foodList').style.display = tab === 'list' ? '' : 'none';
-      document.getElementById('foodRecs').style.display = tab === 'recs' ? '' : 'none';
+      foodActiveCity = btn.dataset.city;
+      renderFood();
     });
   });
 }
