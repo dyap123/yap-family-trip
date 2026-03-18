@@ -1,7 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!--
+  ============================================================================
+  YAP FAMILY CALIFORNIA TRIP PLANNER 2026
+  ============================================================================
+
+  A standalone PWA (Progressive Web App) for the Yap family trip from
+  Singapore to California, May 14-26, 2026. 21 family members.
+
+  HOW IT WORKS:
+  - Fetches LIVE data from a published Google Sheet every time the app loads
+  - Caches data locally for 1 minute to avoid hammering Google's API
+  - Falls back to hardcoded data if the sheet is unavailable
+
+  DATA SOURCE:
+  - Google Sheet ID: 1DBGY85rvSrGTGqw4dTYXGiMesSY9LLnvCdyI7On53BQ
+  - Published URL: https://docs.google.com/spreadsheets/d/e/2PACX-1vRp-.../pubhtml
+  - Tabs used: Schedule Overview, People Logistics, FOOD, Food Recs, To-Do List, Updates, Budget
+
+  TO UPDATE DATA: Just edit the Google Sheet. Changes appear in the app within 1 minute.
+  TO UPDATE THE APP: Edit this file, then push to GitHub:
+    cd ~/yap-family-trip && git add . && git commit -m "update" && git push
+
+  HOSTED AT: https://dyap123.github.io/yap-family-trip/
+
+  TABS:
+  1. Schedule — Day-by-day timeline cards (13 days)
+  2. Today — Focused view of current day or countdown
+  3. Food — Restaurant cards with ratings, prices, SG comparisons
+  4. People — Group 1 (young/EDC) vs Group 2 (family) + vehicles
+  5. Updates — Host announcements (you post to the "Updates" sheet tab)
+
+  PERSON SELECTOR: Top-right dropdown. Filters schedule to show
+  Group 1 vs Group 2 activities on split days (May 16-17).
+
+  PHOTOS: To add restaurant photos, add a "Photo" column to the
+  Food Recs sheet tab with direct image URLs.
+  ============================================================================
+-->
 <meta charset="UTF-8">
+<!-- PWA / mobile meta tags — makes it feel like a native app on iPhone -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -9,12 +48,22 @@
 <meta name="theme-color" content="#1A1D23">
 <meta name="mobile-web-app-capable" content="yes">
 <title>Yap Family California 2026</title>
+<!-- SG flag emoji as favicon -->
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇸🇬</text></svg>">
+<!-- PWA manifest (base64-encoded inline to avoid extra files) -->
 <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiWWFwIEZhbWlseSBDYWxpZm9ybmlhIDIwMjYiLCJzaG9ydF9uYW1lIjoiWWFwIFRyaXAiLCJzdGFydF91cmwiOiIvd2ViL3RyaXAuaHRtbCIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiMxQTFEMjMiLCJ0aGVtZV9jb2xvciI6IiMxQTFEMjMiLCJpY29ucyI6W119">
+
+<!-- ============================================================================
+     CSS STYLES
+     All styles inline — no external CSS files needed.
+     Design: Singapore flag theme (red #EF3340 + white), dark navy background.
+     Mobile-first with iPhone safe area support.
+     ============================================================================ -->
 <style>
+/* Reset + CSS Variables (Singapore flag color palette) */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --sg-red:#EF3340;
+  --sg-red:#EF3340;  /* Singapore flag red — primary accent */
   --sg-red-dim:rgba(239,51,64,0.15);
   --sg-red-glow:rgba(239,51,64,0.3);
   --white:#FFFFFF;
@@ -617,15 +666,25 @@ body{
 </nav>
 
 <script>
-// ─── Configuration ───
-const SHEET_ID = '1DBGY85rvSrGTGqw4dTYXGiMesSY9LLnvCdyI7On53BQ';
-const CACHE_KEY = 'yap_trip_cache';
-const CACHE_TTL = 60 * 1000; // 1 minute
+// ============================================================================
+// JAVASCRIPT — App Logic
+// ============================================================================
 
+// ─── Configuration ───
+// The Google Sheet ID — this is the source of truth for all trip data.
+// Data is fetched via the gviz JSON endpoint (no API key needed since sheet is published).
+const SHEET_ID = '1DBGY85rvSrGTGqw4dTYXGiMesSY9LLnvCdyI7On53BQ';
+const CACHE_KEY = 'yap_trip_cache';   // localStorage key for caching sheet data
+const CACHE_TTL = 60 * 1000;          // Cache for 1 minute, then re-fetch from Google
+
+// Trip dates in Pacific time (California)
 const TRIP_START = new Date('2026-05-14T00:00:00-07:00');
 const TRIP_END = new Date('2026-05-26T23:59:59-07:00');
 
 // ─── People & Groups ───
+// Group 1 = young people / EDC crew. Group 2 = family / uncles.
+// On split days (May 16-17), the person selector filters the schedule by group.
+// Eugene has a special flag: he leaves on Day 8 (May 21).
 const PEOPLE = {
   'Danzel': { group: 1 },
   'Alvin': { group: 1 },
@@ -649,6 +708,10 @@ const PEOPLE = {
 };
 
 // ─── Fallback Schedule ───
+// Used if the Google Sheet can't be reached. This is a snapshot of the schedule.
+// The app tries to fetch live data first — this only kicks in if the fetch fails.
+// Fields: day (number), date, dow (day of week), location, accommodation,
+//         events (description), driveTime, vibe (maps to color/emoji), groupSplit (bool)
 const FALLBACK_SCHEDULE = [
   { day:1, date:'May 14',dow:'Thursday', location:'SFO → San Jose', accommodation:'Holiday Inn', events:'Arrive SFO, settle in, chill evening', driveTime:'30 min', vibe:'chill' },
   { day:2, date:'May 15',dow:'Friday', location:'San Jose → LA', accommodation:'Ayres Suites Diamond Bar', events:'Road trip down the 5! Stop for In-N-Out', driveTime:'5-6 hr', vibe:'road' },
@@ -736,6 +799,9 @@ let state = {
 };
 
 // ─── Sheet Fetcher ───
+// ─── Google Sheets Data Fetching ───
+// We use the gviz/tq endpoint which returns JSON without needing an API key.
+// The sheet must be "Published to web" (File > Share > Publish to web) for this to work.
 function sheetUrl(sheetName) {
   return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}`;
 }
@@ -853,6 +919,10 @@ function cacheData(data) {
   } catch(e) {}
 }
 
+// ─── Apply Sheet Data to State ───
+// Maps the raw sheet rows (keyed by column header) to the app's internal format.
+// Each sheet tab has different column names, so we handle each one separately.
+// The schedule tab needs special parsing because the sheet has title rows before the header.
 function applySheetData(data) {
   if (data.schedule && data.schedule.length > 0) {
     state.schedule = data.schedule.map((r, i) => {
@@ -982,6 +1052,11 @@ function escHtml(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
+// ============================================================================
+// RENDERING — Each tab has its own render function.
+// All rendering is vanilla JS (no framework). Functions read from `state`
+// and write innerHTML to the tab containers.
+// ============================================================================
 function renderAll() {
   renderSchedule();
   renderToday();
@@ -991,6 +1066,14 @@ function renderAll() {
 }
 
 // ── Schedule ──
+// ── Schedule Tab ──
+// Renders day cards (Day 1-13). Each card has:
+// - Colored accent bar (mapped from "vibe" field)
+// - Date, day of week, location, accommodation, drive time
+// - Events description
+// - Group tag showing which group(s) are together
+// - Past days are dimmed, current day has a red glow border
+// - Person selector filters which group's activities are highlighted
 function renderSchedule() {
   const container = document.getElementById('scheduleList');
   const currentDay = getTripDay();
@@ -1199,6 +1282,16 @@ function renderStars(rating) {
   return stars;
 }
 
+// ── Food Card Component ──
+// Each restaurant renders as a card with:
+// - Photo (or gradient placeholder with restaurant initial if no photo URL)
+// - Name, price, cuisine/city/bestFor tags
+// - Star rating (★★★★☆ style)
+// - Summary of why it's special
+// - SG comparison ("Like BreadTalk but better")
+//
+// TO ADD PHOTOS: Add a "Photo" column to the "Food Recs (First Timer)" sheet tab
+// with a direct image URL. The app will use it automatically.
 function renderFoodCard(r, idx) {
   const name = r.name || '';
   const cuisine = r.cuisine || '';
@@ -1238,6 +1331,10 @@ function renderFoodCard(r, idx) {
     </div>`;
 }
 
+// ── Food Tab ──
+// Groups restaurants by city with a scrollable city filter bar at top.
+// Tap a city pill to filter. Restaurants come from the sheet's "Food Recs"
+// tab, merged with FALLBACK_RESTAURANTS for ratings/photos.
 function renderFood() {
   const container = document.getElementById('foodContent');
   const restaurants = getRestaurants();
@@ -1403,6 +1500,12 @@ function renderTasks() {
 }
 
 // ── Updates ──
+// ── Updates Tab ──
+// Shows announcements from the host. Data comes from the "Updates" sheet tab.
+// Columns: Date, Time, From, Message, Priority (normal/important/urgent)
+// To post an update: add a row to the "Updates" tab in Google Sheets.
+// Urgent items get a red highlight, important gets amber.
+// Newest updates show first (reversed order).
 function renderUpdates() {
   const container = document.getElementById('updatesContent');
   const updates = (state.updates || []).filter(u => {
