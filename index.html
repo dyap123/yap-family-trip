@@ -48,8 +48,10 @@
 <meta name="theme-color" content="#1A1D23">
 <meta name="mobile-web-app-capable" content="yes">
 <title>Yap Family California 2026</title>
-<!-- SG flag emoji as favicon -->
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇸🇬</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <!-- PWA manifest (base64-encoded inline to avoid extra files) -->
 <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiWWFwIEZhbWlseSBDYWxpZm9ybmlhIDIwMjYiLCJzaG9ydF9uYW1lIjoiWWFwIFRyaXAiLCJzdGFydF91cmwiOiIvd2ViL3RyaXAuaHRtbCIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiMxQTFEMjMiLCJ0aGVtZV9jb2xvciI6IiMxQTFEMjMiLCJpY29ucyI6W119">
 
@@ -91,7 +93,48 @@
   --vibe-wine:linear-gradient(135deg,#722F37,#C97C5D);
   --vibe-home:linear-gradient(135deg,#457B9D,#A8DADC);
   --vibe-farewell:linear-gradient(135deg,#EF3340,#1A1D23);
+  /* OpenYap additions */
+  --accent2:#FFB347;
+  --accent3:#4ECDC4;
+  --card-glow:rgba(239,51,64,0.08);
+  --ease:cubic-bezier(0.16,1,0.3,1);
 }
+
+/* ── Light theme ── */
+body.light{
+  --navy:#FAF8F5;--navy-light:#F0EDE8;--navy-lighter:#E8E4DF;--navy-card:rgba(255,255,255,0.82);
+  --sg-red:#D62839;--sg-red-dim:rgba(214,40,57,0.12);--sg-red-glow:rgba(214,40,57,0.22);
+  --text-primary:rgba(0,0,0,0.88);--text-secondary:rgba(0,0,0,0.55);--text-muted:rgba(0,0,0,0.30);
+  --card-glow:rgba(214,40,57,0.06);
+}
+body.light .header,body.light .bottom-nav{background:rgba(250,248,245,0.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+body.light .person-select{background:rgba(0,0,0,0.05);border-color:rgba(0,0,0,0.08);color:rgba(0,0,0,0.8)}
+body.light .bg-mesh::after{background-image:radial-gradient(circle,rgba(0,0,0,0.02) 1px,transparent 1px)}
+
+/* ── Background mesh ── */
+.bg-mesh{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.bg-mesh::before{
+  content:'';position:absolute;width:140%;height:140%;top:-20%;left:-20%;
+  background:
+    radial-gradient(ellipse 500px 400px at 20% 30%,rgba(239,51,64,0.06) 0%,transparent 70%),
+    radial-gradient(ellipse 400px 500px at 80% 60%,rgba(255,179,71,0.05) 0%,transparent 70%),
+    radial-gradient(ellipse 500px 400px at 50% 85%,rgba(78,205,196,0.04) 0%,transparent 70%);
+  animation:meshDrift 60s linear infinite alternate;will-change:transform;transform:translateZ(0);
+}
+.bg-mesh::after{
+  content:'';position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(255,255,255,0.018) 1px,transparent 1px);
+  background-size:28px 28px;
+}
+@keyframes meshDrift{0%{transform:translate3d(0,0,0)}100%{transform:translate3d(-10px,6px,0)}}
+
+/* ── Card entrance animation ── */
+@keyframes cardIn{
+  from{opacity:0;transform:translateY(14px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.card-anim{animation:cardIn .4s var(--ease) both}
+
 html,body{
   height:100%;width:100%;overflow:hidden;
   font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',Roboto,Helvetica,Arial,sans-serif;
@@ -111,15 +154,28 @@ body{
   height:var(--header-height);min-height:var(--header-height);
   display:flex;align-items:center;justify-content:space-between;
   padding:0 16px;
-  background:var(--navy);
+  background:rgba(26,29,35,0.85);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
   border-bottom:1px solid rgba(255,255,255,0.06);
   position:relative;z-index:100;
 }
 .header-title{
-  font-size:15px;font-weight:700;letter-spacing:-0.3px;
+  font-family:'Space Grotesk',-apple-system,sans-serif;
+  font-size:16px;font-weight:700;letter-spacing:-0.2px;
   color:var(--text-primary);
   display:flex;align-items:center;gap:8px;
 }
+/* Theme toggle */
+.theme-toggle{
+  width:30px;height:30px;border-radius:8px;
+  border:1px solid rgba(255,255,255,0.08);
+  background:rgba(255,255,255,0.04);
+  color:var(--text-secondary);font-size:14px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all 0.2s;margin-right:8px;
+  -webkit-tap-highlight-color:transparent;
+}
+.theme-toggle:hover{background:rgba(255,255,255,0.08)}
 .sg-flag{
   width:22px;height:15px;border-radius:2px;overflow:hidden;
   display:inline-flex;flex-direction:column;flex-shrink:0;
@@ -165,7 +221,8 @@ body{
 .bottom-nav{
   height:var(--tab-height);min-height:var(--tab-height);
   display:flex;align-items:stretch;
-  background:var(--navy);
+  background:rgba(26,29,35,0.88);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
   border-top:1px solid rgba(255,255,255,0.06);
   padding-bottom:calc(var(--safe-bottom) - 0px);
   position:relative;z-index:100;
@@ -192,18 +249,24 @@ body{
   padding:12px 16px;
 }
 .day-card{
+  position:relative;
   background:var(--navy-card);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
   border-radius:16px;
-  margin-bottom:12px;
+  margin-bottom:14px;
   overflow:hidden;
-  border:1px solid rgba(255,255,255,0.04);
-  transition:opacity 0.3s;
+  border:1px solid rgba(255,255,255,0.06);
+  transition:transform 0.3s var(--ease),box-shadow 0.4s var(--ease),opacity 0.3s;
 }
-.day-card.past{opacity:0.55}
+.day-card:active{transform:scale(0.985)}
+.day-card:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,0.25),0 0 24px var(--card-glow)}
+.day-card.past{opacity:0.50}
 .day-card.today{
   border-color:var(--sg-red);
-  box-shadow:0 0 20px var(--sg-red-dim),0 0 40px rgba(239,51,64,0.05);
+  box-shadow:0 0 24px var(--sg-red-dim),0 0 56px rgba(239,51,64,0.06);
+  animation:todayPulse 3.5s ease-in-out infinite;
 }
+@keyframes todayPulse{0%,100%{box-shadow:0 0 24px var(--sg-red-dim),0 0 56px rgba(239,51,64,0.06)}50%{box-shadow:0 0 32px var(--sg-red-glow),0 0 72px var(--sg-red-dim)}}
 .day-card-accent{
   height:4px;width:100%;
 }
@@ -216,7 +279,8 @@ body{
   letter-spacing:1px;color:var(--text-muted);
 }
 .day-date{
-  font-size:22px;font-weight:800;letter-spacing:-0.5px;
+  font-family:'Space Grotesk',-apple-system,sans-serif;
+  font-size:24px;font-weight:800;letter-spacing:-0.5px;
   margin-top:2px;
 }
 .day-dow{
@@ -306,12 +370,17 @@ body{
 /* ── Food Tab ── */
 .food-container{padding:12px 16px}
 .food-card {
+  position: relative;
   background: var(--navy-card);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   border-radius: 14px;
   overflow: hidden;
-  margin-bottom: 12px;
-  border: 1px solid rgba(255,255,255,0.04);
+  margin-bottom: 14px;
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: transform 0.3s var(--ease), box-shadow 0.4s var(--ease);
 }
+.food-card:active { transform: scale(0.985); }
+.food-card:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.25), 0 0 24px var(--card-glow); }
 .food-card-img {
   width: 100%;
   height: 160px;
@@ -443,7 +512,10 @@ body{
   background:var(--navy-lighter);
   padding:8px 12px;border-radius:10px;
   margin:0 6px 6px 0;font-size:13px;font-weight:500;
+  transition:transform 0.2s var(--ease),box-shadow 0.3s var(--ease);
 }
+.person-chip:active{transform:scale(0.95)}
+.person-chip:hover{box-shadow:0 0 16px var(--sg-red-dim)}
 .person-chip.selected{
   background:var(--sg-red-dim);
   border:1px solid var(--sg-red);
@@ -586,6 +658,7 @@ body{
 </style>
 </head>
 <body>
+<div class="bg-mesh"></div>
 
 <!-- Header -->
 <header class="header">
@@ -596,9 +669,12 @@ body{
     </span>
     Yap Family California 2026
   </div>
-  <select class="person-select" id="personSelect">
-    <option value="all">Everyone</option>
-  </select>
+  <div style="display:flex;align-items:center;gap:6px">
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+    <select class="person-select" id="personSelect">
+      <option value="all">Everyone</option>
+    </select>
+  </div>
 </header>
 
 <!-- Main Content -->
@@ -1649,6 +1725,44 @@ document.addEventListener('visibilitychange', () => {
     loadAllData();
   }
 });
+
+// ── Theme toggle ──
+function toggleTheme() {
+  const isLight = document.body.classList.toggle('light');
+  localStorage.setItem('yft_theme', isLight ? 'light' : 'dark');
+  document.getElementById('themeToggle').textContent = isLight ? '☀️' : '🌙';
+}
+// Apply saved theme
+(function() {
+  const saved = localStorage.getItem('yft_theme');
+  const prefer = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  if (prefer === 'light') {
+    document.body.classList.add('light');
+    const btn = document.getElementById('themeToggle');
+    if (btn) btn.textContent = '☀️';
+  }
+})();
+
+// ── Card entrance animations — stagger cards on tab switch ──
+const origSwitchTab = window.switchTab;
+if (typeof switchTab === 'function') {
+  const _orig = switchTab;
+  window.switchTab = function(tab) {
+    _orig(tab);
+    // Stagger animate visible cards
+    requestAnimationFrame(() => {
+      const active = document.querySelector('.tab-content.active');
+      if (!active) return;
+      const cards = active.querySelectorAll('.day-card, .food-card, .update-card, .person-chip');
+      cards.forEach((c, i) => {
+        c.classList.remove('card-anim');
+        void c.offsetWidth; // reflow
+        c.style.animationDelay = (i * 35) + 'ms';
+        c.classList.add('card-anim');
+      });
+    });
+  };
+}
 </script>
 </body>
 </html>
