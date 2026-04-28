@@ -4,63 +4,64 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Yap Trip">
-<meta name="theme-color" content="#FFF8EE">
+<meta name="theme-color" content="#06060E">
 <meta name="mobile-web-app-capable" content="yes">
-<title>Yap Family California 2026</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇸🇬</text></svg>">
+<title>Yap Family · California 2026</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='50' y='0' fill='%23D8403B'/><rect width='100' height='50' y='50' fill='%23ffffff'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiWWFwIEZhbWlseSBDYWxpZm9ybmlhIDIwMjYiLCJzaG9ydF9uYW1lIjoiWWFwIFRyaXAiLCJzdGFydF91cmwiOiIuLyIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiNGRkY4RUUiLCJ0aGVtZV9jb2xvciI6IiNGRkY4RUUiLCJpY29ucyI6W119">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiWWFwIEZhbWlseSDigKIgQ2FsaWZvcm5pYSAyMDI2Iiwic2hvcnRfbmFtZSI6IllhcCBUcmlwIiwic3RhcnRfdXJsIjoiLi8iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjMDYwNjBFIiwidGhlbWVfY29sb3IiOiIjMDYwNjBFIiwiaWNvbnMiOltdfQ==">
 
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 
 :root{
-  --bg:#FFF8EE;
-  --bg-card:#FFFFFF;
-  --bg-soft:#F6EEDF;
-  --ink:#1F1A14;
-  --ink-soft:#5C5247;
-  --ink-mute:#8E8576;
-  --accent:#D8403B;     /* SG flag red, slightly warmer */
-  --accent-soft:#FCE4E2;
-  --gold:#C8852A;
-  --green:#3D8E5A;
-  --blue:#2E6FA7;
-  --line:rgba(31,26,20,0.08);
-  --shadow:0 1px 2px rgba(31,26,20,0.04), 0 8px 28px rgba(31,26,20,0.06);
+  --bg:#06060E;
+  --bg-soft:#0C0C18;
+  --card:rgba(13,13,22,0.62);
+  --card-solid:#0F0F1C;
+  --line:rgba(255,255,255,0.06);
+  --line-soft:rgba(255,255,255,0.03);
+  --accent:#4A8EFF;
+  --accent-2:#34D399;
+  --accent-3:#8B5CF6;
+  --gold:#FFBF00;
+  --red:#FF5757;
+  --text:#F5F5F7;
+  --text-soft:#B0B0B8;
+  --text-mute:#6E6E7A;
+  --radius:18px;
+  --radius-sm:12px;
   --safe-top:env(safe-area-inset-top,0px);
   --safe-bottom:env(safe-area-inset-bottom,0px);
-  --tab-h:78px;
-  --hdr-h:60px;
-  --ease:cubic-bezier(0.22,0.9,0.32,1);
+  --hdr-h:56px;
+  --tab-h:74px;
+  --ease:cubic-bezier(0.16,1,0.3,1);
 }
-body.dark{
-  --bg:#15120D;
-  --bg-card:#22201B;
-  --bg-soft:#1B1812;
-  --ink:#F5EDDF;
-  --ink-soft:#BFB3A1;
-  --ink-mute:#8A8273;
-  --accent:#FF6B5B;
-  --accent-soft:rgba(255,107,91,0.16);
-  --gold:#E0A65A;
-  --green:#6FB987;
-  --blue:#7AA8D6;
-  --line:rgba(255,237,223,0.08);
-  --shadow:0 1px 2px rgba(0,0,0,0.4), 0 8px 28px rgba(0,0,0,0.45);
+
+body.light{
+  --bg:#FAF8F2;
+  --bg-soft:#FFFFFF;
+  --card:rgba(255,255,255,0.85);
+  --card-solid:#FFFFFF;
+  --line:rgba(0,0,0,0.08);
+  --line-soft:rgba(0,0,0,0.04);
+  --text:#0E0E14;
+  --text-soft:#48484E;
+  --text-mute:#8A8A92;
 }
 
 html,body{
   height:100%;width:100%;overflow:hidden;
   font-family:'Inter',-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-serif;
-  background:var(--bg);color:var(--ink);
+  background:var(--bg);color:var(--text);
+  font-size:16px;line-height:1.5;
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
-  font-size:17px;line-height:1.5;
   touch-action:pan-y;
 }
 body{
@@ -69,553 +70,597 @@ body{
   padding-bottom:var(--safe-bottom);
 }
 
-/* paper texture */
-body::before{
-  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-image:radial-gradient(circle at 30% 20%,rgba(216,64,59,0.04),transparent 50%),
-                    radial-gradient(circle at 80% 80%,rgba(200,133,42,0.05),transparent 50%);
+/* ── Backdrop layers (OpenYap signature) ── */
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bg::before{
+  content:'';position:absolute;inset:-10%;
+  background-image:radial-gradient(circle,rgba(255,255,255,0.025) 1px,transparent 1px);
+  background-size:32px 32px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 40%,#000 30%,transparent 80%);
+  -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 40%,#000 30%,transparent 80%);
+}
+body.light .bg::before{
+  background-image:radial-gradient(circle,rgba(0,0,0,0.04) 1px,transparent 1px);
+}
+.aurora{position:absolute;inset:0;will-change:transform}
+.aurora::before,.aurora::after,.aurora-3{
+  content:'';position:absolute;width:55vmax;height:55vmax;border-radius:50%;
+  filter:blur(80px);opacity:0.18;
+}
+.aurora::before{
+  top:-25%;left:-15%;
+  background:radial-gradient(circle,rgba(74,142,255,0.55),transparent 65%);
+  animation:auroraDrift 42s ease-in-out infinite alternate;
+}
+.aurora::after{
+  bottom:-25%;right:-15%;
+  background:radial-gradient(circle,rgba(139,92,246,0.45),transparent 65%);
+  animation:auroraDrift 56s ease-in-out infinite alternate-reverse;
+}
+.aurora-3{
+  top:30%;right:20%;width:35vmax;height:35vmax;
+  background:radial-gradient(circle,rgba(52,211,153,0.35),transparent 65%);
+  animation:auroraDrift 70s ease-in-out infinite alternate;
+}
+@keyframes auroraDrift{
+  0%{transform:translate3d(0,0,0) scale(1)}
+  100%{transform:translate3d(8vw,4vh,0) scale(1.12)}
+}
+body.light .aurora::before,body.light .aurora::after,body.light .aurora-3{opacity:0.10}
+
+/* fractal noise overlay (cup-dashboard parity) */
+.bg::after{
+  content:'';position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='3'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.7'/%3E%3C/svg%3E");
+  opacity:0.025;mix-blend-mode:overlay;
 }
 
 /* ── Header ── */
-.header{
+.hdr{
+  position:relative;z-index:5;
   height:var(--hdr-h);min-height:var(--hdr-h);
   display:flex;align-items:center;justify-content:space-between;
-  padding:0 18px;background:var(--bg);
+  padding:0 18px;
+  background:rgba(6,6,14,0.72);
+  backdrop-filter:blur(18px) saturate(160%);
+  -webkit-backdrop-filter:blur(18px) saturate(160%);
   border-bottom:1px solid var(--line);
-  position:relative;z-index:10;
 }
-.brand{
-  display:flex;align-items:center;gap:10px;
-  font-family:'Fraunces',serif;
-  font-size:20px;font-weight:700;letter-spacing:-0.3px;
+body.light .hdr{background:rgba(255,255,255,0.78)}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-mark{
+  display:inline-flex;align-items:center;gap:8px;
+  font-weight:800;font-size:15px;letter-spacing:-0.2px;
+  text-transform:uppercase;
 }
-.brand-flag{
-  width:26px;height:18px;border-radius:3px;overflow:hidden;
-  display:flex;flex-direction:column;
-  box-shadow:0 1px 2px rgba(0,0,0,0.1);
+.brand-mark::before{
+  content:'';display:inline-block;width:6px;height:6px;border-radius:50%;
+  background:var(--accent);box-shadow:0 0 10px var(--accent);
 }
-.brand-flag-r{background:#D8403B;flex:1}
-.brand-flag-w{background:#fff;flex:1}
-.theme-btn{
-  width:40px;height:40px;border-radius:50%;
-  border:1px solid var(--line);background:var(--bg-card);
-  font-size:18px;cursor:pointer;
+.brand-sub{
+  font-size:12px;color:var(--text-mute);
+  font-family:'JetBrains Mono',monospace;
+  letter-spacing:0.5px;
+}
+.icon-btn{
+  width:38px;height:38px;border-radius:10px;
+  border:1px solid var(--line);background:var(--card);
+  color:var(--text-soft);cursor:pointer;
   display:flex;align-items:center;justify-content:center;
-  transition:transform 0.15s var(--ease);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  transition:transform 0.15s var(--ease),background 0.15s,color 0.15s;
 }
-.theme-btn:active{transform:scale(0.92)}
+.icon-btn:active{transform:scale(0.92)}
+.icon-btn:hover{color:var(--text);background:var(--card-solid)}
+.icon-btn .material-symbols-outlined{font-size:20px}
 
-/* ── Main ── */
+/* ── Main + tabs ── */
 .main{flex:1;overflow:hidden;position:relative;z-index:1}
 .tab{
-  position:absolute;inset:0;
-  overflow-y:auto;overflow-x:hidden;
+  position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;
   -webkit-overflow-scrolling:touch;
   opacity:0;pointer-events:none;
-  transition:opacity 0.2s ease;
+  transition:opacity 0.18s ease;
 }
 .tab.active{opacity:1;pointer-events:auto}
 .tab::-webkit-scrollbar{display:none}
+.wrap{padding:14px 16px 28px;max-width:680px;margin:0 auto}
 
-.container{padding:14px 18px 24px;max-width:680px;margin:0 auto}
-
-/* ── Hero (Today tab) ── */
+/* ── Hero ── */
 .hero{
-  background:linear-gradient(140deg,#D8403B 0%,#A8302D 60%,#7A2520 100%);
-  color:#fff;border-radius:22px;
-  padding:24px 22px 22px;
-  margin-bottom:16px;position:relative;overflow:hidden;
-  box-shadow:0 10px 32px rgba(216,64,59,0.32);
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:22px;margin-bottom:14px;
+  position:relative;overflow:hidden;
+  backdrop-filter:blur(14px) saturate(160%);
+  -webkit-backdrop-filter:blur(14px) saturate(160%);
+  box-shadow:0 1px 0 rgba(255,255,255,0.04) inset, 0 18px 48px rgba(0,0,0,0.35);
 }
-body.dark .hero{
-  background:linear-gradient(140deg,#FF6B5B 0%,#C8423A 60%,#7E2723 100%);
-  box-shadow:0 10px 32px rgba(255,107,91,0.25);
-}
-.hero::after{
-  content:'';position:absolute;top:-40%;right:-20%;
+.hero::before{
+  content:'';position:absolute;top:-30%;right:-10%;
   width:280px;height:280px;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,255,255,0.15),transparent 70%);
+  background:radial-gradient(circle,rgba(74,142,255,0.30),transparent 70%);
+  filter:blur(40px);
 }
-.hero-eyebrow{
-  font-size:13px;font-weight:700;letter-spacing:1.5px;
-  text-transform:uppercase;opacity:0.85;
-  margin-bottom:6px;position:relative;z-index:1;
+.hero-meta{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--accent);font-weight:600;margin-bottom:10px;
+  position:relative;z-index:1;
 }
 .hero h1{
-  font-family:'Fraunces',serif;
-  font-size:38px;font-weight:900;line-height:1.05;
-  letter-spacing:-1px;margin-bottom:8px;
-  position:relative;z-index:1;
+  font-size:32px;font-weight:800;letter-spacing:-1px;line-height:1.05;
+  margin-bottom:8px;position:relative;z-index:1;
 }
 .hero-sub{
-  font-size:18px;font-weight:500;opacity:0.92;
-  position:relative;z-index:1;line-height:1.4;
+  font-size:15px;color:var(--text-soft);font-weight:500;
+  position:relative;z-index:1;line-height:1.45;
 }
-.hero-stat{
-  display:inline-block;background:rgba(255,255,255,0.18);
-  padding:8px 16px;border-radius:999px;
-  margin-top:14px;font-weight:700;font-size:15px;
+.hero-stats{
+  display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;
   position:relative;z-index:1;
-  backdrop-filter:blur(8px);
 }
+.stat{
+  background:rgba(255,255,255,0.06);border:1px solid var(--line);
+  padding:6px 12px;border-radius:999px;
+  font-size:12px;font-weight:600;letter-spacing:0.3px;
+  font-family:'JetBrains Mono',monospace;
+  color:var(--text-soft);
+}
+body.light .stat{background:rgba(0,0,0,0.04)}
+.stat .accent{color:var(--accent);font-weight:700}
 
-/* ── Section ── */
+/* ── Section + titles ── */
 .section{margin-top:22px}
 .section-title{
-  font-family:'Fraunces',serif;
-  font-size:24px;font-weight:700;letter-spacing:-0.3px;
-  margin-bottom:12px;color:var(--ink);
+  display:flex;align-items:baseline;justify-content:space-between;
+  margin-bottom:12px;
 }
-.section-sub{
-  font-size:14px;color:var(--ink-mute);
-  margin-top:-8px;margin-bottom:14px;
+.section-title h2{
+  font-size:20px;font-weight:800;letter-spacing:-0.4px;
+}
+.section-title .meta{
+  font-size:12px;color:var(--text-mute);
+  font-family:'JetBrains Mono',monospace;letter-spacing:0.5px;
 }
 
-/* ── Card ── */
+/* ── Callout ── */
+.callout{
+  display:flex;gap:12px;align-items:flex-start;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-left:3px solid var(--accent);
+  border-radius:var(--radius-sm);
+  padding:14px 16px;margin-bottom:10px;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+}
+.callout.urgent{border-left-color:var(--red)}
+.callout.warn{border-left-color:var(--gold)}
+.callout-ico{
+  flex-shrink:0;color:var(--accent);
+  display:flex;align-items:center;justify-content:center;
+  margin-top:2px;
+}
+.callout.urgent .callout-ico{color:var(--red)}
+.callout.warn .callout-ico{color:var(--gold)}
+.callout-ico .material-symbols-outlined{font-size:22px}
+.callout-body{flex:1;min-width:0}
+.callout-title{
+  font-size:13px;font-weight:700;letter-spacing:0.3px;
+  text-transform:uppercase;color:var(--accent);
+  margin-bottom:2px;
+}
+.callout.urgent .callout-title{color:var(--red)}
+.callout.warn .callout-title{color:var(--gold)}
+.callout-text{
+  font-size:14px;color:var(--text-soft);line-height:1.5;
+}
+.callout-text b,.callout-text strong{color:var(--text);font-weight:700}
+
+/* ── Card / day card ── */
 .card{
-  background:var(--bg-card);border-radius:18px;
-  padding:18px 20px;margin-bottom:12px;
-  box-shadow:var(--shadow);
+  background:var(--card);
   border:1px solid var(--line);
-  transition:transform 0.2s var(--ease);
-  position:relative;
-}
-.card:active{transform:scale(0.985)}
-.card.alert{
-  border:2px solid var(--accent);
-  background:var(--accent-soft);
-}
-.card.warm{
-  background:linear-gradient(135deg,#FCE4E2,#FFF8EE);
-  border-color:rgba(216,64,59,0.2);
-}
-body.dark .card.warm{
-  background:linear-gradient(135deg,rgba(255,107,91,0.12),rgba(34,32,27,0.9));
-}
-
-/* ── Day card ── */
-.day-card{
-  background:var(--bg-card);border-radius:18px;
+  border-radius:var(--radius);
   margin-bottom:14px;overflow:hidden;
-  box-shadow:var(--shadow);
-  border:1px solid var(--line);
-  transition:transform 0.2s var(--ease);
+  backdrop-filter:blur(14px) saturate(160%);
+  -webkit-backdrop-filter:blur(14px) saturate(160%);
+  box-shadow:0 1px 0 rgba(255,255,255,0.04) inset, 0 14px 36px rgba(0,0,0,0.32);
+  transition:transform 0.2s var(--ease),box-shadow 0.3s var(--ease);
 }
-.day-card:active{transform:scale(0.99)}
-.day-card.today-card{
-  border:2px solid var(--accent);
-  box-shadow:0 0 0 6px var(--accent-soft),var(--shadow);
+.card:active{transform:scale(0.99)}
+.card.now{
+  border-color:rgba(74,142,255,0.45);
+  box-shadow:0 0 0 1px rgba(74,142,255,0.2),0 14px 36px rgba(74,142,255,0.18);
 }
-.day-card.past{opacity:0.55}
+.card.past{opacity:0.5}
+
 .day-strip{
-  height:6px;width:100%;
-  background:linear-gradient(90deg,var(--accent),var(--gold));
+  height:3px;width:100%;
+  background:linear-gradient(90deg,var(--accent),var(--accent-3));
 }
-.day-strip.chill{background:linear-gradient(90deg,#3D8E5A,#7DC097)}
+.day-strip.chill{background:linear-gradient(90deg,var(--accent-2),#7DC097)}
 .day-strip.road{background:linear-gradient(90deg,#E76F51,#F4A261)}
-.day-strip.party{background:linear-gradient(90deg,#D8403B,#FF6B6B)}
-.day-strip.shop{background:linear-gradient(90deg,#7B2CBF,#C77DFF)}
-.day-strip.food{background:linear-gradient(90deg,#E07A5F,#F2CC8F)}
+.day-strip.party{background:linear-gradient(90deg,var(--red),#FF8E72)}
+.day-strip.shop{background:linear-gradient(90deg,var(--accent-3),#C77DFF)}
 .day-strip.fun{background:linear-gradient(90deg,#F72585,#B5179E)}
 .day-strip.beach{background:linear-gradient(90deg,#0077B6,#48CAE4)}
 .day-strip.wine{background:linear-gradient(90deg,#722F37,#C97C5D)}
-.day-strip.home{background:linear-gradient(90deg,#457B9D,#A8DADC)}
-.day-strip.farewell{background:linear-gradient(90deg,#D8403B,#5C5247)}
+.day-strip.home{background:linear-gradient(90deg,var(--accent),#A8DADC)}
+.day-strip.farewell{background:linear-gradient(90deg,var(--text-mute),var(--accent-3))}
 
 .day-head{
-  display:flex;align-items:flex-start;justify-content:space-between;
-  padding:18px 20px 6px;
+  display:flex;justify-content:space-between;align-items:flex-start;
+  padding:18px 20px 4px;
 }
-.day-num-wrap{flex:1}
-.day-num{
-  font-size:13px;font-weight:700;letter-spacing:1.5px;
-  text-transform:uppercase;color:var(--ink-mute);
+.day-id{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;font-weight:600;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--text-mute);
 }
-.day-num .live-dot{
-  display:inline-block;width:8px;height:8px;border-radius:50%;
-  background:var(--accent);margin-right:6px;
+.day-id .live{
+  display:inline-block;width:7px;height:7px;border-radius:50%;
+  background:var(--accent);margin-right:6px;vertical-align:middle;
+  box-shadow:0 0 8px var(--accent);
   animation:pulse 1.6s ease-in-out infinite;
-  vertical-align:middle;margin-top:-2px;
 }
-@keyframes pulse{
-  0%,100%{box-shadow:0 0 0 0 rgba(216,64,59,0.5)}
-  50%{box-shadow:0 0 0 8px rgba(216,64,59,0)}
-}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(74,142,255,0.7)}50%{box-shadow:0 0 0 8px rgba(74,142,255,0)}}
 .day-date{
-  font-family:'Fraunces',serif;
-  font-size:30px;font-weight:800;letter-spacing:-0.5px;
+  font-size:26px;font-weight:800;letter-spacing:-0.6px;
   margin-top:2px;line-height:1.05;
 }
 .day-dow{
-  font-size:15px;color:var(--ink-soft);font-weight:500;
+  font-size:13px;font-weight:500;color:var(--text-soft);
   margin-top:2px;
+  font-family:'JetBrains Mono',monospace;letter-spacing:0.4px;
 }
-.day-emoji{font-size:36px;line-height:1}
+.day-tag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;font-weight:600;letter-spacing:1px;
+  text-transform:uppercase;color:var(--text-mute);
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--line);
+  padding:4px 9px;border-radius:6px;
+}
+body.light .day-tag{background:rgba(0,0,0,0.03)}
 
 .day-body{padding:6px 20px 18px}
-
-/* row of info: icon + label/value */
-.info-row{
-  display:flex;align-items:flex-start;gap:12px;
-  padding:10px 0;border-top:1px solid var(--line);
+.row{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:10px 0;border-top:1px solid var(--line-soft);
 }
-.info-row:first-of-type{border-top:none;padding-top:6px}
-.info-icon{
-  width:36px;height:36px;flex-shrink:0;
-  background:var(--bg-soft);border-radius:10px;
+.row:first-of-type{border-top:none;padding-top:6px}
+.row-ico{
+  width:32px;height:32px;flex-shrink:0;border-radius:8px;
+  background:rgba(74,142,255,0.08);
+  border:1px solid rgba(74,142,255,0.18);
   display:flex;align-items:center;justify-content:center;
-  font-size:18px;
+  color:var(--accent);
 }
-.info-text{flex:1;min-width:0}
-.info-label{
-  font-size:12px;font-weight:600;
-  color:var(--ink-mute);letter-spacing:0.4px;
-  text-transform:uppercase;
+.row-ico .material-symbols-outlined{font-size:18px}
+.row-text{flex:1;min-width:0}
+.row-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;font-weight:600;letter-spacing:1.2px;
+  text-transform:uppercase;color:var(--text-mute);
 }
-.info-value{
-  font-size:16px;font-weight:600;color:var(--ink);
-  line-height:1.35;margin-top:1px;
-  word-break:break-word;
+.row-value{
+  font-size:15px;color:var(--text);font-weight:500;
+  line-height:1.4;margin-top:2px;word-break:break-word;
 }
-.info-value.big{font-size:18px;font-weight:700}
-.info-extra{
-  font-size:14px;color:var(--ink-soft);line-height:1.45;
-  margin-top:3px;
+.row-value.b{font-weight:700}
+.row-extra{
+  font-size:13px;color:var(--text-soft);line-height:1.45;margin-top:3px;
 }
 
-/* group split chip */
-.split-chip{
-  display:inline-block;font-size:12px;font-weight:700;
-  padding:4px 10px;border-radius:999px;
-  margin-top:8px;letter-spacing:0.3px;
+.chip{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;font-weight:600;letter-spacing:0.6px;
+  padding:5px 10px;border-radius:999px;
+  margin-top:10px;
 }
-.split-chip.split{background:var(--accent-soft);color:var(--accent)}
-.split-chip.together{background:rgba(61,142,90,0.15);color:var(--green)}
+.chip.split{background:rgba(255,87,87,0.10);color:var(--red);border:1px solid rgba(255,87,87,0.25)}
+.chip.together{background:rgba(52,211,153,0.10);color:var(--accent-2);border:1px solid rgba(52,211,153,0.25)}
 
-/* ── Hotel card (info tab) ── */
-.hotel-card{
-  background:var(--bg-card);border-radius:18px;
-  padding:18px 20px;margin-bottom:12px;
-  box-shadow:var(--shadow);
-  border:1px solid var(--line);
+/* ── Hotel card ── */
+.hotel{
+  padding:18px 20px;
 }
 .hotel-dates{
-  font-size:13px;font-weight:700;letter-spacing:1px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;font-weight:700;letter-spacing:1.5px;
   text-transform:uppercase;color:var(--accent);
-  margin-bottom:4px;
+  margin-bottom:6px;
 }
 .hotel-name{
-  font-family:'Fraunces',serif;
-  font-size:22px;font-weight:800;line-height:1.15;
-  letter-spacing:-0.3px;color:var(--ink);
-  margin-bottom:6px;
+  font-size:20px;font-weight:800;letter-spacing:-0.3px;
+  line-height:1.15;margin-bottom:6px;
 }
 .hotel-meta{
-  font-size:14px;color:var(--ink-soft);
-  line-height:1.5;
+  font-size:13px;color:var(--text-soft);line-height:1.5;
 }
-.hotel-actions{
-  display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;
-}
+.hotel-meta b{color:var(--text);font-weight:600}
+.hotel-actions{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
 .btn{
   display:inline-flex;align-items:center;gap:6px;
-  padding:10px 16px;border-radius:999px;
-  font-size:14px;font-weight:600;
+  padding:9px 14px;border-radius:10px;
+  font-size:13px;font-weight:600;letter-spacing:0.2px;
   text-decoration:none;cursor:pointer;
   border:1px solid var(--line);
-  background:var(--bg-soft);color:var(--ink);
+  background:rgba(74,142,255,0.10);
+  color:var(--accent);
   transition:transform 0.15s var(--ease),background 0.15s;
-  -webkit-tap-highlight-color:transparent;
 }
 .btn:active{transform:scale(0.95)}
-.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
-.btn.outline{background:transparent}
+.btn:hover{background:rgba(74,142,255,0.18)}
+.btn .material-symbols-outlined{font-size:16px}
 
 /* ── Food card ── */
-.food-card{
-  background:var(--bg-card);border-radius:16px;
-  padding:16px 18px;margin-bottom:10px;
-  box-shadow:var(--shadow);border:1px solid var(--line);
+.food{
+  padding:0;overflow:hidden;
 }
+.food-img{
+  width:100%;aspect-ratio:16/9;
+  display:block;object-fit:cover;
+  background:linear-gradient(135deg,#1A1A28,#0E0E18);
+  border-bottom:1px solid var(--line);
+}
+.food-img.fail{
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text-mute);font-size:12px;letter-spacing:1px;
+  text-transform:uppercase;font-family:'JetBrains Mono',monospace;
+}
+.food-body{padding:14px 16px 16px}
 .food-name{
-  font-family:'Fraunces',serif;
-  font-size:18px;font-weight:700;letter-spacing:-0.2px;
-  color:var(--ink);margin-bottom:4px;
-}
-.food-meta{
-  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
-  font-size:13px;color:var(--ink-mute);font-weight:500;
+  font-size:17px;font-weight:800;letter-spacing:-0.2px;
   margin-bottom:6px;
 }
-.food-pill{
-  background:var(--bg-soft);padding:3px 10px;border-radius:999px;
-  font-size:12px;font-weight:600;color:var(--ink-soft);
-}
-.food-pill.city{background:var(--accent-soft);color:var(--accent)}
-.food-summary{
-  font-size:14px;color:var(--ink-soft);
-  line-height:1.5;
-}
-.food-sg{
-  font-size:13px;color:var(--ink-mute);
-  font-style:italic;margin-top:6px;
-}
-
-/* city group header on food tab */
-.city-section{margin-top:24px}
-.city-section:first-of-type{margin-top:0}
-.city-head{
-  font-family:'Fraunces',serif;
-  font-size:22px;font-weight:800;
-  color:var(--ink);margin-bottom:10px;
-  display:flex;align-items:baseline;gap:10px;
-}
-.city-head .count{
-  font-family:'Inter',sans-serif;
-  font-size:13px;font-weight:600;
-  color:var(--ink-mute);letter-spacing:0.5px;
-}
-
-/* ── Update card ── */
-.update-card{
-  background:var(--bg-card);border-radius:14px;
-  padding:14px 18px;margin-bottom:10px;
+.food-pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.pill{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;font-weight:600;letter-spacing:0.5px;
+  padding:3px 8px;border-radius:6px;
+  background:rgba(255,255,255,0.05);
+  color:var(--text-soft);
   border:1px solid var(--line);
-  border-left:5px solid var(--ink-mute);
-  box-shadow:var(--shadow);
 }
-.update-card.important{border-left-color:var(--gold)}
-.update-card.urgent{
-  border-left-color:var(--accent);
-  background:var(--accent-soft);
+body.light .pill{background:rgba(0,0,0,0.03)}
+.pill.city{
+  background:rgba(74,142,255,0.10);color:var(--accent);
+  border-color:rgba(74,142,255,0.22);
 }
-.update-meta{
-  font-size:12px;color:var(--ink-mute);
-  font-weight:600;letter-spacing:0.5px;
-  margin-bottom:4px;
+.food-why{
+  font-size:13.5px;color:var(--text-soft);line-height:1.5;
+  margin-bottom:10px;
 }
-.update-from{color:var(--ink);font-weight:700}
-.update-msg{
-  font-size:15px;color:var(--ink);
-  line-height:1.5;
+
+/* city section header */
+.city-section{margin-top:24px}
+.city-section:first-child{margin-top:0}
+.city-head{
+  display:flex;align-items:baseline;justify-content:space-between;
+  padding:8px 0 12px;border-bottom:1px solid var(--line);
+  margin-bottom:14px;
 }
-.update-tag{
-  display:inline-block;font-size:11px;font-weight:800;
-  letter-spacing:1px;text-transform:uppercase;
-  padding:2px 8px;border-radius:6px;
-  margin-left:6px;vertical-align:middle;
+.city-name{
+  font-size:18px;font-weight:800;letter-spacing:-0.3px;
 }
-.update-tag.urgent{background:var(--accent);color:#fff}
-.update-tag.important{background:var(--gold);color:#fff}
+.city-count{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;color:var(--text-mute);letter-spacing:1px;
+}
 
 /* ── People ── */
-.people-group{
-  background:var(--bg-card);border-radius:18px;
-  padding:18px 20px;margin-bottom:12px;
-  box-shadow:var(--shadow);border:1px solid var(--line);
+.group-card{padding:18px 20px}
+.group-head{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:6px;
 }
-.people-group h3{
-  font-family:'Fraunces',serif;
-  font-size:20px;font-weight:700;
-  margin-bottom:4px;display:flex;align-items:center;gap:8px;
+.group-head h3{font-size:17px;font-weight:800;letter-spacing:-0.2px}
+.group-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--accent);
 }
-.people-group .group-sub{
-  font-size:13px;color:var(--ink-mute);
-  margin-bottom:12px;
+.group-dot.g2{background:var(--accent-2)}
+.group-sub{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;color:var(--text-mute);letter-spacing:0.6px;
+  margin-bottom:12px;text-transform:uppercase;
 }
-.people-chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{
-  background:var(--bg-soft);
-  padding:8px 14px;border-radius:999px;
-  font-size:14px;font-weight:600;color:var(--ink);
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.name-chip{
+  background:rgba(255,255,255,0.04);
   border:1px solid var(--line);
+  padding:7px 12px;border-radius:8px;
+  font-size:13px;font-weight:600;color:var(--text);
 }
+body.light .name-chip{background:rgba(0,0,0,0.03)}
+
+/* ── Update card ── */
+.update{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-left:3px solid var(--text-mute);
+  border-radius:var(--radius-sm);
+  padding:12px 16px;margin-bottom:10px;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
+.update.important{border-left-color:var(--gold)}
+.update.urgent{border-left-color:var(--red);background:rgba(255,87,87,0.05)}
+.update-meta{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;color:var(--text-mute);letter-spacing:0.5px;
+  margin-bottom:5px;
+}
+.update-meta .from{color:var(--text);font-weight:700}
+.update-msg{font-size:14px;color:var(--text);line-height:1.45}
+.update-tag{
+  display:inline-block;font-family:'JetBrains Mono',monospace;
+  font-size:9.5px;font-weight:700;letter-spacing:1px;
+  padding:2px 7px;border-radius:5px;
+  margin-left:6px;text-transform:uppercase;
+}
+.update-tag.urgent{background:rgba(255,87,87,0.18);color:var(--red)}
+.update-tag.important{background:rgba(255,191,0,0.18);color:var(--gold)}
 
 /* ── Loading ── */
-.loading{
-  text-align:center;padding:48px 20px;color:var(--ink-mute);
-}
+.loading{text-align:center;padding:48px 20px;color:var(--text-mute)}
 .spin{
-  width:32px;height:32px;margin:0 auto 12px;
-  border:3px solid var(--line);
+  width:28px;height:28px;margin:0 auto 12px;
+  border:2px solid var(--line);
   border-top-color:var(--accent);
-  border-radius:50%;
-  animation:spin 0.8s linear infinite;
+  border-radius:50%;animation:spin 0.8s linear infinite;
 }
 @keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px}
 
 /* ── Bottom nav ── */
 .nav{
+  position:relative;z-index:5;
   height:var(--tab-h);min-height:var(--tab-h);
   display:flex;align-items:stretch;
-  background:var(--bg-card);
+  background:rgba(6,6,14,0.82);
+  backdrop-filter:blur(18px) saturate(160%);
+  -webkit-backdrop-filter:blur(18px) saturate(160%);
   border-top:1px solid var(--line);
-  padding-bottom:max(env(safe-area-inset-bottom,0px),0px);
-  position:relative;z-index:10;
-  box-shadow:0 -1px 0 var(--line);
 }
+body.light .nav{background:rgba(255,255,255,0.85)}
 .nav-btn{
   flex:1;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:4px;
-  background:none;border:none;color:var(--ink-mute);
-  font-size:11px;font-weight:600;letter-spacing:0.3px;
-  cursor:pointer;padding:6px 0;
-  transition:color 0.15s;
+  align-items:center;justify-content:center;gap:3px;
+  background:none;border:none;
+  color:var(--text-mute);cursor:pointer;
+  padding:8px 0;transition:color 0.15s;
+  font-family:'Inter',sans-serif;
 }
-.nav-btn .nav-emoji{
-  font-size:24px;line-height:1;filter:grayscale(0.4) opacity(0.7);
-  transition:filter 0.15s,transform 0.2s var(--ease);
+.nav-btn .material-symbols-outlined{font-size:24px;line-height:1}
+.nav-btn span{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;font-weight:600;letter-spacing:0.6px;
+  text-transform:uppercase;
 }
 .nav-btn.active{color:var(--accent)}
-.nav-btn.active .nav-emoji{filter:none;transform:translateY(-1px) scale(1.05)}
-.nav-btn span{text-transform:uppercase;font-size:10.5px}
-
-/* ── Empty ── */
-.empty{
-  text-align:center;padding:50px 24px;
-  color:var(--ink-mute);font-size:15px;
+.nav-btn.active .material-symbols-outlined{
+  font-variation-settings:'FILL' 1;
 }
 
-/* ── Anchored callouts ── */
-.callout{
-  background:var(--accent-soft);
-  border-radius:14px;padding:14px 16px;
-  margin-bottom:14px;
-  display:flex;gap:12px;align-items:flex-start;
-  border:1px solid rgba(216,64,59,0.18);
-}
-.callout-icon{font-size:24px;line-height:1;margin-top:2px}
-.callout-body{flex:1}
-.callout-title{
-  font-weight:700;color:var(--accent);font-size:15px;
-  margin-bottom:2px;
-}
-.callout-text{font-size:14px;color:var(--ink);line-height:1.45}
-
-/* fade in */
+/* utility */
 .fade{animation:fadeIn 0.3s var(--ease)}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.empty{text-align:center;padding:48px 20px;color:var(--text-mute);font-size:14px}
 
-/* big tablet style */
+/* responsive */
 @media(min-width:768px){
-  .container{padding:20px 28px 32px}
-  html,body{font-size:18px}
-  .hero h1{font-size:46px}
+  html,body{font-size:17px}
+  .wrap{padding:18px 24px 32px}
+  .hero h1{font-size:38px}
 }
 </style>
 </head>
 <body>
 
-<header class="header">
+<div class="bg" aria-hidden="true">
+  <div class="aurora"><div class="aurora-3"></div></div>
+</div>
+
+<header class="hdr">
   <div class="brand">
-    <span class="brand-flag">
-      <span class="brand-flag-r"></span>
-      <span class="brand-flag-w"></span>
-    </span>
-    <span>Yap California</span>
+    <div>
+      <div class="brand-mark">YAP / CALI</div>
+      <div class="brand-sub">May 14 – 26 · 2026</div>
+    </div>
   </div>
-  <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">🌙</button>
+  <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">
+    <span class="material-symbols-outlined" id="themeIcon">light_mode</span>
+  </button>
 </header>
 
 <main class="main">
   <div class="tab active" id="tabToday">
-    <div class="container" id="todayContent">
-      <div class="loading"><div class="spin"></div>Loading…</div>
+    <div class="wrap" id="todayContent">
+      <div class="loading"><div class="spin"></div><div class="loading-text">Loading…</div></div>
     </div>
   </div>
   <div class="tab" id="tabTrip">
-    <div class="container" id="tripContent">
-      <div class="loading"><div class="spin"></div>Loading…</div>
+    <div class="wrap" id="tripContent">
+      <div class="loading"><div class="spin"></div><div class="loading-text">Loading…</div></div>
     </div>
   </div>
   <div class="tab" id="tabHotels">
-    <div class="container" id="hotelsContent">
-      <div class="loading"><div class="spin"></div>Loading…</div>
+    <div class="wrap" id="hotelsContent">
+      <div class="loading"><div class="spin"></div><div class="loading-text">Loading…</div></div>
     </div>
   </div>
   <div class="tab" id="tabFood">
-    <div class="container" id="foodContent">
-      <div class="loading"><div class="spin"></div>Loading…</div>
+    <div class="wrap" id="foodContent">
+      <div class="loading"><div class="spin"></div><div class="loading-text">Loading…</div></div>
     </div>
   </div>
   <div class="tab" id="tabPeople">
-    <div class="container" id="peopleContent">
-      <div class="loading"><div class="spin"></div>Loading…</div>
+    <div class="wrap" id="peopleContent">
+      <div class="loading"><div class="spin"></div><div class="loading-text">Loading…</div></div>
     </div>
   </div>
 </main>
 
 <nav class="nav">
-  <button class="nav-btn active" data-tab="tabToday"><span class="nav-emoji">🏠</span><span>Today</span></button>
-  <button class="nav-btn" data-tab="tabTrip"><span class="nav-emoji">📅</span><span>Days</span></button>
-  <button class="nav-btn" data-tab="tabHotels"><span class="nav-emoji">🛎️</span><span>Hotels</span></button>
-  <button class="nav-btn" data-tab="tabFood"><span class="nav-emoji">🍽️</span><span>Food</span></button>
-  <button class="nav-btn" data-tab="tabPeople"><span class="nav-emoji">👨‍👩‍👧</span><span>Family</span></button>
+  <button class="nav-btn active" data-tab="tabToday"><span class="material-symbols-outlined">home</span><span>Today</span></button>
+  <button class="nav-btn" data-tab="tabTrip"><span class="material-symbols-outlined">calendar_month</span><span>Days</span></button>
+  <button class="nav-btn" data-tab="tabHotels"><span class="material-symbols-outlined">hotel</span><span>Hotels</span></button>
+  <button class="nav-btn" data-tab="tabFood"><span class="material-symbols-outlined">restaurant</span><span>Food</span></button>
+  <button class="nav-btn" data-tab="tabPeople"><span class="material-symbols-outlined">groups</span><span>Family</span></button>
 </nav>
 
 <script>
-// ============================================================================
-// YAP FAMILY CALIFORNIA TRIP PLANNER
-// Designed for non-tech users: large text, clear hierarchy, big touch targets.
-// ============================================================================
-
 const SHEET_ID = '1DBGY85rvSrGTGqw4dTYXGiMesSY9LLnvCdyI7On53BQ';
-const CACHE_KEY = 'yap_trip_v3';
+const CACHE_KEY = 'yap_trip_v4';
 const CACHE_TTL = 60 * 1000;
-
 const TRIP_START = new Date('2026-05-14T00:00:00-07:00');
 const TRIP_END = new Date('2026-05-26T23:59:59-07:00');
 
-// ── Fallback schedule (used if sheet unreachable) ──
+// Per-day icon (Material Symbols name) instead of emoji
+const VIBE_ICON = {
+  chill:'spa', road:'directions_car', party:'celebration',
+  shop:'shopping_bag', food:'restaurant', fun:'castle',
+  beach:'beach_access', wine:'wine_bar', home:'home', farewell:'flight_takeoff',
+  transition:'sync_alt', celebration:'celebration', theme:'castle',
+  relaxed:'spa', active:'directions_run', wind:'wind_power'
+};
+
 const FALLBACK = [
-  {day:1,date:'May 14',dow:'Thursday',location:'San Jose',accommodation:'Holiday Inn San Jose',events:'Land at SFO around 8pm, drive to San Jose, rest after long flight.',driveTime:'1 hr (SFO → SJ)',vibe:'chill',notes:'Late arrival ~8pm local'},
-  {day:2,date:'May 15',dow:'Friday',location:'San Jose → Los Angeles',accommodation:'Bicycle Club Hotel & Casino (whole family)',events:'Road trip down to LA. Stop for In-N-Out & Harris Ranch lunch. Dinner: Newport Lobster Shack. Eugene + Vanessa land LAX 12:00 AM — pickup needed.',driveTime:'5–6 hr drive',vibe:'road',notes:'Eugene & Vanessa arrive LAX 12am — coordinate pickup with Danzel'},
-  {day:3,date:'May 16',dow:'Saturday',location:'LA → Las Vegas',accommodation:'Horseshoe Las Vegas (Group 1) / Bicycle Club LA (Group 2)',events:"Porto's breakfast → Graduation ceremony → Group 1 drives to Vegas for EDC, Group 2 stays at Bicycle Club.",driveTime:'5 hr drive (Vegas group)',vibe:'party',notes:'Splits: G1 to Vegas, G2 stays in LA',split:true},
-  {day:4,date:'May 17',dow:'Sunday',location:'Las Vegas',accommodation:'Horseshoe Las Vegas',events:'Group 2 drives up to Vegas. Hell\'s Kitchen dinner. EDC Night 2 for Group 1.',driveTime:'—',vibe:'party',notes:'Family reunites in Vegas',split:true},
-  {day:5,date:'May 18',dow:'Monday',location:'Las Vegas',accommodation:'Horseshoe Las Vegas',events:'Recovery day. Wynn Buffet, shopping at Premium Outlets, Cirque du Soleil "O".',driveTime:'—',vibe:'shop',notes:'All together in Vegas'},
-  {day:6,date:'May 19',dow:'Tuesday',location:'Vegas → Los Angeles',accommodation:'Commerce Casino (half) / Pixar Hotel (half)',events:"Drive back to LA. Hang with Eugene + Vanessa. Vanessa's TikTok food list. Dinner: Cali Tacos giant burritos.",driveTime:'4 hr drive',vibe:'road',notes:'Group splits across Commerce Casino + Pixar Hotel',split:true},
-  {day:7,date:'May 20',dow:'Wednesday',location:'Orange County',accommodation:'Commerce Casino (half) / Pixar Hotel (half)',events:'DISNEYLAND + Adventureland for Disney group. Santa Ana Vietnam Town shopping for non-Disney group. Lunch together.',driveTime:'—',vibe:'fun',notes:'Pixar group closer to park',split:true},
-  {day:8,date:'May 21',dow:'Thursday',location:'OC → Malibu',accommodation:'Malibu Airbnb',events:'Eugene flies back home. Drive PCH to Malibu. Beach + sunset at El Matador. Neptune\'s Net dinner.',driveTime:'1.5 hr drive',vibe:'beach',notes:'Eugene departs from LAX'},
-  {day:9,date:'May 22',dow:'Friday',location:'Malibu → Paso Robles',accommodation:'Paso Robles Hotel',events:'Malibu Farm brunch. Drive up to wine country. Tin City + winery visits.',driveTime:'3.5 hr drive',vibe:'wine',notes:'Together'},
-  {day:10,date:'May 23',dow:'Saturday',location:'Paso → San Jose',accommodation:'San Jose home base',events:'Brown Butter Cookie Co stop. Drive home to SJ. Homecoming dinner.',driveTime:'2.5 hr drive',vibe:'home',notes:'Together'},
-  {day:11,date:'May 24',dow:'Sunday',location:'San Jose',accommodation:'San Jose home',events:'Pickleball tournament + brunch. Last big group day.',driveTime:'—',vibe:'chill',notes:'Together'},
-  {day:12,date:'May 25',dow:'Monday',location:'San Jose',accommodation:'San Jose home',events:'Free day. Shopping at Santana Row, Great Mall. Ee flies out today.',driveTime:'—',vibe:'shop',notes:'Ee departs'},
-  {day:13,date:'May 26',dow:'Tuesday',location:'San Jose → SFO',accommodation:'—',events:'Pack up. Farewell brunch. Airport drop-offs. Goodbye California!',driveTime:'1 hr to SFO',vibe:'farewell',notes:'Everyone departs'},
+  {day:1,date:'May 14',dow:'Thursday',location:'San Jose',accommodation:'885 Dorel Drive — San Jose home',events:'Land SFO ~8pm. Drive to family home. Rest after long flight.',driveTime:'1 hr (SFO → SJ)',vibe:'chill',notes:'Private home — no hotel check-in.'},
+  {day:2,date:'May 15',dow:'Friday',location:'San Jose → LA',accommodation:'Bicycle Club Hotel & Casino',events:'Drive to LA. In-N-Out lunch. Boston Lobster (Arcadia) for first US dinner. Eugene + Vanessa land LAX 12 AM.',driveTime:'5–6 hr drive',vibe:'road',notes:'LAX pickup at midnight — coordinate with Danzel.'},
+  {day:3,date:'May 16',dow:'Saturday',location:'LA → Las Vegas',accommodation:'Horseshoe Vegas (G1) / Bicycle Club LA (G2)',events:"Porto's breakfast → Graduation → Group 1 to Vegas, Group 2 stays in LA.",driveTime:'5 hr drive (Vegas)',vibe:'party',notes:'EDC Night 1 for Group 1.',split:true},
+  {day:4,date:'May 17',dow:'Sunday',location:'Las Vegas',accommodation:'Horseshoe Las Vegas',events:"Group 2 drives up. Hell's Kitchen dinner. EDC Night 2 for G1.",driveTime:'—',vibe:'party',notes:'Family reunites in Vegas.',split:true},
+  {day:5,date:'May 18',dow:'Monday',location:'Las Vegas',accommodation:'Horseshoe Las Vegas',events:'Bacchanal Buffet, shopping, Cirque "O".',driveTime:'—',vibe:'shop',notes:'All together.'},
+  {day:6,date:'May 19',dow:'Tuesday',location:'Vegas → LA',accommodation:'Commerce Casino / Pixar Hotel',events:"Drive back to LA. Cali Tacos + TikTok food list with Eugene + Vanessa.",driveTime:'4 hr drive',vibe:'road',notes:'Hotel split: Commerce + Pixar.',split:true},
+  {day:7,date:'May 20',dow:'Wednesday',location:'Orange County',accommodation:'Commerce Casino / Pixar Hotel',events:'DISNEYLAND + Adventureland for Disney group. Santa Ana shopping for the rest.',driveTime:'—',vibe:'fun',notes:'Pixar group closer to park.',split:true},
+  {day:8,date:'May 21',dow:'Thursday',location:'OC → Malibu',accommodation:'Malibu Airbnb',events:'Eugene flies home. Drive PCH. Sunset at El Matador.',driveTime:'1.5 hr drive',vibe:'beach',notes:'Eugene departs LAX morning.'},
+  {day:9,date:'May 22',dow:'Friday',location:'Malibu → Paso Robles',accommodation:'Paso Robles Hotel',events:'Malibu Farm brunch. Drive to wine country. Tin City evening.',driveTime:'3.5 hr drive',vibe:'wine',notes:'Together.'},
+  {day:10,date:'May 23',dow:'Saturday',location:'Paso → San Jose',accommodation:'San Jose home base',events:'Brown Butter Cookies stop. Drive home.',driveTime:'2.5 hr drive',vibe:'home',notes:'Together.'},
+  {day:11,date:'May 24',dow:'Sunday',location:'San Jose',accommodation:'San Jose home',events:'Pickleball + brunch. Last big group day.',driveTime:'—',vibe:'chill',notes:'Together.'},
+  {day:12,date:'May 25',dow:'Monday',location:'San Jose',accommodation:'San Jose home',events:'Free day. Shopping at Santana Row. Ee flies out.',driveTime:'—',vibe:'shop',notes:'Ee departs.'},
+  {day:13,date:'May 26',dow:'Tuesday',location:'San Jose → SFO',accommodation:'—',events:'Pack up. Farewell brunch. Airport drop-offs.',driveTime:'1 hr to SFO',vibe:'farewell',notes:'Everyone departs.'},
 ];
 
-// Group definitions used for hotel split clarity.
 const GROUP_1 = ['Danzel','Alvin','Angel','Eugene','Vanessa','Jujuhub','Amazi'];
 const GROUP_2 = ['Mom 1','Mom 2','Mom 3','Mom 4','Uncle Yap','Uncle Jimy','Uncle Steven','Ah Gong','Margaret','Da ma','Dad','Aunty Margaret'];
 
-const VIBE_EMOJI = {
-  chill:'🌴',road:'🚗',party:'🎉',shop:'🛍️',food:'🍜',fun:'🏰',
-  beach:'🏖️',wine:'🍷',home:'🏠',farewell:'✈️',
-};
-
-// Hotel directory for the Hotels tab. Each entry maps to one accommodation block.
-const HOTEL_DIR = [
-  {nights:'May 14',name:'Holiday Inn San Jose',city:'San Jose',who:'Whole family',map:'https://maps.google.com/?q=Holiday+Inn+San+Jose+Airport',note:'Arrival night after long flight'},
-  {nights:'May 15 – May 16',name:'Bicycle Club Hotel & Casino',city:'Bell Gardens (LA area)',who:'Whole family May 15. Group 2 stays May 16.',map:'https://maps.google.com/?q=Bicycle+Club+Hotel+Casino+Bell+Gardens',note:'New plan: replaces Ayres Diamond Bar. Eugene & Vanessa join here on May 15.'},
-  {nights:'May 16 – May 18',name:'Horseshoe Las Vegas',city:'Las Vegas',who:'Group 1 (May 16) → whole family by May 17',map:'https://maps.google.com/?q=Horseshoe+Las+Vegas',note:'Vegas base for EDC + recovery + buffet days'},
-  {nights:'May 19 – May 20',name:'Commerce Casino (half) + Pixar Hotel (half)',city:'Anaheim / Commerce',who:'Family splits across two hotels',map:'https://maps.google.com/?q=Pixar+Place+Hotel+Anaheim',note:'Pixar group is closer to Disneyland. Commerce group has full casino amenities.'},
-  {nights:'May 21',name:'Malibu Airbnb',city:'Malibu',who:'~14 remaining (Eugene departed)',map:'https://maps.google.com/?q=Malibu',note:'Beach + PCH sunset'},
-  {nights:'May 22',name:'Paso Robles Hotel',city:'Paso Robles',who:'Together',map:'https://maps.google.com/?q=Paso+Robles+CA',note:'Wine country night'},
-  {nights:'May 23 – May 26',name:'San Jose home base',city:'San Jose',who:'Together',map:'https://maps.google.com/?q=San+Jose+CA',note:'Final stretch + departures'},
+const HOTELS = [
+  {nights:'May 14',name:'885 Dorel Drive',city:'San Jose · family home',who:'Whole family — arrival night',map:'https://maps.google.com/?q=885+Dorel+Drive+San+Jose',note:'Private residence. No hotel check-in.'},
+  {nights:'May 15 – 16',name:'Bicycle Club Hotel & Casino',city:'Bell Gardens · LA',who:'Whole family May 15. Group 2 stays May 16.',map:'https://maps.google.com/?q=Bicycle+Club+Hotel+Casino+Bell+Gardens',note:'Replaces Ayres Diamond Bar. Eugene + Vanessa arrive LAX 12 AM May 15.'},
+  {nights:'May 16 – 18',name:'Horseshoe Las Vegas',city:'Las Vegas',who:'Group 1 from May 16. All together May 17 onward.',map:'https://maps.google.com/?q=Horseshoe+Las+Vegas',note:'Vegas base for EDC + recovery + buffet days.'},
+  {nights:'May 19 – 20',name:'Commerce Casino + Pixar Hotel',city:'Commerce / Anaheim',who:'Family splits across two hotels.',map:'https://maps.google.com/?q=Pixar+Place+Hotel+Anaheim',note:'Pixar group closer to Disneyland. Commerce group has casino amenities.'},
+  {nights:'May 21',name:'Malibu Airbnb',city:'Malibu',who:'~14 remaining (Eugene departed).',map:'https://maps.google.com/?q=Malibu',note:'Beach + PCH sunset.'},
+  {nights:'May 22',name:'Paso Robles Hotel',city:'Paso Robles',who:'Together.',map:'https://maps.google.com/?q=Paso+Robles+CA',note:'Wine-country night.'},
+  {nights:'May 23 – 26',name:'San Jose home base',city:'San Jose',who:'Together.',map:'https://maps.google.com/?q=San+Jose+CA',note:'Final stretch + departures.'},
 ];
 
-// ── App state ──
-let state = {
-  schedule:FALLBACK.slice(),
-  food:[],
-  updates:[],
-  loaded:false,
-};
+let state = { schedule:FALLBACK.slice(), food:[], updates:[], loaded:false };
 
-// ── Sheet fetcher (gviz) ──
-function sheetUrl(name){
-  return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(name)}`;
-}
-
+function sheetUrl(name){return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(name)}`}
 function parseGviz(text){
   const m = text.match(/google\.visualization\.Query\.setResponse\((.+)\);?\s*$/s);
   if(!m) return null;
@@ -623,214 +668,156 @@ function parseGviz(text){
     const data = JSON.parse(m[1]);
     if(!data.table || !data.table.rows) return null;
     const rawRows = data.table.rows.map(r =>
-      (r.c||[]).map(cell => cell ? (cell.v!==null && cell.v!==undefined ? String(cell.v) : (cell.f||'')) : '')
+      (r.c||[]).map(c => c ? (c.v!==null && c.v!==undefined ? String(c.v) : (c.f||'')) : '')
     );
-    let headerIdx = 0;
+    let h = 0;
     for(let i=0;i<Math.min(rawRows.length,5);i++){
-      const row = rawRows[i];
-      const shorts = row.filter(c => c && c.length>0 && c.length<30 && !/^\d+$/.test(c)).length;
-      if(shorts>=3){ headerIdx=i; break; }
+      const shorts = rawRows[i].filter(c => c && c.length>0 && c.length<30 && !/^\d+$/.test(c)).length;
+      if(shorts>=3){ h=i; break; }
     }
-    const headers = rawRows[headerIdx].map((h,i) => h || `col_${i}`);
-    return rawRows.slice(headerIdx+1)
+    const headers = rawRows[h].map((x,i) => x || `c_${i}`);
+    return rawRows.slice(h+1)
       .filter(row => row.some(c => c && c.trim()))
-      .map(row => {
-        const o = {};
-        headers.forEach((h,i)=>{ o[h]=row[i]||''; });
-        return o;
-      });
-  }catch(e){ console.warn('parseGviz',e); return null; }
-}
-
-async function fetchTab(name){
-  try{
-    const r = await fetch(sheetUrl(name));
-    return parseGviz(await r.text());
+      .map(row => { const o = {}; headers.forEach((k,i)=>o[k]=row[i]||''); return o; });
   }catch(e){ return null; }
 }
+async function fetchTab(name){ try{ const r=await fetch(sheetUrl(name)); return parseGviz(await r.text()); }catch(e){ return null; } }
 
 async function loadAll(){
-  // try cache first
   try{
-    const cached = localStorage.getItem(CACHE_KEY);
-    if(cached){
-      const {data,ts} = JSON.parse(cached);
+    const c = localStorage.getItem(CACHE_KEY);
+    if(c){
+      const {data,ts} = JSON.parse(c);
       if(Date.now()-ts < CACHE_TTL){
-        applyData(data);
-        renderAll();
-        // background refresh
-        fetchAll().then(d => { if(d){ applyData(d); cache(d); renderAll(); }});
+        applyData(data); render();
+        fetchAll().then(d => { if(d){ applyData(d); cache(d); render(); }});
         return;
       }
     }
   }catch(e){}
-  const data = await fetchAll();
-  if(data){ applyData(data); cache(data); }
-  state.loaded = true;
-  renderAll();
+  const d = await fetchAll();
+  if(d){ applyData(d); cache(d); }
+  state.loaded = true; render();
 }
-
 async function fetchAll(){
-  const [sched,food1,food2,upd] = await Promise.allSettled([
+  const [s,f,u] = await Promise.allSettled([
     fetchTab('Schedule Overview'),
-    fetchTab('FOOD'),
     fetchTab('Food Recs (First Timer)'),
     fetchTab('Updates'),
   ]);
-  const out = {};
-  if(sched.status==='fulfilled' && sched.value) out.schedule = sched.value;
-  if(food1.status==='fulfilled' && food1.value) out.food = food1.value;
-  if(food2.status==='fulfilled' && food2.value) out.foodRecs = food2.value;
-  if(upd.status==='fulfilled' && upd.value) out.updates = upd.value;
-  return Object.keys(out).length ? out : null;
+  const o = {};
+  if(s.status==='fulfilled' && s.value) o.schedule = s.value;
+  if(f.status==='fulfilled' && f.value) o.food = f.value;
+  if(u.status==='fulfilled' && u.value) o.updates = u.value;
+  return Object.keys(o).length ? o : null;
 }
-
-function cache(d){
-  try{ localStorage.setItem(CACHE_KEY, JSON.stringify({data:d,ts:Date.now()})); }catch(e){}
-}
+function cache(d){ try{ localStorage.setItem(CACHE_KEY, JSON.stringify({data:d,ts:Date.now()})); }catch(e){} }
 
 function applyData(d){
   if(d.schedule && d.schedule.length){
     const merged = d.schedule.map((r,i) => {
       const dn = parseInt(r['Day']||r['day']||'') || (i+1);
       const fb = FALLBACK[i] || {};
+      const acc = r['Accommodation'] || fb.accommodation || '';
+      const evt = r['Key Events'] || r['Events'] || fb.events || '';
       return {
         day:dn,
         date:r['Date']||fb.date||'',
         dow:r['Day of Week']||fb.dow||'',
         location:r['Location']||fb.location||'',
-        accommodation:r['Accommodation']||fb.accommodation||'',
-        events:r['Key Events']||r['Events']||fb.events||'',
+        accommodation:acc,
+        events:evt,
         driveTime:r['Drive Time']||fb.driveTime||'',
         vibe:(r['Vibe']||fb.vibe||'chill').toLowerCase().split(/[\s\/]/)[0].replace(/[^a-z]/g,''),
         notes:r['Notes']||fb.notes||'',
         groupStatus:r['Group Status']||'',
-        split:(r['Group Status']||'').toLowerCase().includes('split') || (r['Accommodation']||'').includes('/') || (r['Key Events']||'').includes('Group 1'),
+        split: (r['Group Status']||'').toLowerCase().includes('split') || acc.includes('/') || evt.includes('Group 1'),
       };
     }).filter(s => s.location || s.events);
     if(merged.length) state.schedule = merged;
   }
-  if(d.food || d.foodRecs){
-    state.food = parseFoodRows(d.food||[], d.foodRecs||[]);
+  if(d.food){
+    state.food = d.food.map(r => ({
+      name:r['Spot']||'',
+      cuisine:r['Cuisine']||'',
+      city:r['City']||'',
+      why:r["Why It's Special"]||'',
+      price:r['Price/Pax']||'',
+      bestFor:r['Best For']||'',
+      photo:r['Photo']||'',
+      map:r['Maps']||'',
+    })).filter(f => f.name);
   }
   if(d.updates){
     state.updates = d.updates.map(r => ({
-      date:r['Date']||'',
-      time:r['Time']||'',
-      from:r['From']||'',
-      message:r['Message']||'',
-      priority:(r['Priority']||'normal').toLowerCase(),
+      date:r['Date']||'', time:r['Time']||'', from:r['From']||'',
+      message:r['Message']||'', priority:(r['Priority']||'normal').toLowerCase(),
     })).filter(u => u.message);
   }
 }
 
-function parseFoodRows(food, recs){
-  const out = [];
-  const seen = new Set();
-  const push = (entry) => {
-    if(!entry.name) return;
-    const key = entry.name.toLowerCase();
-    if(seen.has(key)) return;
-    seen.add(key);
-    out.push(entry);
-  };
-  food.forEach(f => {
-    push({
-      name: f['Restaurant']||f['Name']||f['Spot']||'',
-      cuisine: f['Cuisine']||f['Type']||'',
-      city: f['City']||f['Area']||f['Location']||f['Address / Area']||'',
-      price: f['Price']||f['Price/Pax']||f['Cost']||'',
-      summary: f['Notes']||f['Description']||f["Why It's Special"]||'',
-      bestFor: f['Best For']||'',
-      sg: f['SG Comparison']||f['SG Price']||'',
-    });
-  });
-  let currentCity = '';
-  recs.forEach(r => {
-    const spot = (r['Spot']||r['Restaurant']||r['Name']||'').trim();
-    if(!spot) return;
-    // detect city header rows
-    if(/^[A-Z][A-Z\s\/—\-]+$/.test(spot) && spot.length<40){
-      const s = spot.toUpperCase();
-      if(s.includes('SAN JOSE')) currentCity='San Jose';
-      else if(s.includes('LOS ANGELES') || s.includes(' LA ')||s==='LA') currentCity='Los Angeles';
-      else if(s.includes('DISNEY')) currentCity='Disneyland';
-      else if(s.includes('VEGAS')) currentCity='Las Vegas';
-      else if(s.includes('MALIBU')) currentCity='Malibu';
-      else if(s.includes('ORANGE')||s.includes(' OC')) currentCity='Orange County';
-      else if(s.includes('PASO')) currentCity='Paso Robles';
-      else currentCity = spot.split(' ').map(w=>w[0]+w.slice(1).toLowerCase()).join(' ');
-      return;
-    }
-    push({
-      name: spot,
-      cuisine: r['Cuisine']||r['Type']||'',
-      city: currentCity || r['Address / Area']||r['Area']||'',
-      price: r['Price/Pax']||r['Price']||'',
-      summary: r["Why It's Special"]||r['Description']||r['Notes']||'',
-      bestFor: r['Best For']||'',
-      sg: r['SG Comparison']||'',
-    });
-  });
-  return out;
-}
-
-// ── Helpers ──
-function tripDayNumber(){
+function tripDay(){
   const now = new Date();
   if(now < TRIP_START) return -1;
   if(now > TRIP_END) return 99;
-  return Math.floor((now - TRIP_START) / 86400000) + 1;
+  return Math.floor((now - TRIP_START)/86400000) + 1;
 }
-function daysUntilTrip(){
-  return Math.max(0, Math.ceil((TRIP_START - new Date())/86400000));
-}
+function daysUntil(){ return Math.max(0, Math.ceil((TRIP_START-new Date())/86400000)); }
 function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-function nl2br(s){ return esc(s).replace(/\n/g,'<br>'); }
+function ico(name){ return `<span class="material-symbols-outlined">${name}</span>`; }
 
-// ── Render: Today ──
 function renderToday(){
   const c = document.getElementById('todayContent');
-  const dn = tripDayNumber();
-
-  // pre-trip
+  const dn = tripDay();
   if(dn === -1){
-    const days = daysUntilTrip();
+    const days = daysUntil();
     const next = state.schedule[0];
     c.innerHTML = `
       <div class="hero fade">
-        <div class="hero-eyebrow">California Awaits</div>
-        <h1>Yap Family Trip 2026</h1>
-        <div class="hero-sub">May 14 – May 26 · 13 days · 21 family</div>
-        <div class="hero-stat">${days} day${days===1?'':'s'} to go</div>
+        <div class="hero-meta">SG → CA · 13 days · 21 family</div>
+        <h1>California Awaits</h1>
+        <div class="hero-sub">Yap family trip · May 14 to 26, 2026</div>
+        <div class="hero-stats">
+          <div class="stat"><span class="accent">T-${days}</span> days</div>
+          <div class="stat">21 PAX</div>
+          <div class="stat">7 hotels</div>
+        </div>
       </div>
-      ${callout('🛬','Eugene + Vanessa pickup','LAX, 12:00 AM May 15 — coordinate with Danzel.')}
-      ${callout('🛎️','New hotel plan','Whole family at <b>Bicycle Club Hotel & Casino</b> for the LA portion (May 15–16). May 19–20 splits between <b>Commerce Casino</b> and <b>Pixar Hotel</b>.')}
-
+      <div class="callout urgent fade">
+        <div class="callout-ico">${ico('flight')}</div>
+        <div class="callout-body">
+          <div class="callout-title">LAX pickup · 12:00 AM May 15</div>
+          <div class="callout-text">Eugene + Vanessa land at LAX at midnight. Coordinate the pickup with Danzel.</div>
+        </div>
+      </div>
+      <div class="callout fade">
+        <div class="callout-ico">${ico('hotel')}</div>
+        <div class="callout-body">
+          <div class="callout-title">Hotel plan</div>
+          <div class="callout-text">Day 1 at <b>885 Dorel Drive</b> (SJ home). May 15–16 at <b>Bicycle Club</b>. May 19–20 splits <b>Commerce</b> + <b>Pixar Hotel</b>.</div>
+        </div>
+      </div>
       <div class="section">
-        <div class="section-title">First day plan</div>
-        ${dayCardHTML(next, false)}
+        <div class="section-title"><h2>First day</h2><span class="meta">Day 1</span></div>
+        ${dayCard(next, false)}
       </div>
-
       <div class="section">
-        <div class="section-title">Latest news</div>
-        ${renderUpdatesList(true)}
-      </div>
-    `;
+        <div class="section-title"><h2>Latest news</h2><span class="meta">${state.updates.length} entries</span></div>
+        ${updatesList(true)}
+      </div>`;
     return;
   }
   if(dn >= 99){
     c.innerHTML = `
       <div class="hero fade">
-        <div class="hero-eyebrow">Trip Complete</div>
+        <div class="hero-meta">Trip complete</div>
         <h1>Welcome home</h1>
-        <div class="hero-sub">13 days, 6 cities, countless memories.</div>
+        <div class="hero-sub">13 days · 6 cities · countless memories.</div>
       </div>
       <div class="section">
-        <div class="section-title">Recap</div>
-        ${state.schedule.map(s => dayCardHTML(s,false)).join('')}
-      </div>
-    `;
+        <div class="section-title"><h2>Recap</h2></div>
+        ${state.schedule.map(s => dayCard(s,false)).join('')}
+      </div>`;
     return;
   }
   const today = state.schedule.find(s => s.day === dn) || state.schedule[dn-1];
@@ -838,270 +825,260 @@ function renderToday(){
   if(!today){ c.innerHTML='<div class="empty">No schedule found.</div>'; return; }
   c.innerHTML = `
     <div class="hero fade">
-      <div class="hero-eyebrow">Today · Day ${today.day}</div>
+      <div class="hero-meta">Today · Day ${today.day} of 13</div>
       <h1>${esc(today.date)}</h1>
       <div class="hero-sub">${esc(today.location)}</div>
-      <div class="hero-stat">${VIBE_EMOJI[today.vibe]||'📅'} ${esc(today.dow)}</div>
+      <div class="hero-stats">
+        <div class="stat">${esc(today.dow).toUpperCase()}</div>
+        ${today.driveTime && today.driveTime !== '—' ? `<div class="stat">${esc(today.driveTime)}</div>` : ''}
+      </div>
     </div>
-    ${dayCardHTML(today, true, true)}
-    ${tomorrow ? `<div class="section"><div class="section-title">Tomorrow</div>${dayCardHTML(tomorrow, false)}</div>` : ''}
+    ${dayCard(today, true)}
+    ${tomorrow ? `<div class="section"><div class="section-title"><h2>Tomorrow</h2><span class="meta">Day ${tomorrow.day}</span></div>${dayCard(tomorrow, false)}</div>` : ''}
     <div class="section">
-      <div class="section-title">Latest news</div>
-      ${renderUpdatesList(true)}
-    </div>
-  `;
+      <div class="section-title"><h2>Latest news</h2></div>
+      ${updatesList(true)}
+    </div>`;
 }
 
-function callout(icon,title,html){
-  return `<div class="callout fade">
-    <div class="callout-icon">${icon}</div>
-    <div class="callout-body">
-      <div class="callout-title">${title}</div>
-      <div class="callout-text">${html}</div>
-    </div>
-  </div>`;
-}
-
-function dayCardHTML(s, isToday, expanded){
+function dayCard(s, isToday){
   if(!s) return '';
   const stripCls = (s.vibe||'chill').replace(/[^a-z]/g,'') || 'chill';
-  const eventsHTML = (s.events||'').replace(/\n+/g,'<br>');
-  const splitChip = s.split
-    ? '<span class="split-chip split">Family split</span>'
-    : '<span class="split-chip together">All together</span>';
+  const evtIcon = VIBE_ICON[s.vibe] || 'event';
+  const split = s.split
+    ? `<span class="chip split">${ico('call_split')} Family split</span>`
+    : `<span class="chip together">${ico('group')} All together</span>`;
   return `
-    <div class="day-card fade ${isToday?'today-card':''}">
+    <div class="card fade ${isToday?'now':''}">
       <div class="day-strip ${stripCls}"></div>
       <div class="day-head">
-        <div class="day-num-wrap">
-          <div class="day-num">${isToday?'<span class="live-dot"></span>':''}Day ${s.day}</div>
+        <div>
+          <div class="day-id">${isToday?'<span class="live"></span>':''}Day ${s.day}</div>
           <div class="day-date">${esc(s.date)}</div>
           <div class="day-dow">${esc(s.dow)}</div>
         </div>
-        <div class="day-emoji">${VIBE_EMOJI[s.vibe]||'📅'}</div>
+        <span class="day-tag">${esc(s.vibe||'chill')}</span>
       </div>
       <div class="day-body">
-        <div class="info-row">
-          <div class="info-icon">📍</div>
-          <div class="info-text">
-            <div class="info-label">Where</div>
-            <div class="info-value big">${esc(s.location)}</div>
+        <div class="row">
+          <div class="row-ico">${ico('place')}</div>
+          <div class="row-text">
+            <div class="row-label">Where</div>
+            <div class="row-value b">${esc(s.location)}</div>
           </div>
         </div>
         ${s.accommodation && s.accommodation !== '—' ? `
-        <div class="info-row">
-          <div class="info-icon">🛎️</div>
-          <div class="info-text">
-            <div class="info-label">Stay</div>
-            <div class="info-value">${esc(s.accommodation)}</div>
+        <div class="row">
+          <div class="row-ico">${ico('bed')}</div>
+          <div class="row-text">
+            <div class="row-label">Stay</div>
+            <div class="row-value">${esc(s.accommodation)}</div>
           </div>
         </div>` : ''}
         ${s.driveTime && s.driveTime !== '—' ? `
-        <div class="info-row">
-          <div class="info-icon">🚗</div>
-          <div class="info-text">
-            <div class="info-label">Travel</div>
-            <div class="info-value">${esc(s.driveTime)}</div>
+        <div class="row">
+          <div class="row-ico">${ico('directions_car')}</div>
+          <div class="row-text">
+            <div class="row-label">Travel</div>
+            <div class="row-value">${esc(s.driveTime)}</div>
           </div>
         </div>` : ''}
-        ${eventsHTML ? `
-        <div class="info-row">
-          <div class="info-icon">📌</div>
-          <div class="info-text">
-            <div class="info-label">Plan</div>
-            <div class="info-value" style="font-weight:500;font-size:15px">${eventsHTML}</div>
+        ${s.events ? `
+        <div class="row">
+          <div class="row-ico">${ico(evtIcon)}</div>
+          <div class="row-text">
+            <div class="row-label">Plan</div>
+            <div class="row-value" style="font-weight:500;font-size:14px;line-height:1.5">${esc(s.events)}</div>
           </div>
         </div>` : ''}
         ${s.notes && s.notes !== s.events ? `
-        <div class="info-row">
-          <div class="info-icon">📝</div>
-          <div class="info-text">
-            <div class="info-label">Notes</div>
-            <div class="info-extra">${nl2br(s.notes)}</div>
+        <div class="row">
+          <div class="row-ico">${ico('sticky_note_2')}</div>
+          <div class="row-text">
+            <div class="row-label">Notes</div>
+            <div class="row-extra">${esc(s.notes)}</div>
           </div>
         </div>` : ''}
-        ${splitChip}
+        ${split}
       </div>
-    </div>
-  `;
+    </div>`;
 }
 
-// ── Render: Trip (all days) ──
 function renderTrip(){
   const c = document.getElementById('tripContent');
-  const dn = tripDayNumber();
+  const dn = tripDay();
   c.innerHTML = `
     <div class="section" style="margin-top:6px">
-      <div class="section-title">All 13 days</div>
-      <div class="section-sub">May 14 – May 26, 2026</div>
+      <div class="section-title"><h2>All 13 days</h2><span class="meta">May 14 – 26</span></div>
       ${state.schedule.map(s => {
-        const isPast = dn>0 && s.day < dn;
-        const isToday = s.day === dn;
-        return dayCardHTML(s, isToday).replace(
-          'class="day-card fade',
-          'class="day-card fade'+(isPast?' past':'')
-        );
+        const past = dn>0 && s.day<dn;
+        const today = s.day === dn;
+        return dayCard(s, today).replace('class="card fade', 'class="card fade'+(past?' past':''));
       }).join('')}
-    </div>
-  `;
+    </div>`;
 }
 
-// ── Render: Hotels ──
 function renderHotels(){
   const c = document.getElementById('hotelsContent');
   c.innerHTML = `
     <div class="section" style="margin-top:6px">
-      <div class="section-title">Where we stay</div>
-      <div class="section-sub">Each block lists nights, who, and how to get there.</div>
-      ${callout('⚠️','Important hotel update',
-        'May 15–16 the <b>whole family</b> is at the <b>Bicycle Club Hotel & Casino</b>. May 19–20 we split — half at <b>Commerce Casino</b>, half at the <b>Pixar Hotel</b> (closer to Disneyland).')}
-      ${HOTEL_DIR.map(h => `
-        <div class="hotel-card fade">
-          <div class="hotel-dates">${esc(h.nights)}</div>
-          <div class="hotel-name">${esc(h.name)}</div>
-          <div class="hotel-meta">
-            <div><b>City:</b> ${esc(h.city)}</div>
-            <div><b>Who:</b> ${esc(h.who)}</div>
-            ${h.note?`<div style="margin-top:4px">${esc(h.note)}</div>`:''}
-          </div>
-          <div class="hotel-actions">
-            <a class="btn primary" href="${esc(h.map)}" target="_blank" rel="noopener">📍 Open in Maps</a>
+      <div class="section-title"><h2>Where we stay</h2><span class="meta">${HOTELS.length} stops</span></div>
+      <div class="callout warn fade">
+        <div class="callout-ico">${ico('priority_high')}</div>
+        <div class="callout-body">
+          <div class="callout-title">Plan refresh</div>
+          <div class="callout-text">Day 1 moved to <b>885 Dorel Drive</b> (SJ home). May 15–16 at <b>Bicycle Club</b>. May 19–20 splits <b>Commerce Casino</b> + <b>Pixar Hotel</b>.</div>
+        </div>
+      </div>
+      ${HOTELS.map(h => `
+        <div class="card fade">
+          <div class="hotel">
+            <div class="hotel-dates">${esc(h.nights)}</div>
+            <div class="hotel-name">${esc(h.name)}</div>
+            <div class="hotel-meta">
+              <div><b>City</b>  ${esc(h.city)}</div>
+              <div><b>Who</b>  ${esc(h.who)}</div>
+              ${h.note ? `<div style="margin-top:4px;color:var(--text-mute);font-size:12.5px">${esc(h.note)}</div>` : ''}
+            </div>
+            <div class="hotel-actions">
+              <a class="btn" href="${esc(h.map)}" target="_blank" rel="noopener">${ico('open_in_new')} Open in Maps</a>
+            </div>
           </div>
         </div>`).join('')}
-    </div>
-  `;
+    </div>`;
 }
 
-// ── Render: Food ──
 function renderFood(){
   const c = document.getElementById('foodContent');
-  const list = state.food.length ? state.food : [];
-  if(!list.length){
+  if(!state.food.length){
     c.innerHTML = `
       <div class="section" style="margin-top:6px">
-        <div class="section-title">Food picks</div>
+        <div class="section-title"><h2>Food picks</h2></div>
         <div class="empty">Loading restaurants from the sheet…</div>
       </div>`;
     return;
   }
-  // group by city in a fixed order so output is stable
-  const cityOrder = ['San Jose','Los Angeles','Orange County','Disneyland','Las Vegas','Malibu','Paso Robles'];
+  // Group by city, ordered by trip flow
+  const order = ['San Jose','Arcadia','Glendale / Burbank','LA Chinatown','LA (multiple)','Anaheim','Disneyland','Caesars Palace','Spring Mountain Rd','Las Vegas Strip','Yermo CA (en route)','Malibu Country Mart','Malibu Pier','Cross Creek Malibu','23rd PCH','Tin City Paso','Downtown Paso'];
   const groups = {};
-  list.forEach(r => {
-    const city = r.city || 'Other';
-    (groups[city] = groups[city]||[]).push(r);
+  state.food.forEach(f => {
+    const k = f.city || 'Other';
+    (groups[k] = groups[k] || []).push(f);
   });
-  const ordered = cityOrder.filter(c => groups[c]);
-  Object.keys(groups).forEach(c => { if(!ordered.includes(c)) ordered.push(c); });
+  // Final ordering: try declared `order`, fall back alphabetical for anything else
+  const ordered = order.filter(k => groups[k]);
+  Object.keys(groups).forEach(k => { if(!ordered.includes(k)) ordered.push(k); });
+  // Collapse known city aliases visually (e.g. group all LA-flavored cities together by major area)
+  function cityBucket(city){
+    const c = city.toLowerCase();
+    if(c.includes('san jose')) return 'San Jose';
+    if(c.includes('arcadia') || c.includes('glendale') || c.includes('la (') || c.includes('chinatown')) return 'Los Angeles';
+    if(c.includes('anaheim') || c.includes('disney')) return 'Anaheim · Disneyland';
+    if(c.includes('caesars') || c.includes('spring mountain') || c.includes('las vegas') || c.includes('yermo')) return 'Las Vegas';
+    if(c.includes('malibu') || c.includes('pch') || c.includes('cross creek') || c.includes('country mart') || c.includes('pier')) return 'Malibu';
+    if(c.includes('paso') || c.includes('tin city')) return 'Paso Robles';
+    return city;
+  }
+  const buckets = {};
+  state.food.forEach(f => {
+    const b = cityBucket(f.city || '');
+    (buckets[b] = buckets[b]||[]).push(f);
+  });
+  const bucketOrder = ['San Jose','Los Angeles','Anaheim · Disneyland','Las Vegas','Malibu','Paso Robles'];
+  const finalOrder = bucketOrder.filter(b => buckets[b]);
+  Object.keys(buckets).forEach(b => { if(!finalOrder.includes(b)) finalOrder.push(b); });
+
   c.innerHTML = `
     <div class="section" style="margin-top:6px">
-      <div class="section-title">Food picks</div>
-      <div class="section-sub">Singapore-friendly comparisons where useful.</div>
-      ${ordered.map(city => `
+      <div class="section-title"><h2>Food picks</h2><span class="meta">${state.food.length} spots</span></div>
+      ${finalOrder.map(b => `
         <div class="city-section fade">
-          <div class="city-head">${esc(city)} <span class="count">${groups[city].length} spots</span></div>
-          ${groups[city].map(f => `
-            <div class="food-card">
-              <div class="food-name">${esc(f.name)}</div>
-              <div class="food-meta">
-                ${f.cuisine?`<span class="food-pill">${esc(f.cuisine)}</span>`:''}
-                ${f.price?`<span class="food-pill">${esc(f.price)}</span>`:''}
-                ${f.bestFor?`<span class="food-pill">${esc(f.bestFor)}</span>`:''}
+          <div class="city-head">
+            <div class="city-name">${esc(b)}</div>
+            <div class="city-count">${buckets[b].length} spots</div>
+          </div>
+          ${buckets[b].map(f => `
+            <div class="card fade food">
+              ${f.photo ? `<img class="food-img" src="${esc(f.photo)}" alt="${esc(f.name)}" loading="lazy" onerror="this.classList.add('fail');this.removeAttribute('src');this.alt='photo unavailable'">` : ''}
+              <div class="food-body">
+                <div class="food-name">${esc(f.name)}</div>
+                <div class="food-pills">
+                  ${f.cuisine ? `<span class="pill">${esc(f.cuisine)}</span>` : ''}
+                  ${f.price ? `<span class="pill">${esc(f.price)}</span>` : ''}
+                  ${f.city ? `<span class="pill city">${esc(f.city)}</span>` : ''}
+                  ${f.bestFor ? `<span class="pill">${esc(f.bestFor)}</span>` : ''}
+                </div>
+                ${f.why ? `<div class="food-why">${esc(f.why)}</div>` : ''}
+                ${f.map ? `<a class="btn" href="${esc(f.map)}" target="_blank" rel="noopener">${ico('directions')} Directions</a>` : ''}
               </div>
-              ${f.summary?`<div class="food-summary">${esc(f.summary)}</div>`:''}
-              ${f.sg?`<div class="food-sg">SG vibe: ${esc(f.sg)}</div>`:''}
             </div>`).join('')}
         </div>`).join('')}
-    </div>
-  `;
+    </div>`;
 }
 
-// ── Render: People / Family ──
 function renderPeople(){
   const c = document.getElementById('peopleContent');
   c.innerHTML = `
     <div class="section" style="margin-top:6px">
-      <div class="section-title">Who's on the trip</div>
-      <div class="section-sub">21 family members. Two travel groups during Vegas + LA.</div>
-
-      <div class="people-group fade">
-        <h3>🎉 Group 1 — The young crew</h3>
-        <div class="group-sub">EDC + late nights + LA shopping</div>
-        <div class="people-chips">
-          ${GROUP_1.map(n => `<span class="chip">${esc(n)}</span>`).join('')}
+      <div class="section-title"><h2>Who's coming</h2><span class="meta">21 PAX</span></div>
+      <div class="card fade">
+        <div class="group-card">
+          <div class="group-head"><span class="group-dot"></span><h3>Group 1 — young crew</h3></div>
+          <div class="group-sub">EDC · late nights · LA shopping</div>
+          <div class="chips">${GROUP_1.map(n => `<span class="name-chip">${esc(n)}</span>`).join('')}</div>
         </div>
       </div>
-
-      <div class="people-group fade">
-        <h3>🌴 Group 2 — Family + uncles</h3>
-        <div class="group-sub">Slower pace · graduations · meals · sights</div>
-        <div class="people-chips">
-          ${GROUP_2.map(n => `<span class="chip">${esc(n)}</span>`).join('')}
+      <div class="card fade">
+        <div class="group-card">
+          <div class="group-head"><span class="group-dot g2"></span><h3>Group 2 — family + uncles</h3></div>
+          <div class="group-sub">Slower pace · graduations · meals · sights</div>
+          <div class="chips">${GROUP_2.map(n => `<span class="name-chip">${esc(n)}</span>`).join('')}</div>
         </div>
       </div>
-
-      <div class="people-group fade">
-        <h3>📞 Important contacts</h3>
-        <div class="info-row">
-          <div class="info-icon">👤</div>
-          <div class="info-text">
-            <div class="info-label">Trip lead</div>
-            <div class="info-value">Danzel — group coordinator, hotels, pickups</div>
+      <div class="card fade">
+        <div class="group-card">
+          <div class="group-head"><span class="group-dot" style="background:var(--gold)"></span><h3>Logistics</h3></div>
+          <div class="row">
+            <div class="row-ico">${ico('person')}</div>
+            <div class="row-text"><div class="row-label">Trip lead</div><div class="row-value">Danzel — coordinator, hotels, pickups</div></div>
           </div>
-        </div>
-        <div class="info-row">
-          <div class="info-icon">✈️</div>
-          <div class="info-text">
-            <div class="info-label">LAX pickup</div>
-            <div class="info-value">Eugene + Vanessa, May 15 12:00 AM</div>
-            <div class="info-extra">Coordinate with Danzel before the day.</div>
+          <div class="row">
+            <div class="row-ico">${ico('flight')}</div>
+            <div class="row-text"><div class="row-label">LAX pickup</div><div class="row-value">Eugene + Vanessa · May 15 · 12:00 AM</div></div>
           </div>
-        </div>
-        <div class="info-row">
-          <div class="info-icon">🚗</div>
-          <div class="info-text">
-            <div class="info-label">Vehicles</div>
-            <div class="info-value">Van (12 seats) + 2 Teslas (10 seats) + Truck (5 seats)</div>
+          <div class="row">
+            <div class="row-ico">${ico('directions_car')}</div>
+            <div class="row-text"><div class="row-label">Vehicles</div><div class="row-value">Van (12) · 2 Teslas (10) · Truck (5)</div></div>
           </div>
         </div>
       </div>
-
-      <div class="section" style="margin-top:18px">
-        <div class="section-title">Latest news</div>
-        ${renderUpdatesList(false)}
+      <div class="section">
+        <div class="section-title"><h2>News</h2></div>
+        ${updatesList(false)}
       </div>
-    </div>
-  `;
+    </div>`;
 }
 
-// ── Render: Updates list (used in multiple places) ──
-function renderUpdatesList(limitTo3){
+function updatesList(limit){
   const list = (state.updates||[]).slice().reverse();
-  const shown = limitTo3 ? list.slice(0,3) : list;
-  if(!shown.length){
-    return '<div class="empty">No updates yet — check back later.</div>';
-  }
+  const shown = limit ? list.slice(0,3) : list;
+  if(!shown.length) return '<div class="empty">No updates yet.</div>';
   return shown.map(u => {
-    const cls = (u.priority||'').includes('urgent') ? 'urgent'
-              : (u.priority||'').includes('important') ? 'important' : '';
-    const tag = (u.priority||'').includes('urgent') ? '<span class="update-tag urgent">Urgent</span>'
-              : (u.priority||'').includes('important') ? '<span class="update-tag important">Important</span>' : '';
-    return `<div class="update-card ${cls}">
-      <div class="update-meta"><span class="update-from">${esc(u.from||'Trip team')}</span> · ${esc(u.date)} ${esc(u.time)}${tag}</div>
+    const cls = u.priority.includes('urgent') ? 'urgent'
+              : u.priority.includes('important') ? 'important' : '';
+    const tag = u.priority.includes('urgent') ? '<span class="update-tag urgent">urgent</span>'
+              : u.priority.includes('important') ? '<span class="update-tag important">important</span>' : '';
+    return `<div class="update ${cls}">
+      <div class="update-meta"><span class="from">${esc(u.from||'Trip team')}</span> · ${esc(u.date)} ${esc(u.time)}${tag}</div>
       <div class="update-msg">${esc(u.message)}</div>
     </div>`;
   }).join('');
 }
 
-function renderAll(){
-  renderToday();
-  renderTrip();
-  renderHotels();
-  renderFood();
-  renderPeople();
+function render(){
+  renderToday(); renderTrip(); renderHotels(); renderFood(); renderPeople();
 }
 
-// ── Tab nav ──
 document.querySelectorAll('.nav-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -1112,20 +1089,19 @@ document.querySelectorAll('.nav-btn').forEach(btn => {
   });
 });
 
-// ── Theme toggle ──
 const themeBtn = document.getElementById('themeBtn');
+const themeIcon = document.getElementById('themeIcon');
 function applyTheme(t){
-  document.body.classList.toggle('dark', t==='dark');
-  themeBtn.textContent = t==='dark' ? '☀️' : '🌙';
+  document.body.classList.toggle('light', t === 'light');
+  themeIcon.textContent = t === 'light' ? 'dark_mode' : 'light_mode';
+  document.querySelector('meta[name="theme-color"]').setAttribute('content', t === 'light' ? '#FAF8F2' : '#06060E');
 }
-applyTheme(localStorage.getItem('yap_theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'));
+applyTheme(localStorage.getItem('yap_theme') || 'dark');
 themeBtn.addEventListener('click', () => {
-  const t = document.body.classList.contains('dark') ? 'light' : 'dark';
-  applyTheme(t);
-  localStorage.setItem('yap_theme', t);
+  const t = document.body.classList.contains('light') ? 'dark' : 'light';
+  applyTheme(t); localStorage.setItem('yap_theme', t);
 });
 
-// ── Boot ──
 loadAll();
 </script>
 </body>
