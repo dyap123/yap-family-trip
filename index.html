@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Yap Trip">
+<meta name="apple-mobile-web-app-title" content="Tan Trip">
 <meta name="theme-color" content="#06060E">
 <meta name="mobile-web-app-capable" content="yes">
-<title>Yap Family · California 2026</title>
+<title>Tan Family · California 2026</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='50' y='0' fill='%23D8403B'/><rect width='100' height='50' y='50' fill='%23ffffff'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -568,7 +568,7 @@ body.light .nav{background:rgba(255,255,255,0.85)}
 <header class="hdr">
   <div class="brand">
     <div>
-      <div class="brand-mark">YAP / CALI</div>
+      <div class="brand-mark">TAN / CALI</div>
       <div class="brand-sub">May 14 – 26 · 2026</div>
     </div>
   </div>
@@ -615,7 +615,7 @@ body.light .nav{background:rgba(255,255,255,0.85)}
 
 <script>
 const SHEET_ID = '1DBGY85rvSrGTGqw4dTYXGiMesSY9LLnvCdyI7On53BQ';
-const CACHE_KEY = 'yap_trip_v4';
+const CACHE_KEY = 'tan_trip_v5';
 const CACHE_TTL = 60 * 1000;
 const TRIP_START = new Date('2026-05-14T00:00:00-07:00');
 const TRIP_END = new Date('2026-05-26T23:59:59-07:00');
@@ -776,7 +776,7 @@ function renderToday(){
       <div class="hero fade">
         <div class="hero-meta">SG → CA · 13 days · 21 family</div>
         <h1>California Awaits</h1>
-        <div class="hero-sub">Yap family trip · May 14 to 26, 2026</div>
+        <div class="hero-sub">Tan family trip · May 14 to 26, 2026</div>
         <div class="hero-stats">
           <div class="stat"><span class="accent">T-${days}</span> days</div>
           <div class="stat">21 PAX</div>
@@ -1096,10 +1096,10 @@ function applyTheme(t){
   themeIcon.textContent = t === 'light' ? 'dark_mode' : 'light_mode';
   document.querySelector('meta[name="theme-color"]').setAttribute('content', t === 'light' ? '#FAF8F2' : '#06060E');
 }
-applyTheme(localStorage.getItem('yap_theme') || 'dark');
+applyTheme(localStorage.getItem('tan_theme') || 'dark');
 themeBtn.addEventListener('click', () => {
   const t = document.body.classList.contains('light') ? 'dark' : 'light';
-  applyTheme(t); localStorage.setItem('yap_theme', t);
+  applyTheme(t); localStorage.setItem('tan_theme', t);
 });
 
 loadAll();
