@@ -2426,9 +2426,9 @@ const FALLBACK = [
   },
   {day:2,date:'May 15',dow:'Friday',location:'San Jose → LA',
    accommodation:'Bicycle Club Hotel & Casino',
-   events:'Caravan San Jose → LA. Coke Yi Yi + Ah Gong fly SJC → ONT 10:40 AM. Graduation dinner at Boston Lobster.',
+   events:"Caravan San Jose → LA. Coke Yi Yi + Ah Gong fly SJC → ONT 10:40 AM. Danzel's graduation dinner at Boston Lobster.",
    driveTime:'5–6 hr drive',vibe:'road',
-   notes:'LAX pickup at midnight for Eugene + Vanessa — driver or Uber.',
+   notes:'LAX pickup for Eugene + Vanessa is technically 12 AM May 16 — see start of Day 3.',
    timeline:[
      {time:'8:30 AM', event:'Dad leaves SJ to drop Coke Yi Yi + Ah Gong at SJC', who:'Dad · Coke Yi Yi · Ah Gong', icon:'directions_car',
       note:'Dad keeps their luggage in the van — no check-in needed.'},
@@ -2440,22 +2440,24 @@ const FALLBACK = [
      {time:'4:00 PM', event:'Check-in at Bicycle Club Hotel & Casino', icon:'hotel',
       link:'https://www.thebike.com/',
       note:'Settle in before dinner. Bell Gardens, LA.'},
-     {time:'6:00 PM', event:'Graduation dinner at Boston Lobster, Arcadia',
+     {time:'6:00 PM', event:"Danzel's graduation dinner at Boston Lobster, Arcadia",
       who:'Whole family + Aunty Xiao Wen + Tom Bowling family + Danzel',
       link:'https://www.yelp.com/biz/boston-lobster-rosemead-4',
       icon:'restaurant',
-      note:'First US group dinner. Danzel meets up after everyone checks in.'},
+      note:'First US group dinner — celebrating Danzel\'s graduation. Danzel joins after everyone checks in.'},
      {time:'After dinner', event:'Back to the Bicycle Club, rest', icon:'hotel'},
-     {time:'12:00 AM', event:'LAX pickup — Eugene + Vanessa', who:'1 driver runs · OR Uber', icon:'flight_land',
-      note:'Lands ~12 AM May 16. Whoever drives heads back to Bicycle Club after.'},
    ]
   },
   {day:3,date:'May 16',dow:'Saturday',location:'LA → Las Vegas',
    accommodation:'Horseshoe Vegas (G1) / Bicycle Club LA (G2)',
-   events:"Angel's graduation at Cal Poly Pomona, photos at Grand Ave Park. EDC group → Vegas, rest stays at Bicycle Club for early start tomorrow.",
+   events:"Danzel's graduation at Cal Poly Pomona, photos at Grand Ave Park. EDC group → Vegas, rest stays at Bicycle Club for early start tomorrow.",
    driveTime:'5 hr drive (LA → Vegas)',vibe:'party',
    notes:'EDC Night 1 — Hardwell main stage 11:19 PM.',split:true,
    timeline:[
+     {time:'12:00 AM', event:'LAX pickup — Eugene + Vanessa land',
+      who:'1 driver runs · OR Uber · whoever drives heads back to Bicycle Club after',
+      icon:'flight_land',
+      note:'Eugene + Vanessa fly in from Singapore, landing 12 AM May 16. The pickup is technically the very first thing on Day 3.'},
      {time:'7:30 AM', event:"Porto's Bakery breakfast run (Downey)",
       who:'Dad · Danzel · whoever is up',
       icon:'bakery_dining',
@@ -2466,9 +2468,10 @@ const FALLBACK = [
       note:'Parking maps distributed closer to the date.'},
      {time:'11:00 AM', event:'Arrive Cal Poly Pomona · find seats',
       who:'Whole family', icon:'school'},
-     {time:'12:00 PM', event:"Angel's graduation ceremony",
+     {time:'12:00 PM', event:"Danzel's graduation ceremony",
+      who:'Whole family supporting Danzel · Cal Poly Pomona',
       icon:'celebration',
-      note:'90 min max. Pictures must be off-campus (no on-campus photos allowed).'},
+      note:'90 min max. Pictures must be off-campus (no on-campus photos allowed). The whole reason we\'re all here.'},
      {time:'~1:45 PM', event:'Drive to Grand Avenue Park, Chino Hills',
       who:'Whole family · 15 min drive',
       link:'https://www.chinohills.org/385/Grand-Avenue',
@@ -2481,7 +2484,7 @@ const FALLBACK = [
       icon:'directions_car', group:'edc',
       note:'Dinner is fast-food on the I-15. Possible Eddie World stop near Yermo.'},
      {time:'~3:30 PM', event:'Rest of family regroups for dinner in LA',
-      who:'Group 2 · Angel · Amazi · Jujuhub',
+      who:'Group 2 + Angel + Amazi (Group 1 not at EDC tonight)',
       icon:'restaurant', group:'rest',
       note:"Recs: Chinese (last for a while) · Lucille's BBQ · In-N-Out · Five Guys · Howling Rays."},
      {time:'Evening', event:'Bicycle Club group rests, packs for early start',
@@ -2681,7 +2684,7 @@ const NAME_CN = {
 
 const HOTELS = [
   {nights:'May 14',name:'885 Dorel Drive',city:'San Jose · family home',who:'Whole family — arrival night',map:'https://maps.google.com/?q=885+Dorel+Drive+San+Jose',note:'Private residence. No hotel check-in.',lat:37.276,lng:-121.842},
-  {nights:'May 15 – 17',name:'Bicycle Club Hotel & Casino',city:'Bell Gardens · LA',who:'Whole family May 15. Group 2 stays through May 16 (caravans to Vegas May 17).',map:'https://www.thebike.com/',note:'Day 2 hotel. Eugene + Vanessa arrive LAX 12 AM May 15.',lat:33.965,lng:-118.156},
+  {nights:'May 15 – 17',name:'Bicycle Club Hotel & Casino',city:'Bell Gardens · LA',who:'Whole family May 15. Group 2 stays through May 16 (caravans to Vegas May 17).',map:'https://www.thebike.com/',note:'Day 2 hotel. Eugene + Vanessa arrive LAX 12 AM May 16 (early Day 3).',lat:33.965,lng:-118.156},
   {nights:'May 16 – 19',name:'Horseshoe Las Vegas',city:'Las Vegas',who:'EDC group from May 16. Full family from May 17 through May 18 night. Checkout May 19.',map:'https://www.caesars.com/horseshoe-las-vegas',note:'Vegas base for EDC + recovery + Wynn brunch.',lat:36.110,lng:-115.173},
   {nights:'May 19 – 21',name:'Pixar Place Hotel · Anaheim',city:'Anaheim · OC',who:'Group 1 + Jujuhub + Da ma — closer to Disneyland.',map:'https://disneyland.disney.go.com/hotels/pixar-place-hotel/',note:'Split-night #1. Different hotel from Commerce.',lat:33.812,lng:-117.919},
   {nights:'May 19 – 21',name:'Commerce Casino · LA',city:'Commerce · LA',who:'Yi ma · Aunty Coke · Mom · Dad · Uncle Jimy · Steve Susu · Ah Gong · Margaret.',map:'https://www.commercecasino.com/',note:'Split-night #2. Different hotel from Pixar.',lat:33.999,lng:-118.144},
@@ -2693,7 +2696,7 @@ const HOTELS = [
 // Convoy / arrivals (multi-family)
 const ARRIVALS = [
   {when:'May 14',time:'~8:00 PM',event:'Singapore → SFO',people:'Main group from Singapore',tag:'sg',driveAfter:'1 hr to San Jose home'},
-  {when:'May 15',time:'12:00 AM',event:'Eugene + Vanessa land LAX',people:'Pickup by Danzel',tag:'lax-mid'},
+  {when:'May 16',time:'12:00 AM',event:'Eugene + Vanessa land LAX',people:'1 driver runs · OR Uber',tag:'lax-mid'},
   {when:'May 16',time:'AM',event:'Group 1 → Vegas',people:'7 people, ~5hr drive',tag:'split'},
   {when:'May 17',time:'AM',event:'Group 2 → Vegas',people:'12 people drive up',tag:'reunite'},
   {when:'May 21',time:'AM',event:'Eugene departs LAX',people:'Flies home',tag:'depart'},
@@ -2934,8 +2937,8 @@ function renderToday(){
       <div class="callout urgent fade">
         <div class="callout-ico">${ico('flight')}</div>
         <div class="callout-body">
-          <div class="callout-title">LAX pickup · 12:00 AM May 15</div>
-          <div class="callout-text">Eugene + Vanessa land at LAX at midnight. Coordinate the pickup with <b>Danzel</b>.</div>
+          <div class="callout-title">LAX pickup · 12:00 AM May 16</div>
+          <div class="callout-text">Eugene + Vanessa land at LAX at midnight (early May 16, Day 3). Coordinate the pickup — driver or Uber.</div>
         </div>
       </div>
 
@@ -3334,7 +3337,7 @@ const ACTIVITIES = [
 
 const AIRPORTS = [
   {code:'SFO', lat:37.621, lng:-122.379, label:'SFO · arrival May 14 · 抵达', day:1},
-  {code:'LAX', lat:33.942, lng:-118.408, label:'LAX · Eugene midnight pickup May 15 · 接机', day:2},
+  {code:'LAX', lat:33.942, lng:-118.408, label:'LAX · Eugene + Vanessa midnight pickup May 16 · 接机', day:3},
 ];
 
 function renderMap(){
@@ -3662,7 +3665,7 @@ function renderFamily(){
       <div class="card fade">
         <div class="group-card">
           <div class="group-head"><span class="group-dot g2"></span><h3>Group 2<span class="cn">家人组</span></h3></div>
-          <div class="group-sub">Slower pace · graduations · meals · sights</div>
+          <div class="group-sub">Slower pace · graduation support · meals · sights</div>
           <div class="chips">${GROUP_2.map(n => `<span class="name-chip">${esc(n)}</span>`).join('')}</div>
         </div>
       </div>
@@ -3675,7 +3678,7 @@ function renderFamily(){
           </div>
           <div class="row">
             <div class="row-ico cyan">${ico('flight')}</div>
-            <div class="row-text"><div class="row-label">LAX pickup<span class="cn">机场接</span></div><div class="row-value">Eugene + Vanessa · May 15 · 12:00 AM</div></div>
+            <div class="row-text"><div class="row-label">LAX pickup<span class="cn">机场接</span></div><div class="row-value">Eugene + Vanessa · May 16 · 12:00 AM (early Day 3)</div></div>
           </div>
           <div class="row">
             <div class="row-ico">${ico('directions_car')}</div>
@@ -4523,10 +4526,12 @@ Reply in the language the user asks in (English, 中文, Singlish, or Cantonese 
 
 Trip facts:
 - Yap family · 17 named family · May 14–26, 2026 · 13 days
+- This trip exists to celebrate DANZEL'S graduation from Cal Poly Pomona on May 16. Whenever someone says "the graduation" or "the ceremony", it is DANZEL'S graduation. Do not attribute the graduation to anyone else (especially not Angel — Angel is the trip co-lead, not the graduate).
 - Cities: San Jose → LA → Las Vegas → OC/Disney → Malibu → Paso Robles → San Jose
-- Trip lead: Danzel
+- Trip lead: Danzel · Trip co-lead: Angel
 - Group 1 (少年组, EDC, late nights): ${GROUP_1.join(', ')}
 - Group 2 (家人组, slower pace): ${GROUP_2.join(', ')}
+- LAX pickup for Eugene + Vanessa: 12:00 AM May 16 (technically early Day 3). Not May 15.
 
 Hotels (these are EACH DIFFERENT places — never conflate):
 - May 14 + May 23–26 → 885 Dorel Drive · San Jose family home
