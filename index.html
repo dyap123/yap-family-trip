@@ -407,10 +407,22 @@ body.light .day-tag{background:rgba(0,0,0,0.03)}
   background:linear-gradient(135deg,#1A1A28,#0E0E18);
   border-bottom:1px solid var(--line);
 }
-.food-img.fail{
-  display:flex;align-items:center;justify-content:center;
-  color:var(--text-mute);font-size:12px;letter-spacing:1px;
-  text-transform:uppercase;font-family:'JetBrains Mono',monospace;
+.food-img.fail{display:none}
+.food-ph{
+  width:100%;aspect-ratio:16/9;display:flex;
+  align-items:center;justify-content:center;
+  background:linear-gradient(135deg,rgba(74,142,255,0.18),rgba(139,92,246,0.18));
+  border-bottom:1px solid var(--line);position:relative;overflow:hidden;
+}
+.food-ph::before{
+  content:'';position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(255,255,255,0.04) 1px,transparent 1px);
+  background-size:24px 24px;
+}
+.food-ph .mono-mark{
+  font-size:42px;font-weight:900;letter-spacing:-2px;
+  color:var(--text);opacity:0.55;
+  font-family:'Inter',sans-serif;position:relative;z-index:1;
 }
 .food-body{padding:14px 16px 16px}
 .food-name{
@@ -645,8 +657,8 @@ const FALLBACK = [
   {day:13,date:'May 26',dow:'Tuesday',location:'San Jose → SFO',accommodation:'—',events:'Pack up. Farewell brunch. Airport drop-offs.',driveTime:'1 hr to SFO',vibe:'farewell',notes:'Everyone departs.'},
 ];
 
-const GROUP_1 = ['Danzel','Alvin','Angel','Eugene','Vanessa','Jujuhub','Amazi'];
-const GROUP_2 = ['Mom 1','Mom 2','Mom 3','Mom 4','Uncle Yap','Uncle Jimy','Uncle Steven','Ah Gong','Margaret','Da ma','Dad','Aunty Margaret'];
+const GROUP_1 = ['Danzel','Alvin','Angel','Eugene','Vanessa','Amazi'];
+const GROUP_2 = ['Da ma','Yi ma','Aunty Coke','Mom','Dad','Uncle Jimy','Steve Susu','Ah Gong','Margaret','Jujuhub'];
 
 const HOTELS = [
   {nights:'May 14',name:'885 Dorel Drive',city:'San Jose · family home',who:'Whole family — arrival night',map:'https://maps.google.com/?q=885+Dorel+Drive+San+Jose',note:'Private residence. No hotel check-in.'},
@@ -999,7 +1011,9 @@ function renderFood(){
           </div>
           ${buckets[b].map(f => `
             <div class="card fade food">
-              ${f.photo ? `<img class="food-img" src="${esc(f.photo)}" alt="${esc(f.name)}" loading="lazy" onerror="this.classList.add('fail');this.removeAttribute('src');this.alt='photo unavailable'">` : ''}
+              ${f.photo
+                ? `<img class="food-img" src="${esc(f.photo)}" alt="${esc(f.name)}" loading="lazy" onerror="this.outerHTML='<div class=&quot;food-ph&quot;><span class=&quot;mono-mark&quot;>${esc((f.name||'·').trim()[0]||'·')}</span></div>'">`
+                : `<div class="food-ph"><span class="mono-mark">${esc((f.name||'·').trim()[0]||'·')}</span></div>`}
               <div class="food-body">
                 <div class="food-name">${esc(f.name)}</div>
                 <div class="food-pills">

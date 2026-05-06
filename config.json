@@ -1,0 +1,17 @@
+{
+  "project": {
+    "name": "Yap Family · California 2026",
+    "totalBudget": 30000,
+    "currency": "USD"
+  },
+  "firebase": {
+    "databaseURL": "https://gen-lang-client-0119642855-default-rtdb.firebaseio.com",
+    "comment": "Reused from CUP Dashboard. Trip data lives under the yap-trip/ namespace, no collision with CUP's data. MiniMax key reads from config/minimax_key (root)."
+  },
+  "minimax": {
+    "apiKey": "",
+    "model": "MiniMax-M2.7",
+    "endpoint": "https://api.minimax.io/anthropic/v1/messages",
+    "comment": "Anthropic-compatible MiniMax endpoint (same one CUP / CS2 use). Key reads from Firebase /config/minimax_key first, falls back to apiKey here. Requests use Anthropic Messages API shape."
+  }
+}
