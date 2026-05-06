@@ -2471,6 +2471,46 @@ const ARRIVALS = [
 // All names list — used for split calc + paid-by picker
 const ALL_NAMES = GROUP_1.concat(GROUP_2);
 
+// Local food entries that supplement the Google Sheet (for spots the
+// itinerary references but the sheet doesn't have yet).
+const FOOD_LOCAL = [
+  {name: 'Cheesecake Factory · Brea',
+   cuisine: 'American · Chain',
+   city: 'Brea, CA',
+   why: 'The split-point dinner. Last meal where the whole family eats together before Pixar Hotel and Commerce Casino split off for the night.',
+   price: '$$',
+   bestFor: 'Big group dinner',
+   photo: 'https://source.unsplash.com/800x600/?cheesecake,dessert',
+   map: 'https://locations.thecheesecakefactory.com/ca/brea-88.html'},
+];
+
+// Photo overrides — fill in / replace a sheet entry's photo without touching the sheet.
+// Keyed by a substring of the food name (case-insensitive).
+const FOOD_PHOTO_OVERRIDES = {
+  'boston lobster':  'https://source.unsplash.com/800x600/?lobster,seafood',
+  'victory diner':   'https://source.unsplash.com/800x600/?diner,pancakes,breakfast',
+  'spring mountain': 'https://source.unsplash.com/800x600/?chinese,noodle,dimsum',
+  'chinatown':       'https://source.unsplash.com/800x600/?chinese,dimsum,noodle',
+};
+
+function applyFoodOverrides(list){
+  return list.map(f => {
+    const nameLower = String(f.name || '').toLowerCase();
+    let photo = f.photo;
+    for(const k of Object.keys(FOOD_PHOTO_OVERRIDES)){
+      if(nameLower.includes(k)){
+        photo = FOOD_PHOTO_OVERRIDES[k];
+        break;
+      }
+    }
+    return photo === f.photo ? f : Object.assign({}, f, {photo});
+  });
+}
+
+function getAllFood(){
+  return applyFoodOverrides((state.food || []).concat(FOOD_LOCAL));
+}
+
 // USD → SGD conversion. Hardcoded approx; manager can update if rate moves.
 const USD_TO_SGD = 1.35;
 
@@ -3149,11 +3189,9 @@ function flyToDay(day, openPopup){
   const tbd = !(sch && Array.isArray(sch.timeline) && sch.timeline.length);
   const card = document.getElementById('mapInfoCard');
   card.classList.toggle('today-active', isToday);
-  document.getElementById('mapInfoDay').innerHTML = `${tbd?'TBD · ':isToday?'TODAY · ':''}DAY ${day}<b>${esc((sch?.date||'').toUpperCase())}</b>`;
+  document.getElementById('mapInfoDay').innerHTML = `${isToday?'TODAY · ':''}DAY ${day}${tbd?' · <span style="color:var(--neon-yellow);text-shadow:0 0 6px rgba(255,214,0,0.45)">TBD</span>':''}<b>${esc((sch?.date||'').toUpperCase())}</b>`;
   document.getElementById('mapInfoPlace').textContent = sch?.location || hotel.name || '';
-  document.getElementById('mapInfoEvents').textContent = tbd
-    ? 'Plan coming soon · 待定 — to be detailed.'
-    : (sch?.events || hotel.who || '');
+  document.getElementById('mapInfoEvents').textContent = sch?.events || hotel.who || '';
 
   // Light up the progress polyline up to (and including) this hotel
   if(state.mapProgressPoly && state.mapPath){
@@ -3199,7 +3237,8 @@ function ico_emoji(name){
 // Keeps the Food tab in sync with the detailed plan instead of showing every
 // curated pick the sheet has.
 function activeFoodSet(){
-  if(!state.food.length) return [];
+  const all = getAllFood();
+  if(!all.length) return [];
   const haystack = (state.schedule || [])
     .flatMap(s => s.timeline || [])
     .map(t => `${t.event||''} ${t.note||''} ${t.who||''} ${t.link||''}`)
@@ -3207,7 +3246,7 @@ function activeFoodSet(){
     .toLowerCase()
     .replace(/[''`]/g, '');
   const stripWord = (s) => s.replace(/[''`]/g, '').toLowerCase();
-  return state.food.filter(f => {
+  return all.filter(f => {
     const name = stripWord(String(f.name || ''));
     if(!name) return false;
     if(haystack.includes(name)) return true;
@@ -3624,7 +3663,7 @@ lockBtn.addEventListener('click', () => {
 
 // ─── Food detail modal ─────────────────────────────────────────────────
 function openFoodModal(name){
-  const f = state.food.find(x => x.name === name);
+  const f = getAllFood().find(x => x.name === name);
   if(!f) return;
   const fileChar = (f.name || '·').trim()[0] || '·';
   const heroHTML = f.photo
