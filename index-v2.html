@@ -613,6 +613,64 @@ body.manager .spend-chip{display:none}
 }
 .day-tl-link:hover{background:rgba(255,46,136,0.20)}
 .day-tl-link .material-symbols-outlined{font-size:14px}
+
+/* Manager row-level edit controls (shown only when state.isManager) */
+.day-tl-edit-controls{
+  display:none;
+  gap:6px;margin-top:10px;flex-wrap:wrap;
+}
+body.manager .day-tl-edit-controls{display:flex}
+.day-tl-edit-controls button{
+  width:34px;height:34px;border-radius:8px;
+  background:rgba(20,8,40,0.6);border:1px solid rgba(255,214,0,0.30);
+  color:var(--neon-yellow);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  transition:transform 0.15s var(--ease),background 0.15s,box-shadow 0.15s;
+}
+.day-tl-edit-controls button:active{transform:scale(0.92)}
+.day-tl-edit-controls button:hover:not(:disabled){background:rgba(255,214,0,0.18);box-shadow:0 0 10px rgba(255,214,0,0.30)}
+.day-tl-edit-controls button:disabled{opacity:0.30;cursor:not-allowed}
+.day-tl-edit-controls button .material-symbols-outlined{font-size:16px}
+.day-tl-edit-controls .tl-edit{color:var(--neon-cyan);border-color:rgba(0,229,255,0.35)}
+.day-tl-edit-controls .tl-edit:hover:not(:disabled){background:rgba(0,229,255,0.15);box-shadow:0 0 10px rgba(0,229,255,0.30)}
+.day-tl-edit-controls .tl-delete{color:var(--neon-orange);border-color:rgba(255,107,53,0.35)}
+.day-tl-edit-controls .tl-delete:hover:not(:disabled){background:rgba(255,107,53,0.18);box-shadow:0 0 10px rgba(255,107,53,0.30)}
+
+/* "+ Add row" yellow dashed card at the bottom of a day's timeline */
+.tl-add-card{
+  display:none;align-items:center;gap:10px;
+  margin:14px 0 4px;padding:14px 16px;
+  background:rgba(20,8,40,0.50);
+  border:2px dashed rgba(255,214,0,0.45);
+  border-radius:12px;
+  color:var(--neon-yellow);
+  font:700 14px var(--font-en);letter-spacing:0.3px;
+  text-shadow:0 0 8px rgba(255,214,0,0.40);
+  cursor:pointer;min-height:50px;
+  transition:all 0.15s var(--ease);
+}
+body.manager .tl-add-card{display:flex}
+.tl-add-card:hover{background:rgba(255,214,0,0.10);border-color:rgba(255,214,0,0.70);box-shadow:0 0 16px rgba(255,214,0,0.30)}
+.tl-add-card:active{transform:scale(0.98)}
+.tl-add-card .material-symbols-outlined{font-size:22px}
+
+/* "Reset day" mini-button in the timeline head */
+.tl-reset{
+  display:none;align-items:center;gap:4px;
+  margin-left:auto;
+  padding:4px 9px;border-radius:6px;
+  background:rgba(255,107,53,0.10);border:1px solid rgba(255,107,53,0.40);
+  color:var(--neon-orange);
+  font:700 10px var(--font-mono);letter-spacing:1.2px;text-transform:uppercase;
+  cursor:pointer;
+  transition:all 0.15s;
+}
+body.manager .tl-reset{display:inline-flex}
+.tl-reset:hover{background:rgba(255,107,53,0.22);box-shadow:0 0 10px rgba(255,107,53,0.30)}
+.tl-reset .material-symbols-outlined{font-size:14px}
+.day-tl-head{display:flex;align-items:center;gap:8px}
+
 .day-tl-tag{
   display:inline-block;margin-left:6px;
   font-family:var(--font-mono);font-size:9.5px;font-weight:800;
@@ -2324,6 +2382,61 @@ body.ahzai-hidden .ahzai-avatar{display:none}
   </div>
 </div>
 
+<!-- Timeline-row edit modal (manager-only) -->
+<div class="form-modal-bg" id="tlRowModal">
+  <div class="form-modal">
+    <h3 id="tlRowModalTitle">Edit row<span class="cn">编辑</span></h3>
+    <p class="hint">MANAGER ONLY · 管理员 · saves to Firebase, syncs to all phones</p>
+    <input type="hidden" id="tlRowDay">
+    <input type="hidden" id="tlRowIdx">
+    <div class="form-row-pair">
+      <div class="form-row">
+        <label class="form-label">Time · 时间</label>
+        <input type="text" class="form-input" id="tlTime" placeholder="12:00 AM · Morning · After dinner">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Icon · 图标</label>
+        <input type="text" class="form-input" id="tlIcon" placeholder="restaurant">
+      </div>
+    </div>
+    <div class="form-row" style="margin-top:-6px">
+      <div class="chip-picker" id="tlIconChips" style="max-height:84px"></div>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Event · 事件</label>
+      <input type="text" class="form-input" id="tlEvent" placeholder="Brunch at Wynn buffet">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Who · 谁 (optional)</label>
+      <input type="text" class="form-input" id="tlWho" placeholder="Whole family · or specific names">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Note · 备注 (optional)</label>
+      <textarea class="form-textarea" id="tlNote" placeholder="Anything extra worth knowing"></textarea>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Link · 链接 (optional)</label>
+      <input type="url" class="form-input" id="tlLink" placeholder="https://…">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Group · 组</label>
+      <div class="split-modes" id="tlGroupPicker" style="grid-template-columns:1fr 1fr 1fr">
+        <button class="split-mode-btn selected" data-grp="">No tag<span class="cn">无</span></button>
+        <button class="split-mode-btn" data-grp="all">All<span class="cn">所有</span></button>
+        <button class="split-mode-btn" data-grp="g1">Group 1<span class="cn">少年</span></button>
+        <button class="split-mode-btn" data-grp="g2">Group 2<span class="cn">家人</span></button>
+        <button class="split-mode-btn" data-grp="edc">EDC<span class="cn">EDC</span></button>
+        <button class="split-mode-btn" data-grp="rest">Rest<span class="cn">其他</span></button>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn danger" id="tlDelete" style="display:none">Delete</button>
+      <button class="btn" id="tlCancel">Cancel</button>
+      <button class="btn solid" id="tlSave">Save · 保存</button>
+    </div>
+  </div>
+</div>
+
 <!-- Money FAB (manager-only, shown when on Money tab) -->
 <button class="fab fab-money" id="moneyFab" aria-label="Add expense">
   <span class="material-symbols-outlined">add</span>
@@ -2761,6 +2874,7 @@ let state = {
   expenses: {},                  // Firebase: {pushId: expenseObj}
   budget: {target: 0, currency: 'USD'},
   locationOverrides: {hotel:{}, activity:{}, food:{}}, // Firebase override map
+  timelineOverrides: {},                 // Firebase: {day: [rows]}
   announcements: {},                     // Firebase: {pushId: announcement}
   ahzaiHistory: [],
   ahzaiPending: false,
@@ -3035,8 +3149,8 @@ function convoyHTML(){
   }).join('')}</div>`;
 }
 
-function timelineHTML(tl){
-  if(!Array.isArray(tl) || !tl.length) return '';
+function timelineHTML(tl, day){
+  if(!Array.isArray(tl)) tl = [];
   // For split days, dim rows that are tagged for the OTHER group (unless manager)
   const userGroup = state.profile && state.profile.group;
   function isOther(tag){
@@ -3055,22 +3169,55 @@ function timelineHTML(tl){
          : g === 'all' ? 'ALL'
          : g.toUpperCase();
   }
+  const isMgr = state.isManager && day != null;
+  const overridden = isMgr && hasTimelineOverride(day);
+  if(!tl.length && !isMgr) return '';
+
+  const headRight = isMgr && overridden
+    ? `<button class="tl-reset" data-day="${day}" title="Reset to seed">${ico('restart_alt')}Reset · 还原</button>`
+    : '';
+
+  const rows = tl.map((t, idx) => {
+    const dim = isOther(t.group) ? 'dim-other' : '';
+    const editControls = isMgr ? `
+      <div class="day-tl-edit-controls">
+        <button class="tl-up" data-day="${day}" data-idx="${idx}" ${idx===0?'disabled':''} title="Move up">${ico('arrow_upward')}</button>
+        <button class="tl-down" data-day="${day}" data-idx="${idx}" ${idx===tl.length-1?'disabled':''} title="Move down">${ico('arrow_downward')}</button>
+        <button class="tl-edit" data-day="${day}" data-idx="${idx}" title="Edit row">${ico('edit')}</button>
+        <button class="tl-delete" data-day="${day}" data-idx="${idx}" title="Delete row">${ico('delete')}</button>
+      </div>` : '';
+    return `
+      <div class="day-tl-row ${dim}">
+        <div class="day-tl-time">${esc(t.time || '')}</div>
+        <div class="day-tl-body">
+          <div class="day-tl-event">${t.icon ? ico(t.icon) : ''}<span>${esc(t.event || '')}</span>${t.group ? `<span class="day-tl-tag ${esc(t.group)}">${esc(tagLabel(t.group))}</span>` : ''}</div>
+          ${t.who ? `<div class="day-tl-meta">${esc(t.who)}</div>` : ''}
+          ${t.note ? `<div class="day-tl-note">${esc(t.note)}</div>` : ''}
+          ${t.link ? `<a class="day-tl-link" href="${esc(t.link)}" target="_blank" rel="noopener">${ico('open_in_new')}Open link</a>` : ''}
+          ${editControls}
+        </div>
+      </div>`;
+  }).join('');
+
+  const addCard = isMgr ? `
+    <div class="tl-add-card" data-day="${day}">
+      ${ico('add_circle')}<span>Add row · 加一行</span>
+    </div>` : '';
+
+  // Empty timeline + manager: still render the head + add card so they can build it from scratch
+  if(!tl.length){
+    return `
+      <div class="day-tl">
+        <div class="day-tl-head">${ico('schedule')}Schedule · 时间表 ${headRight}</div>
+        ${addCard}
+      </div>`;
+  }
+
   return `
     <div class="day-tl">
-      <div class="day-tl-head">${ico('schedule')}Schedule · 时间表</div>
-      ${tl.map(t => {
-        const dim = isOther(t.group) ? 'dim-other' : '';
-        return `
-        <div class="day-tl-row ${dim}">
-          <div class="day-tl-time">${esc(t.time || '')}</div>
-          <div class="day-tl-body">
-            <div class="day-tl-event">${t.icon ? ico(t.icon) : ''}<span>${esc(t.event || '')}</span>${t.group ? `<span class="day-tl-tag ${esc(t.group)}">${esc(tagLabel(t.group))}</span>` : ''}</div>
-            ${t.who ? `<div class="day-tl-meta">${esc(t.who)}</div>` : ''}
-            ${t.note ? `<div class="day-tl-note">${esc(t.note)}</div>` : ''}
-            ${t.link ? `<a class="day-tl-link" href="${esc(t.link)}" target="_blank" rel="noopener">${ico('open_in_new')}Open link</a>` : ''}
-          </div>
-        </div>`;
-      }).join('')}
+      <div class="day-tl-head">${ico('schedule')}Schedule · 时间表 ${headRight}</div>
+      ${rows}
+      ${addCard}
     </div>`;
 }
 
@@ -3079,7 +3226,7 @@ function dayCard(s, isToday){
   const stripCls = (s.vibe||'chill').replace(/[^a-z]/g,'') || 'chill';
   const evtIcon = VIBE_ICON[s.vibe] || 'event';
   const vibeCN = VIBE_CN[s.vibe] || '';
-  const tl = timelineHTML(s.timeline);
+  const tl = timelineHTML(getTimeline(s.day), s.day);
 
   const head = `
     <div class="day-strip ${stripCls}"></div>
@@ -4161,6 +4308,23 @@ function initFirebase(){
       renderToday();
       renderFamily();
     });
+    // Timeline overrides — manager-edited per-day timeline rows. Full array per day.
+    db.ref('yap-trip/timelines').on('value', snap => {
+      state.timelineOverrides = snap.val() || {};
+      // Re-render everywhere day cards live
+      renderToday();
+      renderTrip();
+      // Refresh the open day-modal too (calendar tap)
+      const dm = document.getElementById('dayModal');
+      if(dm && dm.classList.contains('show')){
+        const openCard = dm.querySelector('.card[data-day]');
+        if(openCard){
+          const day = Number(openCard.dataset.day);
+          const s = state.schedule.find(x => x.day === day);
+          if(s) document.getElementById('dayModalContent').innerHTML = dayCard(s, day === tripDay());
+        }
+      }
+    });
     return true;
   }catch(e){
     console.warn('Firebase init failed', e);
@@ -4169,6 +4333,20 @@ function initFirebase(){
 }
 function fbExpensesRef(){ return db && db.ref('yap-trip/expenses'); }
 function fbLocRef(type, id){ return db && db.ref('yap-trip/locations/'+type+'/'+id); }
+function fbTimelineRef(day){ return db && db.ref('yap-trip/timelines/'+day); }
+
+// Returns the timeline rows for a day. If Firebase has a non-empty array
+// for this day, that wins entirely. Otherwise the FALLBACK seed is used.
+function getTimeline(day){
+  const ov = state.timelineOverrides[String(day)];
+  if(Array.isArray(ov) && ov.length) return ov;
+  const seed = (FALLBACK[day-1] && FALLBACK[day-1].timeline) || [];
+  return seed;
+}
+function hasTimelineOverride(day){
+  const ov = state.timelineOverrides[String(day)];
+  return Array.isArray(ov) && ov.length > 0;
+}
 
 // ─── Profile picker ─────────────────────────────────────────────────────
 function buildProfilePicker(){
@@ -4350,6 +4528,132 @@ function computeSettle(expenses){
     share: share[n] || 0,
     net: (paid[n] || 0) - (share[n] || 0),
   }));
+}
+
+// ─── Timeline-row: add / edit / delete / reorder / reset ───────────────
+const TL_ICON_SUGGESTIONS = [
+  'restaurant','hotel','directions_car','flight_land','flight_takeoff',
+  'celebration','bedtime','route','bakery_dining','breakfast_dining',
+  'castle','park','photo_camera','local_bar','casino','nightlife',
+  'shopping_bag','wb_sunny','local_gas_station','school','flag',
+  'music_note','luggage','sticky_note_2'
+];
+let tlRowEditing = null;          // { day, idx } or null when adding
+let tlGroupChoice = '';
+
+function openTlRowModal(day, idx, existing){
+  tlRowEditing = (idx !== null && idx !== undefined) ? {day, idx} : null;
+  tlGroupChoice = (existing && existing.group) || '';
+  document.getElementById('tlRowModalTitle').innerHTML = tlRowEditing
+    ? 'Edit row<span class="cn">编辑</span>'
+    : 'Add row<span class="cn">加一行</span>';
+  document.getElementById('tlRowDay').value = day;
+  document.getElementById('tlRowIdx').value = (idx !== null && idx !== undefined) ? idx : '';
+  document.getElementById('tlTime').value  = (existing && existing.time)  || '';
+  document.getElementById('tlIcon').value  = (existing && existing.icon)  || '';
+  document.getElementById('tlEvent').value = (existing && existing.event) || '';
+  document.getElementById('tlWho').value   = (existing && existing.who)   || '';
+  document.getElementById('tlNote').value  = (existing && existing.note)  || '';
+  document.getElementById('tlLink').value  = (existing && existing.link)  || '';
+  // Icon suggestion chips
+  const chipBox = document.getElementById('tlIconChips');
+  chipBox.innerHTML = TL_ICON_SUGGESTIONS.map(name =>
+    `<button class="chip-pick" data-icon="${esc(name)}" title="${esc(name)}">${ico(name)}</button>`
+  ).join('');
+  chipBox.querySelectorAll('.chip-pick').forEach(c => {
+    c.addEventListener('click', () => {
+      document.getElementById('tlIcon').value = c.dataset.icon;
+    });
+  });
+  // Group chips
+  document.querySelectorAll('#tlGroupPicker .split-mode-btn').forEach(b => {
+    b.classList.toggle('selected', (b.dataset.grp || '') === tlGroupChoice);
+  });
+  document.getElementById('tlDelete').style.display = tlRowEditing ? 'inline-flex' : 'none';
+  document.getElementById('tlRowModal').classList.add('show');
+}
+function closeTlRowModal(){
+  document.getElementById('tlRowModal').classList.remove('show');
+}
+
+function buildRowFromForm(){
+  const obj = {
+    time:  document.getElementById('tlTime').value.trim(),
+    event: document.getElementById('tlEvent').value.trim(),
+  };
+  const who   = document.getElementById('tlWho').value.trim();
+  const note  = document.getElementById('tlNote').value.trim();
+  const link  = document.getElementById('tlLink').value.trim();
+  const icon  = document.getElementById('tlIcon').value.trim();
+  if(who)  obj.who   = who;
+  if(note) obj.note  = note;
+  if(link) obj.link  = link;
+  if(icon) obj.icon  = icon;
+  if(tlGroupChoice) obj.group = tlGroupChoice;
+  return obj;
+}
+
+async function saveTlRow(){
+  if(!db){ toast('Firebase not connected — see Money tab', 'error'); return; }
+  const day = Number(document.getElementById('tlRowDay').value);
+  if(!day){ toast('Missing day', 'error'); return; }
+  const obj = buildRowFromForm();
+  if(!obj.event){ toast('Event is required', 'error'); return; }
+
+  const current = getTimeline(day).slice(); // start from override, else seed
+  if(tlRowEditing){
+    current[tlRowEditing.idx] = obj;
+  } else {
+    current.push(obj);
+  }
+  await fbTimelineRef(day).set(current);
+  closeTlRowModal();
+  toast('Saved · 保存', 'good');
+}
+
+async function deleteTlRow(){
+  if(!tlRowEditing) return;
+  if(!confirm('Delete this row?')) return;
+  const {day, idx} = tlRowEditing;
+  const current = getTimeline(day).slice();
+  current.splice(idx, 1);
+  if(current.length){
+    await fbTimelineRef(day).set(current);
+  } else {
+    // If we just deleted the last row, clear the override entirely so the
+    // FALLBACK seed re-renders rather than showing an empty timeline.
+    await fbTimelineRef(day).remove();
+  }
+  closeTlRowModal();
+  toast('Deleted · 已删除', 'good');
+}
+
+async function moveTlRow(day, idx, dir){
+  const current = getTimeline(day).slice();
+  const target = idx + dir;
+  if(target < 0 || target >= current.length) return;
+  const tmp = current[target];
+  current[target] = current[idx];
+  current[idx] = tmp;
+  await fbTimelineRef(day).set(current);
+}
+
+async function quickDeleteTlRow(day, idx){
+  if(!confirm('Delete this row?')) return;
+  const current = getTimeline(day).slice();
+  current.splice(idx, 1);
+  if(current.length){
+    await fbTimelineRef(day).set(current);
+  } else {
+    await fbTimelineRef(day).remove();
+  }
+  toast('Deleted · 已删除', 'good');
+}
+
+async function resetTlDay(day){
+  if(!confirm('Reset Day ' + day + ' timeline to the seed plan?\nAll your edits for this day will be cleared.')) return;
+  await fbTimelineRef(day).remove();
+  toast('Reset · 已还原', 'good');
 }
 
 // ─── Announcements: add/edit modal ─────────────────────────────────────
@@ -4755,6 +5059,63 @@ document.querySelectorAll('#expSplitMode .split-mode-btn').forEach(b => {
     document.querySelectorAll('#expSplitMode .split-mode-btn').forEach(x => x.classList.toggle('selected', x === b));
     document.getElementById('expCustomRow').style.display = expSplitMode === 'custom' ? 'block' : 'none';
   });
+});
+
+// Timeline-row modal buttons
+document.getElementById('tlCancel').addEventListener('click', closeTlRowModal);
+document.getElementById('tlSave').addEventListener('click', saveTlRow);
+document.getElementById('tlDelete').addEventListener('click', deleteTlRow);
+document.getElementById('tlRowModal').addEventListener('click', e => {
+  if(e.target.id === 'tlRowModal') closeTlRowModal();
+});
+document.querySelectorAll('#tlGroupPicker .split-mode-btn').forEach(b => {
+  b.addEventListener('click', () => {
+    tlGroupChoice = b.dataset.grp || '';
+    document.querySelectorAll('#tlGroupPicker .split-mode-btn').forEach(x => x.classList.toggle('selected', x === b));
+  });
+});
+
+// Delegated clicks for timeline-row controls (manager mode only)
+document.addEventListener('click', e => {
+  const editBtn = e.target.closest('.tl-edit[data-day][data-idx]');
+  if(editBtn){
+    if(!state.isManager){ toast('Manager mode required', 'error'); return; }
+    const day = Number(editBtn.dataset.day);
+    const idx = Number(editBtn.dataset.idx);
+    const row = getTimeline(day)[idx];
+    if(row) openTlRowModal(day, idx, row);
+    return;
+  }
+  const addBtn = e.target.closest('.tl-add-card[data-day]');
+  if(addBtn){
+    if(!state.isManager){ toast('Manager mode required', 'error'); return; }
+    openTlRowModal(Number(addBtn.dataset.day), null, null);
+    return;
+  }
+  const upBtn = e.target.closest('.tl-up[data-day][data-idx]:not(:disabled)');
+  if(upBtn){
+    if(!state.isManager) return;
+    moveTlRow(Number(upBtn.dataset.day), Number(upBtn.dataset.idx), -1);
+    return;
+  }
+  const downBtn = e.target.closest('.tl-down[data-day][data-idx]:not(:disabled)');
+  if(downBtn){
+    if(!state.isManager) return;
+    moveTlRow(Number(downBtn.dataset.day), Number(downBtn.dataset.idx), +1);
+    return;
+  }
+  const delBtn = e.target.closest('.tl-delete[data-day][data-idx]');
+  if(delBtn){
+    if(!state.isManager) return;
+    quickDeleteTlRow(Number(delBtn.dataset.day), Number(delBtn.dataset.idx));
+    return;
+  }
+  const resetBtn = e.target.closest('.tl-reset[data-day]');
+  if(resetBtn){
+    if(!state.isManager) return;
+    resetTlDay(Number(resetBtn.dataset.day));
+    return;
+  }
 });
 
 // Announcement modal buttons
