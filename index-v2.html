@@ -1181,6 +1181,26 @@ body.manager .nav-btn.manager-only{display:flex}
   color:var(--text-mute);text-transform:uppercase;
 }
 
+/* ── Day card modal (calendar tap → single-day overlay) ── */
+.day-modal-bg{
+  position:fixed;inset:0;z-index:45;
+  background:rgba(0,0,0,0.78);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  display:none;align-items:flex-end;justify-content:center;
+}
+.day-modal-bg.show{display:flex}
+.day-modal-card{
+  width:100%;max-width:560px;
+  max-height:92dvh;max-height:92vh;
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+  background:transparent;
+  position:relative;
+  animation:slideUp 0.3s var(--ease);
+  padding:18px 14px 60px;
+}
+.day-modal-card #dayModalContent .card{margin-bottom:0}
+.day-modal-card #dayModalContent .card.fade{animation:none}
+
 /* ── Food detail modal ── */
 .food-modal-bg{
   position:fixed;inset:0;z-index:45;
@@ -2023,6 +2043,16 @@ body.ahzai-hidden .ahzai-avatar{display:none}
     <span class="nav-cn">钱</span>
   </button>
 </nav>
+
+<!-- Day card modal (opened from calendar view) -->
+<div class="day-modal-bg" id="dayModal">
+  <div class="day-modal-card">
+    <button class="food-modal-close" id="dayModalClose" aria-label="Close">
+      <span class="material-symbols-outlined">close</span>
+    </button>
+    <div id="dayModalContent"></div>
+  </div>
+</div>
 
 <!-- Profile picker overlay -->
 <div class="profile-overlay" id="profileOverlay">
@@ -3160,14 +3190,21 @@ function renderTrip(){
     btn.addEventListener('click', () => setTripView(btn.dataset.view));
   });
   c.querySelectorAll('.trip-cal-cell[data-day]').forEach(cell => {
-    cell.addEventListener('click', () => {
-      setTripView('list');
-      setTimeout(() => {
-        const card = document.querySelector(`#tripContent .card[data-day="${cell.dataset.day}"]`);
-        if(card) card.scrollIntoView({behavior:'smooth', block:'start'});
-      }, 60);
-    });
+    cell.addEventListener('click', () => openDayModal(Number(cell.dataset.day)));
   });
+}
+
+function openDayModal(day){
+  const s = state.schedule.find(x => x.day === day);
+  if(!s) return;
+  const isToday = day === tripDay();
+  document.getElementById('dayModalContent').innerHTML = dayCard(s, isToday);
+  document.getElementById('dayModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeDayModal(){
+  document.getElementById('dayModal').classList.remove('show');
+  document.body.style.overflow = '';
 }
 
 // ─── Map render ─────────────────────────────────────────────────────────
@@ -3861,6 +3898,12 @@ document.getElementById('foodModalClose').addEventListener('click', closeFoodMod
 document.getElementById('foodModal').addEventListener('click', e => {
   // Close when tapping the dim background, but not the card itself
   if(e.target.id === 'foodModal') closeFoodModal();
+});
+
+// Day-card modal (opened from calendar cell tap)
+document.getElementById('dayModalClose').addEventListener('click', closeDayModal);
+document.getElementById('dayModal').addEventListener('click', e => {
+  if(e.target.id === 'dayModal') closeDayModal();
 });
 // Delegated click handler on the food tab
 document.getElementById('tabFood').addEventListener('click', e => {
