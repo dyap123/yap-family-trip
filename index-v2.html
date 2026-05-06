@@ -472,6 +472,60 @@ body.manager .spend-chip{display:none}
 .chip.split{background:rgba(255,107,53,0.12);color:var(--neon-orange);border:1px solid rgba(255,107,53,0.40)}
 .chip.together{background:rgba(0,245,160,0.12);color:var(--neon-green);border:1px solid rgba(0,245,160,0.40)}
 
+/* ── Day timeline (per-day detailed schedule) ── */
+.day-tl{
+  margin-top:6px;padding:14px 22px 10px;
+  border-top:1px solid var(--line-soft);
+  background:rgba(0,229,255,0.025);
+}
+.day-tl-head{
+  display:flex;align-items:center;gap:8px;margin-bottom:10px;
+  font-family:var(--font-mono);font-size:11px;font-weight:800;letter-spacing:1.4px;
+  text-transform:uppercase;color:var(--neon-cyan);
+  text-shadow:0 0 6px rgba(0,229,255,0.40);
+}
+.day-tl-row{
+  display:grid;grid-template-columns:88px 1fr;gap:14px;
+  padding:10px 0;border-top:1px solid var(--line-soft);
+  align-items:flex-start;
+}
+.day-tl-row:first-of-type{border-top:none;padding-top:2px}
+.day-tl-time{
+  font-family:var(--font-mono);font-size:11.5px;font-weight:800;letter-spacing:0.4px;
+  color:var(--neon-cyan);text-shadow:0 0 6px rgba(0,229,255,0.40);
+  line-height:1.3;text-align:right;padding-top:4px;
+  word-break:keep-all;
+}
+.day-tl-body{flex:1;min-width:0}
+.day-tl-event{
+  font-size:15.5px;font-weight:700;line-height:1.35;color:var(--text);
+  display:flex;align-items:flex-start;gap:6px;
+}
+.day-tl-event .material-symbols-outlined{
+  font-size:18px;color:var(--neon-pink);
+  flex-shrink:0;margin-top:1px;
+  text-shadow:0 0 6px rgba(255,46,136,0.40);
+}
+.day-tl-meta{
+  font-size:13px;color:var(--text-soft);margin-top:4px;line-height:1.45;
+}
+.day-tl-note{
+  font-size:12.5px;color:var(--text-mute);margin-top:4px;line-height:1.4;
+  font-family:var(--font-mono);letter-spacing:0.3px;
+}
+.day-tl-link{
+  display:inline-flex;align-items:center;gap:4px;
+  margin-top:6px;
+  font-size:13px;font-weight:700;
+  color:var(--neon-pink);text-decoration:none;
+  background:rgba(255,46,136,0.10);
+  border:1px solid rgba(255,46,136,0.35);
+  padding:4px 10px;border-radius:8px;
+  transition:background 0.15s;
+}
+.day-tl-link:hover{background:rgba(255,46,136,0.20)}
+.day-tl-link .material-symbols-outlined{font-size:14px}
+
 /* ── Hotel card ── */
 .hotel{
   padding:20px 22px;
@@ -2103,8 +2157,46 @@ const VIBE_CN = {
 };
 
 const FALLBACK = [
-  {day:1,date:'May 14',dow:'Thursday',location:'San Jose',accommodation:'885 Dorel Drive — San Jose home',events:'Land SFO ~8pm. Drive to family home. Rest after long flight.',driveTime:'1 hr (SFO → SJ)',vibe:'chill',notes:'Private home — no hotel check-in.'},
-  {day:2,date:'May 15',dow:'Friday',location:'San Jose → LA',accommodation:'Bicycle Club Hotel & Casino',events:'Drive to LA. In-N-Out lunch. Boston Lobster (Arcadia) for first US dinner. Eugene + Vanessa land LAX 12 AM.',driveTime:'5–6 hr drive',vibe:'road',notes:'LAX pickup at midnight — coordinate with Danzel.'},
+  {day:1,date:'May 14',dow:'Thursday',location:'San Jose',
+   accommodation:'885 Dorel Drive — San Jose home',
+   events:'Family arrives SFO ~7 PM. Dinner at 885 Dorel Drive ~9:30 PM. Rest.',
+   driveTime:'1 hr (SFO → SJ)',vibe:'chill',
+   notes:'Private home — no hotel check-in. Dad picks up the rental van from Costco today before pickups.',
+   timeline:[
+     {time:'Afternoon', event:'Dad picks up rental van from Costco', who:'Dad', icon:'directions_car',
+      note:'Large van — same one used to drive Coke Yi Yi + Ah Gong on May 15.'},
+     {time:'~7:00 PM', event:'Family arrives at SFO', who:'21 PAX from Singapore', icon:'flight_land'},
+     {time:'~9:00 PM', event:'Out of airport, drive to 885 Dorel Drive', icon:'directions_car',
+      note:'~1 hr drive SFO → SJ.'},
+     {time:'~9:30 PM', event:'First dinner together at 885 Dorel Drive', who:'Whole family', icon:'restaurant'},
+     {time:'After dinner', event:'Refresh, rest for the night', icon:'hotel'},
+   ]
+  },
+  {day:2,date:'May 15',dow:'Friday',location:'San Jose → LA',
+   accommodation:'Bicycle Club Hotel & Casino',
+   events:'Caravan San Jose → LA. Coke Yi Yi + Ah Gong fly SJC → ONT 10:40 AM. Graduation dinner at Boston Lobster.',
+   driveTime:'5–6 hr drive',vibe:'road',
+   notes:'LAX pickup at midnight for Eugene + Vanessa — driver or Uber.',
+   timeline:[
+     {time:'8:30 AM', event:'Dad leaves SJ to drop Coke Yi Yi + Ah Gong at SJC', who:'Dad · Coke Yi Yi · Ah Gong', icon:'directions_car',
+      note:'Dad keeps their luggage in the van — no check-in needed.'},
+     {time:'10:40 AM', event:'Coke Yi Yi + Ah Gong fly SJC → ONT (Southwest)', who:'Coke Yi Yi · Ah Gong', icon:'flight_takeoff',
+      note:'Confirmation code: CHXQSC.'},
+     {time:'After SJC drop', event:'Dad drives the van south toward LA · luggage onboard', who:'Dad', icon:'directions_car'},
+     {time:'Morning–afternoon', event:'Rest of group caravans San Jose → Bicycle Club Casino', who:'Whole group · 5–6 hr drive', icon:'route',
+      note:'Recommended stops: In-N-Out · Harris Ranch · 1 misc stop.'},
+     {time:'4:00 PM', event:'Check-in at Bicycle Club Hotel & Casino', icon:'hotel',
+      note:'Settle in before dinner. Bell Gardens, LA.'},
+     {time:'6:00 PM', event:'Graduation dinner at Boston Lobster, Arcadia',
+      who:'Whole family + Aunty Xiao Wen + Tom Bowling family + Danzel',
+      link:'https://www.yelp.com/biz/boston-lobster-rosemead-4',
+      icon:'restaurant',
+      note:'First US group dinner. Danzel meets up after everyone checks in.'},
+     {time:'After dinner', event:'Back to the Bicycle Club, rest', icon:'hotel'},
+     {time:'12:00 AM', event:'LAX pickup — Eugene + Vanessa', who:'1 driver runs · OR Uber', icon:'flight_land',
+      note:'Lands ~12 AM May 16. Whoever drives heads back to Bicycle Club after.'},
+   ]
+  },
   {day:3,date:'May 16',dow:'Saturday',location:'LA → Las Vegas',accommodation:'Horseshoe Vegas (G1) / Bicycle Club LA (G2)',events:"Porto's breakfast → Graduation → Group 1 to Vegas, Group 2 stays in LA.",driveTime:'5 hr drive (Vegas)',vibe:'party',notes:'EDC Night 1 for Group 1.',split:true},
   {day:4,date:'May 17',dow:'Sunday',location:'Las Vegas',accommodation:'Horseshoe Las Vegas',events:"Group 2 drives up. Hell's Kitchen dinner. EDC Night 2 for G1.",driveTime:'—',vibe:'party',notes:'Family reunites in Vegas.',split:true},
   {day:5,date:'May 18',dow:'Monday',location:'Las Vegas',accommodation:'Horseshoe Las Vegas',events:'Bacchanal Buffet, shopping, Cirque "O".',driveTime:'—',vibe:'shop',notes:'All together.'},
@@ -2255,6 +2347,7 @@ function applyData(d){
         notes:r['Notes']||fb.notes||'',
         groupStatus:r['Group Status']||'',
         split: (r['Group Status']||'').toLowerCase().includes('split') || acc.includes('/') || evt.includes('Group 1'),
+        timeline: fb.timeline || [],
       };
     }).filter(s => s.location || s.events);
     if(merged.length) state.schedule = merged;
@@ -2444,11 +2537,30 @@ function convoyHTML(){
   }).join('')}</div>`;
 }
 
+function timelineHTML(tl){
+  if(!Array.isArray(tl) || !tl.length) return '';
+  return `
+    <div class="day-tl">
+      <div class="day-tl-head">${ico('schedule')}Schedule · 时间表</div>
+      ${tl.map(t => `
+        <div class="day-tl-row">
+          <div class="day-tl-time">${esc(t.time || '')}</div>
+          <div class="day-tl-body">
+            <div class="day-tl-event">${t.icon ? ico(t.icon) : ''}<span>${esc(t.event || '')}</span></div>
+            ${t.who ? `<div class="day-tl-meta">${esc(t.who)}</div>` : ''}
+            ${t.note ? `<div class="day-tl-note">${esc(t.note)}</div>` : ''}
+            ${t.link ? `<a class="day-tl-link" href="${esc(t.link)}" target="_blank" rel="noopener">${ico('open_in_new')}Open link</a>` : ''}
+          </div>
+        </div>`).join('')}
+    </div>`;
+}
+
 function dayCard(s, isToday){
   if(!s) return '';
   const stripCls = (s.vibe||'chill').replace(/[^a-z]/g,'') || 'chill';
   const evtIcon = VIBE_ICON[s.vibe] || 'event';
   const vibeCN = VIBE_CN[s.vibe] || '';
+  const tl = timelineHTML(s.timeline);
 
   const head = `
     <div class="day-strip ${stripCls}"></div>
@@ -2517,6 +2629,7 @@ function dayCard(s, isToday){
           </div>
           <span class="chip split">${ico('call_split')} Family split · 分开</span>
         </div>` : `<div class="day-body" style="padding-top:0"><span class="chip split">${ico('call_split')} Family split · 分开</span></div>`}
+        ${tl}
       </div>`;
   }
 
@@ -2566,6 +2679,7 @@ function dayCard(s, isToday){
         </div>` : ''}
         <span class="chip together">${ico('group')} All together · 一起</span>
       </div>
+      ${tl}
     </div>`;
 }
 
