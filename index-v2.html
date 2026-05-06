@@ -754,6 +754,13 @@ body.manager .spend-chip{display:none}
   color:var(--text);
   box-shadow:0 0 18px rgba(255,46,136,0.45);
 }
+.day-btn.is-tbd{
+  opacity:0.55;
+  background:rgba(20,8,40,0.4);
+  border-style:dashed;
+}
+.day-btn.is-tbd .day-btn-num{color:var(--text-mute);font-size:9px}
+.day-btn.is-tbd.active{opacity:0.85}
 .day-btn-num{
   font-family:var(--font-mono);font-size:10px;font-weight:800;
   letter-spacing:1.4px;color:var(--text-mute);text-transform:uppercase;
@@ -2383,7 +2390,39 @@ const FALLBACK = [
       note:'Casino amenities — base for the rest of Group 2.'},
    ]
   },
-  {day:7,date:'May 20',dow:'Wednesday',location:'Orange County',accommodation:'Commerce Casino / Pixar Hotel',events:'DISNEYLAND + Adventureland for Disney group. Santa Ana shopping for the rest.',driveTime:'—',vibe:'fun',notes:'Pixar group closer to park.',split:true},
+  {day:7,date:'May 20',dow:'Wednesday',location:'Orange County',
+   accommodation:'Pixar Place Hotel · Anaheim (G1) / Commerce Casino · LA (G2)',
+   events:'Disneyland for the Pixar group. Free LA day for the Commerce group.',
+   driveTime:'—',vibe:'fun',
+   notes:"Last detailed day for now — rest of the trip is to-be-continued.",split:true,
+   timeline:[
+     {time:'Morning', event:'Slow start at both hotels', icon:'wb_sunny',
+      note:'No fixed schedule today — go at your own pace.'},
+     {time:'Daytime', event:'Disneyland — flexible timing',
+      who:'Group 1 + Jujuhub + Da ma',
+      icon:'castle', group:'g1',
+      link:'https://disneyland.disney.go.com/',
+      note:'Pixar Place Hotel is right next to the park. Drop in, leave, come back as you like.'},
+     {time:'Daytime', event:'Free day in LA — explore + shop',
+      who:'Commerce group (Yi ma · Aunty Coke · Mom · Dad · Uncle Jimy · Steve Susu · Ah Gong · Margaret)',
+      icon:'shopping_bag', group:'g2',
+      note:'Wander the Commerce / LA area at your own pace.'},
+     {time:'Dinner', event:"Angel's Tijuana Tacos · giant burrito",
+      who:'Pixar group',
+      icon:'restaurant', group:'g1',
+      link:'https://www.angelstijuanatacos.net/',
+      note:'The signature giant burrito is the move.'},
+     {time:'Dinner', event:'Chinese food in Arcadia',
+      who:'Commerce group',
+      icon:'restaurant', group:'g2',
+      note:'Last big Asian-food window in LA. Arcadia has many great Chinese options.'},
+     {time:'Tomorrow AM', event:'Breakfast at Victory Diner (Orange) — artery warning',
+      who:'Pixar group',
+      icon:'breakfast_dining', group:'g1',
+      link:'https://www.yelp.com/biz/victory-diner-orange',
+      note:'Heavy classic American breakfast. Officially issuing an artery warning.'},
+   ]
+  },
   {day:8,date:'May 21',dow:'Thursday',location:'OC → Malibu',accommodation:'Malibu Airbnb',events:'Eugene flies home. Drive PCH. Sunset at El Matador.',driveTime:'1.5 hr drive',vibe:'beach',notes:'Eugene departs LAX morning.'},
   {day:9,date:'May 22',dow:'Friday',location:'Malibu → Paso Robles',accommodation:'Paso Robles Hotel',events:'Malibu Farm brunch. Drive to wine country. Tin City evening.',driveTime:'3.5 hr drive',vibe:'wine',notes:'Together.'},
   {day:10,date:'May 23',dow:'Saturday',location:'Paso → San Jose',accommodation:'San Jose home base',events:'Brown Butter Cookies stop. Drive home.',driveTime:'2.5 hr drive',vibe:'home',notes:'Together.'},
@@ -3063,9 +3102,10 @@ function buildDayStrip(){
   if(!strip) return;
   strip.innerHTML = state.schedule.map(s => {
     const cityShort = String(s.location || '').split('→')[0].trim();
+    const tbd = !(Array.isArray(s.timeline) && s.timeline.length);
     return `
-      <button class="day-btn" data-day="${s.day}">
-        <div class="day-btn-num">DAY ${s.day}</div>
+      <button class="day-btn ${tbd?'is-tbd':''}" data-day="${s.day}">
+        <div class="day-btn-num">DAY ${s.day}${tbd?' · TBD':''}</div>
         <div class="day-btn-date">${esc(s.date)}</div>
         <div class="day-btn-place">${esc(cityShort)}</div>
       </button>`;
@@ -3106,11 +3146,14 @@ function flyToDay(day, openPopup){
   // Update info card with the day's plan
   const sch = state.schedule.find(s => s.day === day);
   const isToday = day === tripDay();
+  const tbd = !(sch && Array.isArray(sch.timeline) && sch.timeline.length);
   const card = document.getElementById('mapInfoCard');
   card.classList.toggle('today-active', isToday);
-  document.getElementById('mapInfoDay').innerHTML = `${isToday?'TODAY · ':''}DAY ${day}<b>${esc((sch?.date||'').toUpperCase())}</b>`;
+  document.getElementById('mapInfoDay').innerHTML = `${tbd?'TBD · ':isToday?'TODAY · ':''}DAY ${day}<b>${esc((sch?.date||'').toUpperCase())}</b>`;
   document.getElementById('mapInfoPlace').textContent = sch?.location || hotel.name || '';
-  document.getElementById('mapInfoEvents').textContent = sch?.events || hotel.who || '';
+  document.getElementById('mapInfoEvents').textContent = tbd
+    ? 'Plan coming soon · 待定 — to be detailed.'
+    : (sch?.events || hotel.who || '');
 
   // Light up the progress polyline up to (and including) this hotel
   if(state.mapProgressPoly && state.mapPath){
@@ -3152,6 +3195,29 @@ function ico_emoji(name){
   return '•';
 }
 
+// Filters the full sheet down to only spots referenced in any day's timeline.
+// Keeps the Food tab in sync with the detailed plan instead of showing every
+// curated pick the sheet has.
+function activeFoodSet(){
+  if(!state.food.length) return [];
+  const haystack = (state.schedule || [])
+    .flatMap(s => s.timeline || [])
+    .map(t => `${t.event||''} ${t.note||''} ${t.who||''} ${t.link||''}`)
+    .join(' \n ')
+    .toLowerCase()
+    .replace(/[''`]/g, '');
+  const stripWord = (s) => s.replace(/[''`]/g, '').toLowerCase();
+  return state.food.filter(f => {
+    const name = stripWord(String(f.name || ''));
+    if(!name) return false;
+    if(haystack.includes(name)) return true;
+    // word-by-word match for names with stop-words or "·" in them
+    const words = name.split(/[\s\-·]+/).filter(w => w.length >= 4);
+    if(words.length >= 1 && words.every(w => haystack.includes(w))) return true;
+    return false;
+  });
+}
+
 // ─── Food render (lifted from v1 with neon styling) ─────────────────────
 function renderFood(){
   const c = document.getElementById('foodContent');
@@ -3160,6 +3226,16 @@ function renderFood(){
       <div class="section" style="margin-top:6px">
         <div class="section-title"><h2>Food picks<span class="cn">美食</span></h2></div>
         <div class="empty">Loading restaurants from the sheet…</div>
+      </div>`;
+    return;
+  }
+  // Filter to only food spots referenced in the detailed itinerary
+  const activeFood = activeFoodSet();
+  if(!activeFood.length){
+    c.innerHTML = `
+      <div class="section" style="margin-top:6px">
+        <div class="section-title"><h2>Food picks<span class="cn">美食</span></h2></div>
+        <div class="empty">No food spots match the detailed itinerary yet.</div>
       </div>`;
     return;
   }
@@ -3174,7 +3250,7 @@ function renderFood(){
     return city;
   }
   const buckets = {};
-  state.food.forEach(f => {
+  activeFood.forEach(f => {
     const b = cityBucket(f.city || '');
     (buckets[b] = buckets[b]||[]).push(f);
   });
@@ -3186,7 +3262,7 @@ function renderFood(){
     <div class="section" style="margin-top:6px">
       <div class="section-title">
         <h2>Food picks<span class="cn">美食</span></h2>
-        <span class="meta">${state.food.length} SPOTS</span>
+        <span class="meta">${activeFood.length} ON THE PLAN</span>
       </div>
       ${finalOrder.map(b => `
         <div class="city-section fade">
