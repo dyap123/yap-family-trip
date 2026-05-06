@@ -67,7 +67,8 @@ html,body{
 body{
   display:flex;flex-direction:column;
   padding-top:var(--safe-top);
-  padding-bottom:var(--safe-bottom);
+  /* No padding-bottom here — the .nav handles its own safe-area inset
+     so the bar sits flush against the home-indicator area on iPhone. */
 }
 
 /* ── Backdrop: deep night sky + neon aurora + Chinese signage ── */
@@ -2539,12 +2540,13 @@ const NAME_CN = {
 
 const HOTELS = [
   {nights:'May 14',name:'885 Dorel Drive',city:'San Jose · family home',who:'Whole family — arrival night',map:'https://maps.google.com/?q=885+Dorel+Drive+San+Jose',note:'Private residence. No hotel check-in.',lat:37.276,lng:-121.842},
-  {nights:'May 15 – 16',name:'Bicycle Club Hotel & Casino',city:'Bell Gardens · LA',who:'Whole family May 15. Group 2 stays May 16.',map:'https://www.thebike.com/',note:'Eugene + Vanessa arrive LAX 12 AM May 15. thebike.com',lat:33.965,lng:-118.156},
-  {nights:'May 16 – 18',name:'Horseshoe Las Vegas',city:'Las Vegas',who:'Group 1 from May 16. All together May 17 onward.',map:'https://maps.google.com/?q=Horseshoe+Las+Vegas',note:'Vegas base for EDC + recovery + buffet days.',lat:36.110,lng:-115.173},
-  {nights:'May 19 – 20',name:'Commerce Casino + Pixar Hotel',city:'Commerce / Anaheim',who:'Family splits across two hotels.',map:'https://maps.google.com/?q=Pixar+Place+Hotel+Anaheim',note:'Pixar group closer to Disneyland.',lat:33.806,lng:-117.918},
-  {nights:'May 21',name:'Malibu Airbnb',city:'Malibu',who:'~14 remaining (Eugene departed).',map:'https://maps.google.com/?q=Malibu',note:'Beach + PCH sunset.',lat:34.026,lng:-118.780},
-  {nights:'May 22',name:'Paso Robles Hotel',city:'Paso Robles',who:'Together.',map:'https://maps.google.com/?q=Paso+Robles+CA',note:'Wine-country night.',lat:35.627,lng:-120.691},
-  {nights:'May 23 – 26',name:'San Jose home base',city:'San Jose',who:'Together.',map:'https://maps.google.com/?q=San+Jose+CA',note:'Final stretch + departures.',lat:37.276,lng:-121.842},
+  {nights:'May 15 – 17',name:'Bicycle Club Hotel & Casino',city:'Bell Gardens · LA',who:'Whole family May 15. Group 2 stays through May 16 (caravans to Vegas May 17).',map:'https://www.thebike.com/',note:'Day 2 hotel. Eugene + Vanessa arrive LAX 12 AM May 15.',lat:33.965,lng:-118.156},
+  {nights:'May 16 – 19',name:'Horseshoe Las Vegas',city:'Las Vegas',who:'EDC group from May 16. Full family from May 17 through May 18 night. Checkout May 19.',map:'https://www.caesars.com/horseshoe-las-vegas',note:'Vegas base for EDC + recovery + Wynn brunch.',lat:36.110,lng:-115.173},
+  {nights:'May 19 – 21',name:'Pixar Place Hotel · Anaheim',city:'Anaheim · OC',who:'Group 1 + Jujuhub + Da ma — closer to Disneyland.',map:'https://disneyland.disney.go.com/hotels/pixar-place-hotel/',note:'Split-night #1. Different hotel from Commerce.',lat:33.812,lng:-117.919},
+  {nights:'May 19 – 21',name:'Commerce Casino · LA',city:'Commerce · LA',who:'Yi ma · Aunty Coke · Mom · Dad · Uncle Jimy · Steve Susu · Ah Gong · Margaret.',map:'https://www.commercecasino.com/',note:'Split-night #2. Different hotel from Pixar.',lat:33.999,lng:-118.144},
+  {nights:'May 21 – 22',name:'Malibu Airbnb',city:'Malibu',who:'Whole remaining family (Eugene departed).',map:'https://maps.google.com/?q=Malibu',note:'1 night. Beach + PCH sunset.',lat:34.026,lng:-118.780},
+  {nights:'May 22 – 23',name:'Paso Robles Hotel',city:'Paso Robles',who:'Whole family.',map:'https://maps.google.com/?q=Paso+Robles+CA',note:'1 night. Wine country.',lat:35.627,lng:-120.691},
+  {nights:'May 23 – 26',name:'885 Dorel Drive',city:'San Jose · family home',who:'Whole family — final stretch + departures.',map:'https://maps.google.com/?q=885+Dorel+Drive+San+Jose',note:'Back to the SJ home base.',lat:37.276,lng:-121.842},
 ];
 
 // Convoy / arrivals (multi-family)
