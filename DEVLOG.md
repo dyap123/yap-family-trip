@@ -69,6 +69,19 @@ https://dyap123.github.io/yap-family-trip/index-v2.html.
 - `guides/manager-guide.html` — early HTML guide; superseded by Claude Design output
 - `DEVLOG.md` — this file
 
+### Tomorrow's plan (in priority order)
+
+1. **Day 8 (May 21) timeline** — OC → Malibu. PCH drive, El Matador sunset. Eugene departs LAX morning. Move the Victory Diner Orange breakfast (currently a "Tomorrow AM" hint at end of Day 7) onto Day 8 properly.
+2. **Build in-app timeline-row editor** for managers. Mirror the hotel-edit pattern:
+   - Yellow pencil icon next to each Schedule · 时间表 row in manager mode
+   - Tap → modal with fields: Time / Event / Who / Note / Link / Icon / Group
+   - Saves to Firebase override path `yap-trip/timelines/{day}/{rowId}` and merges with the FALLBACK seed at render time
+   - "+ Add row" button at the bottom of each day's timeline (manager only)
+   - Reorder + delete
+   - This unblocks Danzel/Angel from needing me for every timeline tweak
+3. **Days 9–13 timelines** — Paso, return to SJ, free days, departures.
+4. **Photos** — user can curate specific image URLs into `FOOD_PHOTO_OVERRIDES` or the sheet when ready.
+
 ### Pickup commands tomorrow
 
 ```sh
@@ -78,4 +91,4 @@ python3 -m http.server 8282
 open "http://localhost:8282/index-v2.html"
 ```
 
-Latest commit at end-of-session: `20209e7`.
+Latest commit at end-of-session: `a7a2b32`.
