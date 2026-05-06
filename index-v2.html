@@ -391,8 +391,33 @@ body.manager .spend-chip{display:none}
 
 .day-head{
   display:flex;justify-content:space-between;align-items:flex-start;
-  padding:20px 22px 6px;
+  padding:20px 22px 6px;gap:10px;
 }
+.day-head-actions{
+  display:flex;flex-direction:column;align-items:flex-end;gap:6px;
+}
+.day-edit-btn{
+  display:none;width:32px;height:32px;border-radius:8px;
+  background:rgba(0,229,255,0.10);border:1px solid rgba(0,229,255,0.35);
+  color:var(--neon-cyan);
+  align-items:center;justify-content:center;
+  cursor:pointer;flex-shrink:0;
+  transition:transform 0.15s var(--ease),background 0.15s,box-shadow 0.15s;
+}
+body.manager .day-edit-btn{display:flex}
+.day-edit-btn:active{transform:scale(0.92)}
+.day-edit-btn:hover{background:rgba(0,229,255,0.20);box-shadow:0 0 10px rgba(0,229,255,0.30)}
+.day-edit-btn .material-symbols-outlined{font-size:16px}
+.day-edited-badge{
+  display:none;align-items:center;
+  font-family:var(--font-mono);font-size:9px;font-weight:800;
+  letter-spacing:1.4px;color:var(--neon-yellow);text-transform:uppercase;
+  padding:2px 7px;border-radius:5px;
+  background:rgba(255,214,0,0.12);border:1px solid rgba(255,214,0,0.40);
+  text-shadow:0 0 6px rgba(255,214,0,0.45);
+  white-space:nowrap;
+}
+body.manager .day-edited-badge{display:inline-flex}
 .day-id{
   font-family:var(--font-mono);
   font-size:11px;font-weight:700;letter-spacing:1.6px;
@@ -2382,6 +2407,67 @@ body.ahzai-hidden .ahzai-avatar{display:none}
   </div>
 </div>
 
+<!-- Day-level edit modal (manager-only) — date / dow / location / stay / drive / vibe / summary / notes -->
+<div class="form-modal-bg" id="dayEditModal">
+  <div class="form-modal">
+    <h3 id="dayEditTitle">Edit day · 编辑</h3>
+    <p class="hint">MANAGER ONLY · 管理员 · saves to Firebase, syncs to all phones</p>
+    <input type="hidden" id="dayEditDay">
+    <div class="form-row-pair">
+      <div class="form-row">
+        <label class="form-label">Date · 日期</label>
+        <input type="text" class="form-input" id="dayEditDate" placeholder="May 14">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Day of week · 星期</label>
+        <input type="text" class="form-input" id="dayEditDow" placeholder="Thursday">
+      </div>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Where · 在哪</label>
+      <input type="text" class="form-input" id="dayEditLocation" placeholder="San Jose → LA">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Stay · 住</label>
+      <input type="text" class="form-input" id="dayEditAccom" placeholder="Bicycle Club Hotel & Casino">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Travel · 车程 (optional)</label>
+      <input type="text" class="form-input" id="dayEditDrive" placeholder="5–6 hr drive">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Vibe · 气氛 — sets the gradient stripe color</label>
+      <div class="split-modes" id="dayEditVibe" style="grid-template-columns:repeat(3,1fr)">
+        <button class="split-mode-btn" data-vibe="chill">Chill<span class="cn">放松</span></button>
+        <button class="split-mode-btn" data-vibe="road">Road<span class="cn">路上</span></button>
+        <button class="split-mode-btn" data-vibe="party">Party<span class="cn">派对</span></button>
+        <button class="split-mode-btn" data-vibe="shop">Shop<span class="cn">购物</span></button>
+        <button class="split-mode-btn" data-vibe="fun">Fun<span class="cn">好玩</span></button>
+        <button class="split-mode-btn" data-vibe="beach">Beach<span class="cn">海滩</span></button>
+        <button class="split-mode-btn" data-vibe="wine">Wine<span class="cn">酒庄</span></button>
+        <button class="split-mode-btn" data-vibe="home">Home<span class="cn">家</span></button>
+        <button class="split-mode-btn" data-vibe="farewell">Farewell<span class="cn">告别</span></button>
+      </div>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Summary · 概要 (the high-level "what's the day about")</label>
+      <textarea class="form-textarea" id="dayEditEvents" placeholder="Quick summary that shows in the day card 'Plan' section"></textarea>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Notes · 备注 (optional)</label>
+      <textarea class="form-textarea" id="dayEditNotes" placeholder="Anything extra worth knowing"></textarea>
+    </div>
+    <div class="form-row" style="display:flex;align-items:center;gap:8px;justify-content:flex-end;color:var(--text-mute);font-family:var(--font-mono);font-size:11px;letter-spacing:0.6px">
+      <span id="dayEditOverridden" style="display:none;color:var(--neon-yellow);text-shadow:0 0 6px rgba(255,214,0,0.45)">EDITED · 已修改</span>
+    </div>
+    <div class="form-actions">
+      <button class="btn danger" id="dayEditReset" style="display:none">Reset · 还原</button>
+      <button class="btn" id="dayEditCancel">Cancel</button>
+      <button class="btn solid" id="dayEditSave">Save · 保存</button>
+    </div>
+  </div>
+</div>
+
 <!-- Timeline-row edit modal (manager-only) -->
 <div class="form-modal-bg" id="tlRowModal">
   <div class="form-modal">
@@ -2864,7 +2950,9 @@ function getAllFood(){
 const USD_TO_SGD = 1.35;
 
 let state = {
-  schedule:FALLBACK.slice(),
+  scheduleBase:FALLBACK.slice(),         // raw merged Sheet+FALLBACK (pre-override)
+  schedule:FALLBACK.slice(),             // recomputed view used by all renderers
+  dayOverrides:{},                       // Firebase: {day: {field: value}}
   food:[],
   updates:[],
   loaded:false,
@@ -2962,7 +3050,10 @@ function applyData(d){
         timeline: fb.timeline || [],
       };
     }).filter(s => s.location || s.events);
-    if(merged.length) state.schedule = merged;
+    if(merged.length){
+      state.scheduleBase = merged;
+      recomputeSchedule();
+    }
   }
   if(d.food){
     state.food = d.food.map(r => ({
@@ -3228,6 +3319,7 @@ function dayCard(s, isToday){
   const vibeCN = VIBE_CN[s.vibe] || '';
   const tl = timelineHTML(getTimeline(s.day), s.day);
 
+  const dayOverridden = hasDayOverride(s.day);
   const head = `
     <div class="day-strip ${stripCls}"></div>
     <div class="day-head">
@@ -3236,7 +3328,11 @@ function dayCard(s, isToday){
         <div class="day-date">${esc(s.date)}</div>
         <div class="day-dow">${esc(s.dow)}${vibeCN?`<span class="cn">${vibeCN}</span>`:''}</div>
       </div>
-      <span class="day-tag">${esc(s.vibe||'chill')}</span>
+      <div class="day-head-actions">
+        <span class="day-tag">${esc(s.vibe||'chill')}</span>
+        ${dayOverridden ? '<span class="day-edited-badge">EDITED · 已修改</span>' : ''}
+        <button class="day-edit-btn" data-day-edit="${s.day}" aria-label="Edit day">${ico('edit')}</button>
+      </div>
     </div>`;
 
   // Split day → render two sub-cards with group highlight
@@ -4063,7 +4159,7 @@ function applyManagerMode(on){
     // Manager mode just dropped — close any open edit modals + re-render
     // the day cards so editing affordances are removed from the DOM, not
     // just CSS-hidden.
-    ['tlRowModal', 'locModal', 'expModal', 'anncModal'].forEach(id => {
+    ['tlRowModal', 'dayEditModal', 'locModal', 'expModal', 'anncModal'].forEach(id => {
       const m = document.getElementById(id);
       if(m) m.classList.remove('show');
     });
@@ -4323,6 +4419,24 @@ function initFirebase(){
       renderToday();
       renderFamily();
     });
+    // Day-level overrides — manager edits to date / dow / location / accommodation
+    // / drive time / vibe / events / notes. Field-level merge over the Sheet+FALLBACK base.
+    db.ref('yap-trip/days').on('value', snap => {
+      state.dayOverrides = snap.val() || {};
+      recomputeSchedule();
+      renderToday();
+      renderTrip();
+      // Refresh open day-modal too
+      const dm = document.getElementById('dayModal');
+      if(dm && dm.classList.contains('show')){
+        const openCard = dm.querySelector('.card[data-day]');
+        if(openCard){
+          const day = Number(openCard.dataset.day);
+          const s = state.schedule.find(x => x.day === day);
+          if(s) document.getElementById('dayModalContent').innerHTML = dayCard(s, day === tripDay());
+        }
+      }
+    });
     // Timeline overrides — manager-edited per-day timeline rows. Full array per day.
     db.ref('yap-trip/timelines').on('value', snap => {
       state.timelineOverrides = snap.val() || {};
@@ -4349,6 +4463,21 @@ function initFirebase(){
 function fbExpensesRef(){ return db && db.ref('yap-trip/expenses'); }
 function fbLocRef(type, id){ return db && db.ref('yap-trip/locations/'+type+'/'+id); }
 function fbTimelineRef(day){ return db && db.ref('yap-trip/timelines/'+day); }
+function fbDayRef(day){ return db && db.ref('yap-trip/days/'+day); }
+
+// Re-merges state.scheduleBase + state.dayOverrides into state.schedule.
+// Called after Sheet-load AND whenever Firebase day-overrides change.
+function recomputeSchedule(){
+  state.schedule = (state.scheduleBase || []).map(s => {
+    const ov = state.dayOverrides[String(s.day)];
+    if(!ov || !Object.keys(ov).length) return s;
+    return Object.assign({}, s, ov);
+  });
+}
+function hasDayOverride(day){
+  const ov = state.dayOverrides[String(day)];
+  return !!(ov && Object.keys(ov).length);
+}
 
 // Returns the timeline rows for a day. If Firebase has a non-empty array
 // for this day, that wins entirely. Otherwise the FALLBACK seed is used.
@@ -4543,6 +4672,78 @@ function computeSettle(expenses){
     share: share[n] || 0,
     net: (paid[n] || 0) - (share[n] || 0),
   }));
+}
+
+// ─── Day-level edit (date / dow / location / stay / drive / vibe / summary / notes) ──
+let dayEditVibe = '';
+function openDayEditModal(day){
+  if(!requireManager()) return;
+  const s = state.schedule.find(x => x.day === day);
+  if(!s) return;
+  document.getElementById('dayEditDay').value = day;
+  document.getElementById('dayEditDate').value     = s.date || '';
+  document.getElementById('dayEditDow').value      = s.dow || '';
+  document.getElementById('dayEditLocation').value = s.location || '';
+  document.getElementById('dayEditAccom').value    = s.accommodation || '';
+  document.getElementById('dayEditDrive').value    = s.driveTime || '';
+  document.getElementById('dayEditEvents').value   = s.events || '';
+  document.getElementById('dayEditNotes').value    = s.notes || '';
+  dayEditVibe = (s.vibe || '').toLowerCase();
+  document.querySelectorAll('#dayEditVibe .split-mode-btn').forEach(b => {
+    b.classList.toggle('selected', b.dataset.vibe === dayEditVibe);
+  });
+  const overridden = hasDayOverride(day);
+  document.getElementById('dayEditOverridden').style.display = overridden ? 'inline' : 'none';
+  document.getElementById('dayEditReset').style.display = overridden ? 'inline-flex' : 'none';
+  document.getElementById('dayEditTitle').innerHTML = `Edit Day ${day} · 编辑${overridden?' (edited)':''}`;
+  document.getElementById('dayEditModal').classList.add('show');
+}
+function closeDayEditModal(){
+  document.getElementById('dayEditModal').classList.remove('show');
+}
+async function saveDayEdit(){
+  if(!requireManager()) return;
+  if(!db){ toast('Firebase not connected — see Money tab', 'error'); return; }
+  const day = Number(document.getElementById('dayEditDay').value);
+  if(!day) return;
+  const seed = (state.scheduleBase || []).find(x => x.day === day) || {};
+  // Only write fields that actually differ from the seed (keeps the override
+  // node small + makes Reset truly meaningful).
+  const candidate = {
+    date:          document.getElementById('dayEditDate').value.trim(),
+    dow:           document.getElementById('dayEditDow').value.trim(),
+    location:      document.getElementById('dayEditLocation').value.trim(),
+    accommodation: document.getElementById('dayEditAccom').value.trim(),
+    driveTime:     document.getElementById('dayEditDrive').value.trim(),
+    events:        document.getElementById('dayEditEvents').value.trim(),
+    notes:         document.getElementById('dayEditNotes').value.trim(),
+    vibe:          dayEditVibe || '',
+  };
+  const obj = {};
+  Object.keys(candidate).forEach(k => {
+    const v = candidate[k];
+    const seedVal = (seed[k] == null ? '' : String(seed[k]));
+    if(v !== seedVal) obj[k] = v;
+  });
+  if(!Object.keys(obj).length){
+    // Nothing changed → if there was a previous override, remove it
+    if(hasDayOverride(day)) await fbDayRef(day).remove();
+    closeDayEditModal();
+    toast('Saved · 保存', 'good');
+    return;
+  }
+  await fbDayRef(day).set(obj);
+  closeDayEditModal();
+  toast('Saved · 保存', 'good');
+}
+async function resetDayEdit(){
+  if(!requireManager()) return;
+  const day = Number(document.getElementById('dayEditDay').value);
+  if(!day) return;
+  if(!confirm('Reset Day ' + day + ' summary to the original plan?\nDate / location / events / notes / vibe etc. will all revert.\n(Timeline rows are separate — use Reset · 还原 in the Schedule section.)')) return;
+  await fbDayRef(day).remove();
+  closeDayEditModal();
+  toast('Reset · 已还原', 'good');
 }
 
 // ─── Timeline-row: add / edit / delete / reorder / reset ───────────────
@@ -5094,6 +5295,20 @@ document.querySelectorAll('#expSplitMode .split-mode-btn').forEach(b => {
   });
 });
 
+// Day-edit modal buttons
+document.getElementById('dayEditCancel').addEventListener('click', closeDayEditModal);
+document.getElementById('dayEditSave').addEventListener('click', saveDayEdit);
+document.getElementById('dayEditReset').addEventListener('click', resetDayEdit);
+document.getElementById('dayEditModal').addEventListener('click', e => {
+  if(e.target.id === 'dayEditModal') closeDayEditModal();
+});
+document.querySelectorAll('#dayEditVibe .split-mode-btn').forEach(b => {
+  b.addEventListener('click', () => {
+    dayEditVibe = b.dataset.vibe || '';
+    document.querySelectorAll('#dayEditVibe .split-mode-btn').forEach(x => x.classList.toggle('selected', x === b));
+  });
+});
+
 // Timeline-row modal buttons
 document.getElementById('tlCancel').addEventListener('click', closeTlRowModal);
 document.getElementById('tlSave').addEventListener('click', saveTlRow);
@@ -5108,8 +5323,15 @@ document.querySelectorAll('#tlGroupPicker .split-mode-btn').forEach(b => {
   });
 });
 
-// Delegated clicks for timeline-row controls (manager mode only)
+// Delegated clicks for timeline-row controls + day-edit pencil (manager mode only)
 document.addEventListener('click', e => {
+  const dayBtn = e.target.closest('.day-edit-btn[data-day-edit]');
+  if(dayBtn){
+    if(!state.isManager){ toast('Manager mode required', 'error'); return; }
+    e.stopPropagation();
+    openDayEditModal(Number(dayBtn.dataset.dayEdit));
+    return;
+  }
   const editBtn = e.target.closest('.tl-edit[data-day][data-idx]');
   if(editBtn){
     if(!state.isManager){ toast('Manager mode required', 'error'); return; }
