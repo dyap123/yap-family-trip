@@ -4050,13 +4050,28 @@ const pinInputs = document.querySelectorAll('.pin-input');
 function applyManagerMode(on){
   // Only manager-eligible profiles can BE manager. Anyone can drop manager.
   if(on && !isManagerEligible()) on = false;
+  const wasOn = state.isManager;
   state.isManager = on;
   document.body.classList.toggle('manager', on);
   modePill.classList.toggle('hidden', !on);
   lockBtn.style.display = on ? 'flex' : 'none';
   localStorage.setItem('yap_manager', on ? 'yes' : 'no');
   renderSpendChip();
-  if(on) renderMoney();
+  if(on){
+    renderMoney();
+  } else if(wasOn){
+    // Manager mode just dropped — close any open edit modals + re-render
+    // the day cards so editing affordances are removed from the DOM, not
+    // just CSS-hidden.
+    ['tlRowModal', 'locModal', 'expModal', 'anncModal'].forEach(id => {
+      const m = document.getElementById(id);
+      if(m) m.classList.remove('show');
+    });
+    if(state.loaded){
+      try { renderToday(); } catch {}
+      try { renderTrip(); }  catch {}
+    }
+  }
 }
 
 function renderSpendChip(){
@@ -4593,7 +4608,21 @@ function buildRowFromForm(){
   return obj;
 }
 
+// Defense-in-depth: every Firebase-write must pass this gate. UI is already
+// hidden for non-managers, but we double-check at the call site so a manual
+// console invocation can't write either.
+function requireManager(){
+  if(!state.isManager){ toast('Manager mode required · 仅管理员', 'error'); return false; }
+  if(!isManagerEligible()){
+    applyManagerMode(false);
+    toast('Manager profile required · 仅 Danzel / Angel', 'error');
+    return false;
+  }
+  return true;
+}
+
 async function saveTlRow(){
+  if(!requireManager()) return;
   if(!db){ toast('Firebase not connected — see Money tab', 'error'); return; }
   const day = Number(document.getElementById('tlRowDay').value);
   if(!day){ toast('Missing day', 'error'); return; }
@@ -4612,6 +4641,7 @@ async function saveTlRow(){
 }
 
 async function deleteTlRow(){
+  if(!requireManager()) return;
   if(!tlRowEditing) return;
   if(!confirm('Delete this row?')) return;
   const {day, idx} = tlRowEditing;
@@ -4629,6 +4659,7 @@ async function deleteTlRow(){
 }
 
 async function moveTlRow(day, idx, dir){
+  if(!requireManager()) return;
   const current = getTimeline(day).slice();
   const target = idx + dir;
   if(target < 0 || target >= current.length) return;
@@ -4639,6 +4670,7 @@ async function moveTlRow(day, idx, dir){
 }
 
 async function quickDeleteTlRow(day, idx){
+  if(!requireManager()) return;
   if(!confirm('Delete this row?')) return;
   const current = getTimeline(day).slice();
   current.splice(idx, 1);
@@ -4651,6 +4683,7 @@ async function quickDeleteTlRow(day, idx){
 }
 
 async function resetTlDay(day){
+  if(!requireManager()) return;
   if(!confirm('Reset Day ' + day + ' timeline to the seed plan?\nAll your edits for this day will be cleared.')) return;
   await fbTimelineRef(day).remove();
   toast('Reset · 已还原', 'good');
