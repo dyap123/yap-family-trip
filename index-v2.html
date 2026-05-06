@@ -525,6 +525,19 @@ body.manager .spend-chip{display:none}
 }
 .day-tl-link:hover{background:rgba(255,46,136,0.20)}
 .day-tl-link .material-symbols-outlined{font-size:14px}
+.day-tl-tag{
+  display:inline-block;margin-left:6px;
+  font-family:var(--font-mono);font-size:9.5px;font-weight:800;
+  letter-spacing:1.4px;text-transform:uppercase;
+  padding:2px 7px;border-radius:5px;
+  vertical-align:middle;
+}
+.day-tl-tag.edc{background:rgba(255,46,136,0.15);color:var(--neon-pink);border:1px solid rgba(255,46,136,0.40);text-shadow:0 0 6px rgba(255,46,136,0.45)}
+.day-tl-tag.rest{background:rgba(0,229,255,0.12);color:var(--neon-cyan);border:1px solid rgba(0,229,255,0.40);text-shadow:0 0 6px rgba(0,229,255,0.40)}
+.day-tl-tag.g1{background:rgba(255,46,136,0.12);color:var(--neon-pink);border:1px solid rgba(255,46,136,0.40)}
+.day-tl-tag.g2{background:rgba(0,229,255,0.12);color:var(--neon-cyan);border:1px solid rgba(0,229,255,0.40)}
+.day-tl-tag.all{background:rgba(0,245,160,0.12);color:var(--neon-green);border:1px solid rgba(0,245,160,0.40)}
+.day-tl-row.dim-other{opacity:0.55}
 
 /* ── Hotel card ── */
 .hotel{
@@ -2186,6 +2199,7 @@ const FALLBACK = [
      {time:'Morning–afternoon', event:'Rest of group caravans San Jose → Bicycle Club Casino', who:'Whole group · 5–6 hr drive', icon:'route',
       note:'Recommended stops: In-N-Out · Harris Ranch · 1 misc stop.'},
      {time:'4:00 PM', event:'Check-in at Bicycle Club Hotel & Casino', icon:'hotel',
+      link:'https://www.thebike.com/',
       note:'Settle in before dinner. Bell Gardens, LA.'},
      {time:'6:00 PM', event:'Graduation dinner at Boston Lobster, Arcadia',
       who:'Whole family + Aunty Xiao Wen + Tom Bowling family + Danzel',
@@ -2197,7 +2211,54 @@ const FALLBACK = [
       note:'Lands ~12 AM May 16. Whoever drives heads back to Bicycle Club after.'},
    ]
   },
-  {day:3,date:'May 16',dow:'Saturday',location:'LA → Las Vegas',accommodation:'Horseshoe Vegas (G1) / Bicycle Club LA (G2)',events:"Porto's breakfast → Graduation → Group 1 to Vegas, Group 2 stays in LA.",driveTime:'5 hr drive (Vegas)',vibe:'party',notes:'EDC Night 1 for Group 1.',split:true},
+  {day:3,date:'May 16',dow:'Saturday',location:'LA → Las Vegas',
+   accommodation:'Horseshoe Vegas (G1) / Bicycle Club LA (G2)',
+   events:"Angel's graduation at Cal Poly Pomona, photos at Grand Ave Park. EDC group → Vegas, rest stays at Bicycle Club for early start tomorrow.",
+   driveTime:'5 hr drive (LA → Vegas)',vibe:'party',
+   notes:'EDC Night 1 — Hardwell main stage 11:19 PM.',split:true,
+   timeline:[
+     {time:'7:30 AM', event:"Porto's Bakery breakfast run (Downey)",
+      who:'Dad · Danzel · whoever is up',
+      icon:'bakery_dining',
+      link:'https://www.portosbakery.com/',
+      note:'Downey location opens 6:30 AM. Bring back to hotel and serve to each room while everyone gets ready.'},
+     {time:'10:15 AM', event:'Leave Bicycle Club for Cal Poly Pomona',
+      who:'Whole family', icon:'directions_car',
+      note:'Parking maps distributed closer to the date.'},
+     {time:'11:00 AM', event:'Arrive Cal Poly Pomona · find seats',
+      who:'Whole family', icon:'school'},
+     {time:'12:00 PM', event:"Angel's graduation ceremony",
+      icon:'celebration',
+      note:'90 min max. Pictures must be off-campus (no on-campus photos allowed).'},
+     {time:'~1:45 PM', event:'Drive to Grand Avenue Park, Chino Hills',
+      who:'Whole family · 15 min drive',
+      link:'https://www.chinohills.org/385/Grand-Avenue',
+      icon:'park'},
+     {time:'~2:00 PM', event:'1 hr photo session at Grand Avenue Park',
+      who:'Whole family · Danzel sets up the camera',
+      icon:'photo_camera'},
+     {time:'~3:00 PM', event:'EDC group departs LA for Vegas',
+      who:'Danzel · Alvin · Eugene · Vanessa · Alyssa',
+      icon:'directions_car', group:'edc',
+      note:'Dinner is fast-food on the I-15. Possible Eddie World stop near Yermo.'},
+     {time:'~3:30 PM', event:'Rest of family regroups for dinner in LA',
+      who:'Group 2 · Angel · Amazi · Jujuhub',
+      icon:'restaurant', group:'rest',
+      note:"Recs: Chinese (last for a while) · Lucille's BBQ · In-N-Out · Five Guys · Howling Rays."},
+     {time:'Evening', event:'Bicycle Club group rests, packs for early start',
+      icon:'hotel', group:'rest',
+      note:'Depart 8 AM tomorrow. Vegas ETA ~2 PM.'},
+     {time:'~9:30 PM', event:'EDC group arrives Horseshoe Vegas, checks in',
+      icon:'hotel', group:'edc',
+      note:'Eugene + Vanessa stay at the hotel and rest.'},
+     {time:'10:30 PM', event:'Alvin · Alyssa · Danzel head to EDC',
+      who:'Eugene + Vanessa rest at Horseshoe',
+      icon:'celebration', group:'edc'},
+     {time:'11:19 PM', event:'Hardwell — Main Stage',
+      who:'Alvin · Alyssa · Danzel',
+      icon:'music_note', group:'edc'},
+   ]
+  },
   {day:4,date:'May 17',dow:'Sunday',location:'Las Vegas',accommodation:'Horseshoe Las Vegas',events:"Group 2 drives up. Hell's Kitchen dinner. EDC Night 2 for G1.",driveTime:'—',vibe:'party',notes:'Family reunites in Vegas.',split:true},
   {day:5,date:'May 18',dow:'Monday',location:'Las Vegas',accommodation:'Horseshoe Las Vegas',events:'Bacchanal Buffet, shopping, Cirque "O".',driveTime:'—',vibe:'shop',notes:'All together.'},
   {day:6,date:'May 19',dow:'Tuesday',location:'Vegas → LA',accommodation:'Commerce Casino / Pixar Hotel',events:"Drive back to LA. Cali Tacos + TikTok food list with Eugene + Vanessa.",driveTime:'4 hr drive',vibe:'road',notes:'Hotel split: Commerce + Pixar.',split:true},
@@ -2210,7 +2271,7 @@ const FALLBACK = [
   {day:13,date:'May 26',dow:'Tuesday',location:'San Jose → SFO',accommodation:'—',events:'Pack up. Farewell brunch. Airport drop-offs.',driveTime:'1 hr to SFO',vibe:'farewell',notes:'Everyone departs.'},
 ];
 
-const GROUP_1 = ['Danzel','Alvin','Angel','Eugene','Vanessa','Amazi'];
+const GROUP_1 = ['Danzel','Alvin','Alyssa','Angel','Eugene','Vanessa','Amazi'];
 const GROUP_2 = ['Da ma','Yi ma','Aunty Coke','Mom','Dad','Uncle Jimy','Steve Susu','Ah Gong','Margaret','Jujuhub'];
 
 // Optional Chinese label shown under the English name in the profile picker
@@ -2228,7 +2289,7 @@ const NAME_CN = {
 
 const HOTELS = [
   {nights:'May 14',name:'885 Dorel Drive',city:'San Jose · family home',who:'Whole family — arrival night',map:'https://maps.google.com/?q=885+Dorel+Drive+San+Jose',note:'Private residence. No hotel check-in.',lat:37.276,lng:-121.842},
-  {nights:'May 15 – 16',name:'Bicycle Club Hotel & Casino',city:'Bell Gardens · LA',who:'Whole family May 15. Group 2 stays May 16.',map:'https://maps.google.com/?q=Bicycle+Club+Hotel+Casino+Bell+Gardens',note:'Eugene + Vanessa arrive LAX 12 AM May 15.',lat:33.965,lng:-118.156},
+  {nights:'May 15 – 16',name:'Bicycle Club Hotel & Casino',city:'Bell Gardens · LA',who:'Whole family May 15. Group 2 stays May 16.',map:'https://www.thebike.com/',note:'Eugene + Vanessa arrive LAX 12 AM May 15. thebike.com',lat:33.965,lng:-118.156},
   {nights:'May 16 – 18',name:'Horseshoe Las Vegas',city:'Las Vegas',who:'Group 1 from May 16. All together May 17 onward.',map:'https://maps.google.com/?q=Horseshoe+Las+Vegas',note:'Vegas base for EDC + recovery + buffet days.',lat:36.110,lng:-115.173},
   {nights:'May 19 – 20',name:'Commerce Casino + Pixar Hotel',city:'Commerce / Anaheim',who:'Family splits across two hotels.',map:'https://maps.google.com/?q=Pixar+Place+Hotel+Anaheim',note:'Pixar group closer to Disneyland.',lat:33.806,lng:-117.918},
   {nights:'May 21',name:'Malibu Airbnb',city:'Malibu',who:'~14 remaining (Eugene departed).',map:'https://maps.google.com/?q=Malibu',note:'Beach + PCH sunset.',lat:34.026,lng:-118.780},
@@ -2539,19 +2600,40 @@ function convoyHTML(){
 
 function timelineHTML(tl){
   if(!Array.isArray(tl) || !tl.length) return '';
+  // For split days, dim rows that are tagged for the OTHER group (unless manager)
+  const userGroup = state.profile && state.profile.group;
+  function isOther(tag){
+    if(!tag || tag === 'all') return false;
+    if(state.isManager) return false;
+    if(!userGroup) return false;
+    if(userGroup === 1 && (tag === 'rest' || tag === 'g2')) return true;
+    if(userGroup === 2 && (tag === 'edc' || tag === 'g1')) return true;
+    return false;
+  }
+  function tagLabel(g){
+    return g === 'edc' ? 'EDC'
+         : g === 'rest' ? 'REST'
+         : g === 'g1' ? 'G1'
+         : g === 'g2' ? 'G2'
+         : g === 'all' ? 'ALL'
+         : g.toUpperCase();
+  }
   return `
     <div class="day-tl">
       <div class="day-tl-head">${ico('schedule')}Schedule · 时间表</div>
-      ${tl.map(t => `
-        <div class="day-tl-row">
+      ${tl.map(t => {
+        const dim = isOther(t.group) ? 'dim-other' : '';
+        return `
+        <div class="day-tl-row ${dim}">
           <div class="day-tl-time">${esc(t.time || '')}</div>
           <div class="day-tl-body">
-            <div class="day-tl-event">${t.icon ? ico(t.icon) : ''}<span>${esc(t.event || '')}</span></div>
+            <div class="day-tl-event">${t.icon ? ico(t.icon) : ''}<span>${esc(t.event || '')}</span>${t.group ? `<span class="day-tl-tag ${esc(t.group)}">${esc(tagLabel(t.group))}</span>` : ''}</div>
             ${t.who ? `<div class="day-tl-meta">${esc(t.who)}</div>` : ''}
             ${t.note ? `<div class="day-tl-note">${esc(t.note)}</div>` : ''}
             ${t.link ? `<a class="day-tl-link" href="${esc(t.link)}" target="_blank" rel="noopener">${ico('open_in_new')}Open link</a>` : ''}
           </div>
-        </div>`).join('')}
+        </div>`;
+      }).join('')}
     </div>`;
 }
 
