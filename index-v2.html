@@ -1201,6 +1201,42 @@ body.manager .nav-btn.manager-only{display:flex}
 .day-modal-card #dayModalContent .card{margin-bottom:0}
 .day-modal-card #dayModalContent .card.fade{animation:none}
 
+/* Drag-handle pill at the top of the modal — iOS-familiar dismiss target */
+.day-modal-handle{
+  width:48px;height:5px;border-radius:3px;
+  background:rgba(255,255,255,0.35);
+  margin:6px auto 14px;
+  cursor:pointer;
+  transition:background 0.15s,transform 0.15s;
+  flex-shrink:0;
+}
+.day-modal-handle:active{transform:scaleX(1.2);background:rgba(255,46,136,0.65)}
+.day-modal-handle:hover{background:rgba(255,255,255,0.55)}
+
+/* Big bottom Close button — primary dismiss for thumb-reach on mobile */
+.day-modal-bottom-close{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;
+  margin-top:18px;
+  padding:16px 20px;
+  background:linear-gradient(135deg,rgba(255,46,136,0.18),rgba(192,38,211,0.12));
+  border:1px solid rgba(255,46,136,0.45);
+  border-radius:14px;
+  color:var(--text);
+  font:700 16px var(--font-en);
+  letter-spacing:0.3px;
+  cursor:pointer;
+  min-height:56px;
+  box-shadow:0 0 18px rgba(255,46,136,0.25);
+  transition:transform 0.15s var(--ease),background 0.15s,box-shadow 0.2s;
+}
+.day-modal-bottom-close:active{transform:scale(0.97)}
+.day-modal-bottom-close:hover{
+  background:linear-gradient(135deg,rgba(255,46,136,0.28),rgba(192,38,211,0.20));
+  box-shadow:0 0 26px rgba(255,46,136,0.40);
+}
+.day-modal-bottom-close .material-symbols-outlined{font-size:22px}
+
 /* ── Food detail modal ── */
 .food-modal-bg{
   position:fixed;inset:0;z-index:45;
@@ -2047,10 +2083,15 @@ body.ahzai-hidden .ahzai-avatar{display:none}
 <!-- Day card modal (opened from calendar view) -->
 <div class="day-modal-bg" id="dayModal">
   <div class="day-modal-card">
+    <div class="day-modal-handle" id="dayModalHandle" role="button" tabindex="0" aria-label="Tap to close"></div>
     <button class="food-modal-close" id="dayModalClose" aria-label="Close">
       <span class="material-symbols-outlined">close</span>
     </button>
     <div id="dayModalContent"></div>
+    <button class="day-modal-bottom-close" id="dayModalBottomClose">
+      <span class="material-symbols-outlined">close</span>
+      Close · 关闭
+    </button>
   </div>
 </div>
 
@@ -3900,8 +3941,10 @@ document.getElementById('foodModal').addEventListener('click', e => {
   if(e.target.id === 'foodModal') closeFoodModal();
 });
 
-// Day-card modal (opened from calendar cell tap)
+// Day-card modal (opened from calendar cell tap) — multiple dismiss targets
 document.getElementById('dayModalClose').addEventListener('click', closeDayModal);
+document.getElementById('dayModalHandle').addEventListener('click', closeDayModal);
+document.getElementById('dayModalBottomClose').addEventListener('click', closeDayModal);
 document.getElementById('dayModal').addEventListener('click', e => {
   if(e.target.id === 'dayModal') closeDayModal();
 });
