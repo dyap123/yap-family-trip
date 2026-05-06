@@ -770,6 +770,42 @@ body.manager .spend-chip{display:none}
   color:var(--text);
 }
 
+/* ── Announcement compose card (manager-only prompt) ── */
+.annc-add{
+  display:none;
+  align-items:center;gap:12px;
+  background:rgba(20,8,40,0.55);
+  border:2px dashed rgba(255,214,0,0.45);
+  border-radius:var(--radius-sm);
+  padding:14px 16px;margin-bottom:10px;
+  color:var(--neon-yellow);
+  cursor:pointer;font:700 14px var(--font-en);
+  letter-spacing:0.3px;
+  text-shadow:0 0 8px rgba(255,214,0,0.40);
+  transition:all 0.15s var(--ease);
+  min-height:54px;
+}
+body.manager .annc-add{display:flex}
+.annc-add:hover{
+  background:rgba(255,214,0,0.10);
+  border-color:rgba(255,214,0,0.70);
+  box-shadow:0 0 18px rgba(255,214,0,0.30);
+}
+.annc-add:active{transform:scale(0.98)}
+.annc-add .material-symbols-outlined{font-size:22px}
+.annc-add .annc-add-cn{
+  font-family:var(--font-cn);font-size:12px;font-weight:700;
+  color:var(--neon-yellow);opacity:0.75;margin-left:4px;
+}
+
+.update .update-cn{
+  display:block;font-family:var(--font-cn);font-size:14.5px;
+  color:var(--text-soft);margin-top:6px;line-height:1.55;
+  padding-top:6px;border-top:1px dashed var(--line-soft);
+}
+.update.editable{cursor:pointer}
+.update.editable:hover{border-color:rgba(255,214,0,0.45);box-shadow:0 0 14px rgba(255,214,0,0.18)}
+
 /* ── Updates feed ── */
 .update{
   background:var(--card);
@@ -2254,6 +2290,40 @@ body.ahzai-hidden .ahzai-avatar{display:none}
   </div>
 </div>
 
+<!-- Announcement add/edit modal (manager-only) -->
+<div class="form-modal-bg" id="anncModal">
+  <div class="form-modal">
+    <h3 id="anncModalTitle">Add announcement<span class="cn">加公告</span></h3>
+    <p class="hint">MANAGER ONLY · 管理员 · pushed to every family phone</p>
+    <input type="hidden" id="anncId">
+    <div class="form-row">
+      <label class="form-label">Message · 内容</label>
+      <textarea class="form-textarea" id="anncMsg" placeholder="Please make sure your phones are charged…"></textarea>
+    </div>
+    <div class="form-row">
+      <label class="form-label">中文 (optional)</label>
+      <textarea class="form-textarea" id="anncMsgCn" placeholder="请大家把手机充满电…"></textarea>
+    </div>
+    <div class="form-row">
+      <label class="form-label">From · 谁发的</label>
+      <input type="text" class="form-input" id="anncFrom" placeholder="Danzel">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Priority · 重要性</label>
+      <div class="split-modes" id="anncPriority" style="grid-template-columns:1fr 1fr 1fr">
+        <button class="split-mode-btn selected" data-priority="normal">Normal<span class="cn">普通</span></button>
+        <button class="split-mode-btn" data-priority="important">Important<span class="cn">重要</span></button>
+        <button class="split-mode-btn" data-priority="urgent">Urgent<span class="cn">紧急</span></button>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn danger" id="anncDelete" style="display:none">Delete</button>
+      <button class="btn" id="anncCancel">Cancel</button>
+      <button class="btn solid" id="anncSave">Post · 发布</button>
+    </div>
+  </div>
+</div>
+
 <!-- Money FAB (manager-only, shown when on Money tab) -->
 <button class="fab fab-money" id="moneyFab" aria-label="Add expense">
   <span class="material-symbols-outlined">add</span>
@@ -2688,6 +2758,7 @@ let state = {
   expenses: {},                  // Firebase: {pushId: expenseObj}
   budget: {target: 0, currency: 'USD'},
   locationOverrides: {hotel:{}, activity:{}, food:{}}, // Firebase override map
+  announcements: {},                     // Firebase: {pushId: announcement}
   ahzaiHistory: [],
   ahzaiPending: false,
 };
@@ -3749,19 +3820,43 @@ function renderMoney(){
 
 // ─── Updates ────────────────────────────────────────────────────────────
 function updatesList(limit){
-  const list = (state.updates||[]).slice().reverse();
-  const shown = limit ? list.slice(0,3) : list;
-  if(!shown.length) return '<div class="empty">No updates yet · 暂无更新</div>';
-  return shown.map(u => {
-    const cls = u.priority.includes('urgent') ? 'urgent'
-              : u.priority.includes('important') ? 'important' : '';
-    const tag = u.priority.includes('urgent') ? '<span class="update-tag urgent">urgent · 紧急</span>'
-              : u.priority.includes('important') ? '<span class="update-tag important">important · 重要</span>' : '';
-    return `<div class="update ${cls}">
+  // Merge Firebase announcements + sheet updates. Firebase ones come with
+  // `_id` (push key) and message_cn/createdAt; sheet ones come from GViz.
+  const fbList = Object.entries(state.announcements || {}).map(([id, a]) => ({
+    _id: id,
+    _src: 'firebase',
+    date: a.date || (a.createdAt ? new Date(a.createdAt).toLocaleDateString('en-US', {month:'short', day:'numeric'}) : ''),
+    time: a.time || (a.createdAt ? new Date(a.createdAt).toLocaleTimeString('en-US', {hour:'numeric', minute:'2-digit'}) : ''),
+    from: a.from || 'Trip team',
+    message: a.message || '',
+    message_cn: a.message_cn || '',
+    priority: (a.priority || 'normal').toLowerCase(),
+    createdAt: a.createdAt || 0,
+  }));
+  const sheetList = (state.updates||[]).map(u => Object.assign({_src:'sheet'}, u));
+  // Sort: Firebase by createdAt desc; sheet by reversed order
+  fbList.sort((a,b) => (b.createdAt||0) - (a.createdAt||0));
+  sheetList.reverse();
+  const merged = fbList.concat(sheetList);
+
+  const addCard = `<div class="annc-add" id="anncAddCard"><span class="material-symbols-outlined">campaign</span>Add announcement<span class="annc-add-cn">加公告</span></div>`;
+
+  if(!merged.length) return addCard + '<div class="empty">No announcements yet · 暂无公告</div>';
+
+  const shown = limit ? merged.slice(0, 3) : merged;
+  const items = shown.map(u => {
+    const p = String(u.priority || '').toLowerCase();
+    const cls = p.includes('urgent') ? 'urgent' : p.includes('important') ? 'important' : '';
+    const tag = p.includes('urgent') ? '<span class="update-tag urgent">urgent · 紧急</span>'
+              : p.includes('important') ? '<span class="update-tag important">important · 重要</span>' : '';
+    const editable = (u._src === 'firebase' && state.isManager) ? 'editable' : '';
+    return `<div class="update ${cls} ${editable}" ${editable?`data-annc-id="${esc(u._id)}"`:''}>
       <div class="update-meta"><span class="from">${esc(u.from||'Trip team')}</span> · ${esc(u.date)} ${esc(u.time)}${tag}</div>
       <div class="update-msg">${esc(u.message)}</div>
+      ${u.message_cn ? `<div class="update-cn">${esc(u.message_cn)}</div>` : ''}
     </div>`;
   }).join('');
+  return addCard + items;
 }
 
 // ─── Render dispatcher ──────────────────────────────────────────────────
@@ -4057,6 +4152,12 @@ function initFirebase(){
         CONFIG.minimax.apiKey = v.trim();
       }
     });
+    // Announcements — manager-posted, real-time to all phones
+    db.ref('yap-trip/announcements').on('value', snap => {
+      state.announcements = snap.val() || {};
+      renderToday();
+      renderFamily();
+    });
     return true;
   }catch(e){
     console.warn('Firebase init failed', e);
@@ -4246,6 +4347,61 @@ function computeSettle(expenses){
     share: share[n] || 0,
     net: (paid[n] || 0) - (share[n] || 0),
   }));
+}
+
+// ─── Announcements: add/edit modal ─────────────────────────────────────
+let anncEditingId = null;
+let anncPriority = 'normal';
+
+function openAnncModal(existing){
+  anncEditingId = existing ? existing._id : null;
+  anncPriority = (existing && existing.priority) || 'normal';
+  document.getElementById('anncModalTitle').innerHTML = existing
+    ? 'Edit announcement<span class="cn">编辑公告</span>'
+    : 'Add announcement<span class="cn">加公告</span>';
+  document.getElementById('anncMsg').value = existing ? (existing.message || '') : '';
+  document.getElementById('anncMsgCn').value = existing ? (existing.message_cn || '') : '';
+  document.getElementById('anncFrom').value = existing
+    ? (existing.from || '')
+    : ((state.profile && state.profile.name) || 'Trip team');
+  document.querySelectorAll('#anncPriority .split-mode-btn').forEach(b => {
+    b.classList.toggle('selected', b.dataset.priority === anncPriority);
+  });
+  document.getElementById('anncDelete').style.display = existing ? 'inline-flex' : 'none';
+  document.getElementById('anncModal').classList.add('show');
+}
+function closeAnncModal(){
+  document.getElementById('anncModal').classList.remove('show');
+}
+async function saveAnnouncement(){
+  if(!db){ toast('Firebase not connected — see Money tab', 'error'); return; }
+  const msg = document.getElementById('anncMsg').value.trim();
+  if(!msg){ toast('Message required', 'error'); return; }
+  const now = new Date();
+  const obj = {
+    message: msg,
+    message_cn: document.getElementById('anncMsgCn').value.trim(),
+    from: document.getElementById('anncFrom').value.trim() || 'Trip team',
+    priority: anncPriority,
+    date: now.toLocaleDateString('en-US', {month:'short', day:'numeric'}),
+    time: now.toLocaleTimeString('en-US', {hour:'numeric', minute:'2-digit'}),
+    createdAt: now.getTime(),
+    createdBy: (state.profile && state.profile.name) || 'manager',
+  };
+  if(!obj.message_cn) delete obj.message_cn;
+  if(anncEditingId){
+    await db.ref('yap-trip/announcements/' + anncEditingId).update(obj);
+  } else {
+    await db.ref('yap-trip/announcements').push(obj);
+  }
+  closeAnncModal();
+  toast('Posted · 发布成功', 'good');
+}
+async function deleteAnnouncement(){
+  if(!anncEditingId || !db) return;
+  if(!confirm('Delete this announcement?')) return;
+  await db.ref('yap-trip/announcements/' + anncEditingId).remove();
+  closeAnncModal();
 }
 
 // ─── Money: add/edit modal ─────────────────────────────────────────────
@@ -4594,6 +4750,35 @@ document.querySelectorAll('#expSplitMode .split-mode-btn').forEach(b => {
     document.querySelectorAll('#expSplitMode .split-mode-btn').forEach(x => x.classList.toggle('selected', x === b));
     document.getElementById('expCustomRow').style.display = expSplitMode === 'custom' ? 'block' : 'none';
   });
+});
+
+// Announcement modal buttons
+document.getElementById('anncCancel').addEventListener('click', closeAnncModal);
+document.getElementById('anncSave').addEventListener('click', saveAnnouncement);
+document.getElementById('anncDelete').addEventListener('click', deleteAnnouncement);
+document.getElementById('anncModal').addEventListener('click', e => {
+  if(e.target.id === 'anncModal') closeAnncModal();
+});
+document.querySelectorAll('#anncPriority .split-mode-btn').forEach(b => {
+  b.addEventListener('click', () => {
+    anncPriority = b.dataset.priority;
+    document.querySelectorAll('#anncPriority .split-mode-btn').forEach(x => x.classList.toggle('selected', x === b));
+  });
+});
+// Delegated: tap "Add announcement" card OR an existing one (manager only)
+document.addEventListener('click', e => {
+  const addCard = e.target.closest('.annc-add');
+  if(addCard){
+    if(!state.isManager){ toast('Manager mode required', 'error'); return; }
+    openAnncModal(null);
+    return;
+  }
+  const annc = e.target.closest('.update[data-annc-id]');
+  if(annc && state.isManager){
+    const id = annc.dataset.anncId;
+    const existing = Object.assign({_id: id}, state.announcements[id] || {});
+    openAnncModal(existing);
+  }
 });
 
 // Money FAB
