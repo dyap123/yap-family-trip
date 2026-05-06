@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Yap Family Trip · Manager Guide for Angel · 管理指南</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700;900&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+@page { size: A4; margin: 0; }
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #08020F;
+  --panel: rgba(20,8,40,0.85);
+  --line: rgba(255,46,136,0.30);
+  --text: #FFE8FF;
+  --text-soft: #C4B0DC;
+  --text-mute: #9684B5;
+  --neon-pink: #FF2E88;
+  --neon-cyan: #00E5FF;
+  --neon-yellow: #FFD600;
+  --neon-magenta: #C026D3;
+  --neon-green: #00F5A0;
+  --font-en: 'Inter', sans-serif;
+  --font-cn: 'Noto Sans SC', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+html, body { background: var(--bg); color: var(--text); font-family: var(--font-en); font-size: 14px; line-height: 1.5; }
+:lang(zh), .cn { font-family: var(--font-cn); }
+
+.page {
+  width: 210mm; min-height: 297mm;
+  padding: 18mm 16mm;
+  position: relative; overflow: hidden;
+  background:
+    radial-gradient(ellipse 70% 50% at 20% 10%, rgba(255,46,136,0.20), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 90% 80%, rgba(0,229,255,0.18), transparent 60%),
+    radial-gradient(ellipse 40% 30% at 70% 30%, rgba(255,214,0,0.12), transparent 60%),
+    var(--bg);
+  page-break-after: always;
+}
+.page:last-child { page-break-after: auto; }
+.page::before {
+  content: '管理'; position: absolute; top: 4%; right: -2%;
+  font-family: var(--font-cn); font-size: 200px; font-weight: 900;
+  color: rgba(255,46,136,0.05); letter-spacing: -0.05em; pointer-events: none;
+}
+
+/* Cover */
+.cover { display: flex; flex-direction: column; min-height: calc(297mm - 36mm); }
+.cover-mark {
+  font-family: var(--font-cn); font-size: 92px; font-weight: 900;
+  color: var(--neon-pink);
+  text-shadow: 0 0 24px rgba(255,46,136,0.55), 0 0 56px rgba(255,46,136,0.30);
+  line-height: 1; margin-top: 20mm;
+}
+.cover h1 {
+  font-size: 38px; font-weight: 900; letter-spacing: -1px;
+  margin-top: 12px; line-height: 1.1;
+}
+.cover h1 .cn { font-size: 26px; color: var(--neon-cyan); margin-left: 12px; text-shadow: 0 0 12px rgba(0,229,255,0.55); }
+.cover-sub {
+  font-family: var(--font-mono); font-size: 13px; font-weight: 600;
+  color: var(--neon-cyan); letter-spacing: 2px; text-transform: uppercase;
+  margin-top: 8px; text-shadow: 0 0 8px rgba(0,229,255,0.45);
+}
+.cover-for {
+  margin-top: auto; margin-bottom: 6mm;
+  padding: 14px 18px; border-left: 3px solid var(--neon-yellow);
+  background: rgba(255,214,0,0.06); border-radius: 0 12px 12px 0;
+  max-width: 80%;
+}
+.cover-for-tag {
+  font-family: var(--font-mono); font-size: 10px; font-weight: 800;
+  letter-spacing: 1.4px; color: var(--neon-yellow); text-transform: uppercase;
+  text-shadow: 0 0 8px rgba(255,214,0,0.45);
+}
+.cover-for-name { font-size: 26px; font-weight: 900; margin-top: 4px; }
+.cover-for-name .cn { color: var(--neon-yellow); font-size: 22px; margin-left: 8px; text-shadow: 0 0 10px rgba(255,214,0,0.50); }
+.cover-tag {
+  position: absolute; left: 16mm; bottom: 10mm;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.4px;
+  color: var(--text-mute); text-transform: uppercase;
+}
+.cover-url {
+  position: absolute; right: 16mm; bottom: 10mm;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.8px;
+  color: var(--neon-pink); text-shadow: 0 0 6px rgba(255,46,136,0.45);
+}
+
+/* Page header */
+.page-header {
+  display: flex; align-items: baseline; justify-content: space-between;
+  border-bottom: 1px solid var(--line); padding-bottom: 10px; margin-bottom: 18px;
+}
+.page-header h2 { font-size: 22px; font-weight: 900; letter-spacing: -0.5px; }
+.page-header h2 .cn { color: var(--neon-cyan); font-size: 16px; margin-left: 8px; text-shadow: 0 0 8px rgba(0,229,255,0.45); letter-spacing: 1.5px; }
+.page-header .sub {
+  font-family: var(--font-mono); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 1.4px; color: var(--neon-pink); text-transform: uppercase;
+}
+
+/* Sections */
+.section { margin-bottom: 16px; }
+.section h3 {
+  font-size: 16px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.2px;
+  display: flex; align-items: center; gap: 8px;
+}
+.section h3 .num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 26px; height: 26px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--neon-pink), var(--neon-magenta));
+  color: #fff; font-family: var(--font-mono); font-weight: 800; font-size: 12px;
+  box-shadow: 0 0 14px rgba(255,46,136,0.50);
+}
+.section h3 .cn { color: var(--neon-cyan); font-size: 13px; margin-left: 6px; font-weight: 700; }
+.section p { color: var(--text-soft); margin-bottom: 8px; line-height: 1.55; }
+.section p .cn { color: var(--neon-cyan); font-weight: 600; opacity: 0.85; }
+.section ul { padding-left: 20px; }
+.section li { color: var(--text-soft); margin-bottom: 6px; line-height: 1.55; }
+.section li b { color: var(--text); }
+code, .code {
+  font-family: var(--font-mono); font-size: 12px;
+  background: rgba(0,229,255,0.08); border: 1px solid rgba(0,229,255,0.30);
+  padding: 1px 7px; border-radius: 5px; color: var(--neon-cyan);
+}
+
+/* Callout */
+.callout {
+  display: flex; gap: 12px; padding: 14px 16px; margin-bottom: 14px;
+  background: rgba(20,8,40,0.6); border: 1px solid var(--line);
+  border-left: 3px solid var(--neon-yellow);
+  border-radius: 0 10px 10px 0;
+  box-shadow: 0 0 18px rgba(255,214,0,0.15);
+}
+.callout.pink { border-left-color: var(--neon-pink); box-shadow: 0 0 18px rgba(255,46,136,0.18); }
+.callout.cyan { border-left-color: var(--neon-cyan); box-shadow: 0 0 18px rgba(0,229,255,0.18); }
+.callout-icon {
+  flex-shrink: 0; font-family: var(--font-cn); font-weight: 900; font-size: 22px;
+  color: var(--neon-yellow); width: 30px; text-align: center;
+  text-shadow: 0 0 10px rgba(255,214,0,0.55);
+}
+.callout.pink .callout-icon { color: var(--neon-pink); text-shadow: 0 0 10px rgba(255,46,136,0.55); }
+.callout.cyan .callout-icon { color: var(--neon-cyan); text-shadow: 0 0 10px rgba(0,229,255,0.55); }
+.callout-body { flex: 1; }
+.callout-title {
+  font-size: 12px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 1.2px; color: var(--neon-yellow); margin-bottom: 3px;
+  text-shadow: 0 0 6px rgba(255,214,0,0.40);
+}
+.callout.pink .callout-title { color: var(--neon-pink); text-shadow: 0 0 6px rgba(255,46,136,0.40); }
+.callout.cyan .callout-title { color: var(--neon-cyan); text-shadow: 0 0 6px rgba(0,229,255,0.40); }
+.callout-text { font-size: 13px; line-height: 1.55; color: var(--text-soft); }
+
+/* Step */
+.step {
+  display: grid; grid-template-columns: 36px 1fr; gap: 14px;
+  background: rgba(20,8,40,0.55); border: 1px solid var(--line);
+  border-radius: 12px; padding: 12px 14px; margin-bottom: 10px;
+}
+.step-num {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--neon-cyan), var(--neon-green));
+  color: #08020F; font-family: var(--font-mono); font-weight: 900; font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 14px rgba(0,229,255,0.45);
+}
+.step-body h4 {
+  font-size: 14px; font-weight: 800; line-height: 1.2;
+}
+.step-body h4 .cn { color: var(--neon-cyan); font-weight: 700; margin-left: 6px; }
+.step-body p { font-size: 13px; color: var(--text-soft); margin-top: 4px; }
+
+/* Footer */
+.page-footer {
+  position: absolute; bottom: 8mm; left: 16mm; right: 16mm;
+  display: flex; justify-content: space-between;
+  font-family: var(--font-mono); font-size: 9.5px; color: var(--text-mute); letter-spacing: 1px;
+}
+
+/* PIN box */
+.pin-display {
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-left: 8px; vertical-align: middle;
+}
+.pin-display span {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 26px; height: 32px; border-radius: 6px;
+  background: rgba(255,214,0,0.15); border: 1px solid rgba(255,214,0,0.50);
+  color: var(--neon-yellow); font-family: var(--font-mono); font-weight: 900; font-size: 16px;
+  text-shadow: 0 0 6px rgba(255,214,0,0.60);
+}
+
+/* Print tweaks */
+@media print {
+  html, body, .page { background: var(--bg) !important; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .page { width: 210mm; min-height: 297mm; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─────────────── Page 1: Cover ─────────────── -->
+<div class="page">
+  <div class="cover">
+    <div class="cover-mark">雅家</div>
+    <h1>YAP FAMILY TRIP<span class="cn">加州 2026</span></h1>
+    <div class="cover-sub">Manager Guide · 管理指南 · May 14 – 26 · 2026</div>
+
+    <div class="cover-for">
+      <div class="cover-for-tag">Trip co-lead · 副领队</div>
+      <div class="cover-for-name">Angel<span class="cn">天使</span></div>
+      <p style="font-size:13px; color:var(--text-soft); margin-top:8px; line-height:1.55">
+        You're one of two managers on this trip (Danzel + you). This guide covers what only managers can do — the family doesn't see any of this.
+        <span class="cn">你是这次旅行的两位管理员之一。这份指南介绍管理员专属功能。</span>
+      </p>
+    </div>
+  </div>
+  <div class="cover-tag">CONFIDENTIAL · 机密 · DON'T FORWARD TO FAMILY</div>
+  <div class="cover-url">dyap123.github.io/yap-family-trip/index-v2.html</div>
+</div>
+
+<!-- ─────────────── Page 2: Login + Manager Mode ─────────────── -->
+<div class="page">
+  <div class="page-header">
+    <h2>Getting in<span class="cn">登录</span></h2>
+    <span class="sub">PAGE 1 / 4</span>
+  </div>
+
+  <div class="section">
+    <h3><span class="num">1</span>Open the app · 打开应用</h3>
+    <p>On your phone, open <code>dyap123.github.io/yap-family-trip/index-v2.html</code> in Safari or Chrome. Add it to the home screen for one-tap access. <span class="cn">添加到主屏幕。</span></p>
+  </div>
+
+  <div class="section">
+    <h3><span class="num">2</span>Pick yourself · 选你的名字</h3>
+    <p>After the welcome screen, the app asks <b>"Who are you known to Danzel as?"</b>. Tap <b>Angel</b> in the Group 1 column. The app will greet you in the header.</p>
+  </div>
+
+  <div class="section">
+    <h3><span class="num">3</span>Unlock manager mode · 解锁管理</h3>
+    <p>Tap the <b>gear icon</b> (top-right). Settings panel slides in. At the bottom, tap <b>Trip lead access · 领队登录</b>. A 6-digit PIN modal opens.</p>
+    <p style="margin-top:8px">Enter the PIN
+      <span class="pin-display"><span>0</span><span>5</span><span>0</span><span>1</span><span>0</span><span>3</span></span>
+    </p>
+  </div>
+
+  <div class="callout pink">
+    <div class="callout-icon">!</div>
+    <div class="callout-body">
+      <div class="callout-title">Only Danzel and Angel can unlock manager mode</div>
+      <div class="callout-text">If you switch to any other family profile (e.g. Da ma, Mom), manager mode auto-revokes immediately. You'll need to switch back to Angel and re-enter the PIN.<br><span class="cn">切换到其他家人账户时，管理员模式自动注销。</span></div>
+    </div>
+  </div>
+
+  <div class="callout cyan">
+    <div class="callout-icon">i</div>
+    <div class="callout-body">
+      <div class="callout-title">What you can do as manager</div>
+      <div class="callout-text">A new <b>Money 钱</b> tab appears in the bottom nav. <b>Yellow pencil icons</b> appear on hotel cards (Trip tab). Both are invisible to family members.</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>YAP FAMILY · CALIFORNIA 2026</span>
+    <span>MANAGER GUIDE · 管理指南</span>
+  </div>
+</div>
+
+<!-- ─────────────── Page 3: Money tab ─────────────── -->
+<div class="page">
+  <div class="page-header">
+    <h2>Money tab · 钱<span class="cn">支出管理</span></h2>
+    <span class="sub">PAGE 2 / 4</span>
+  </div>
+
+  <p style="margin-bottom:14px; color:var(--text-soft); font-size:13px;">
+    Track every expense for the trip. Real-time sync between Danzel's phone and yours via Firebase.
+    <span class="cn">所有支出实时同步。</span>
+  </p>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <h4>Add an expense<span class="cn">加支出</span></h4>
+      <p>Tap the gold <b>+</b> floating button (bottom-right). Form opens.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <h4>Fill in the basics<span class="cn">填基本信息</span></h4>
+      <p>Date, description, amount in USD, who paid (chip-pick). Use <b>Today</b> for the date if it's right now.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <h4>Pick the split mode<span class="cn">分账模式</span></h4>
+      <p>Four big buttons: <b>Everyone · 所有人</b>, <b>Group 1 · 少年组</b>, <b>Group 2 · 家人组</b>, or <b>Pick people · 选人</b>. The amount divides evenly across whoever's in the selected group.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-body">
+      <h4>Optional: exclude people<span class="cn">排除某人</span></h4>
+      <p>The <b>Exclude · 排除</b> picker below the split mode. Tap any names to remove them from the share. E.g., "Everyone − Eugene" if Eugene already left.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">5</div>
+    <div class="step-body">
+      <h4>Save<span class="cn">保存</span></h4>
+      <p>Tap <b>Save · 保存</b>. Settle-up math updates instantly on every manager's device.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-icon">¥</div>
+    <div class="callout-body">
+      <div class="callout-title">Settle-up math</div>
+      <div class="callout-text">Each row at the bottom shows a person's net. <b>+$X</b> = others owe them. <b>−$X</b> = they owe. Numbers update live as expenses are added or edited.</div>
+    </div>
+  </div>
+
+  <div class="callout pink">
+    <div class="callout-icon">¶</div>
+    <div class="callout-body">
+      <div class="callout-title">Edit / delete an expense</div>
+      <div class="callout-text">Tap any row in the expense list — opens the same form pre-filled. Change values + save, or hit <b>Delete</b> to remove.</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>YAP FAMILY · CALIFORNIA 2026</span>
+    <span>MANAGER GUIDE · 管理指南</span>
+  </div>
+</div>
+
+<!-- ─────────────── Page 4: Edit plan + Map + Tips ─────────────── -->
+<div class="page">
+  <div class="page-header">
+    <h2>Editing the plan<span class="cn">修改行程</span></h2>
+    <span class="sub">PAGE 3 / 4</span>
+  </div>
+
+  <div class="section">
+    <h3><span class="num">A</span>Hotels · 酒店</h3>
+    <p>On the <b>Trip · 行程</b> tab, every hotel card shows a yellow pencil <b>only when you're in manager mode</b>. Tap it to edit:</p>
+    <ul>
+      <li><b>Name · 名称</b> — fix typos or rename</li>
+      <li><b>Dates / nights · 日期</b> — adjust check-in / out</li>
+      <li><b>City · 城市</b>, <b>Who · 谁</b>, <b>Notes · 备注</b></li>
+      <li><b>Lat / Lng · 经纬度</b> — moves the pin on the map</li>
+      <li><b>Map URL · 地图链接</b> — what the "Open Maps" button opens</li>
+    </ul>
+    <p style="margin-top:6px">Edits save to Firebase as <b>overrides</b>. Family members see your changes within ~30s. <b>Reset · 还原</b> button removes the override and reverts to the original.</p>
+  </div>
+
+  <div class="section">
+    <h3><span class="num">B</span>Map navigation · 地图导航</h3>
+    <p>Map tab has 3 things you should know about:</p>
+    <ul>
+      <li><b>Tour 13 days · 自动游览</b> — auto-plays through every hotel + activity, ~2.4s per day. Stops on tab change.</li>
+      <li><b>Day strip below the map</b> — tap any date to fly the map to that day's location. Auto-scrolls to keep the active day in view.</li>
+      <li><b>Today's pin pulses yellow</b> with a 「今天 · TODAY」 badge on top.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h3><span class="num">C</span>Trip view · 列表 / 日历</h3>
+    <p>On the Trip tab, toggle between <b>List · 列表</b> (scroll through 13 cards) and <b>Calendar · 日历</b> (overview grid). Tap any day in calendar view to jump to its full card.</p>
+  </div>
+
+  <div class="callout cyan">
+    <div class="callout-icon">i</div>
+    <div class="callout-body">
+      <div class="callout-title">Ah Zai 阿仔 — your AI co-pilot</div>
+      <div class="callout-text">Pink avatar bottom-right. Knows the schedule, splits, food picks, and today's plan. Ask "what's tomorrow?" or "今天的晚餐在哪?" — replies in your language. Trash icon clears chat history.</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>YAP FAMILY · CALIFORNIA 2026</span>
+    <span>MANAGER GUIDE · 管理指南</span>
+  </div>
+</div>
+
+<!-- ─────────────── Page 5: Quick tips ─────────────── -->
+<div class="page">
+  <div class="page-header">
+    <h2>Quick tips<span class="cn">小提示</span></h2>
+    <span class="sub">PAGE 4 / 4</span>
+  </div>
+
+  <div class="section">
+    <h3><span class="num">★</span>Rules of thumb · 经验</h3>
+    <ul>
+      <li><b>Lock manager mode</b> when handing your phone to anyone. Tap the lock-open icon in the header to drop manager.</li>
+      <li><b>Switching profiles</b> via Settings → "Switch user · 切换" auto-revokes manager mode if the new profile isn't Danzel/Angel.</li>
+      <li><b>Sync test</b> — add an expense on your phone, check Danzel's phone shows it within ~5s. If not, his Firebase URL might not be set on his device (Money tab → Connect Firebase).</li>
+      <li><b>Edits don't appear?</b> Pull-to-refresh on Safari, or Settings → Reload data. The 60-second cache may also be stale.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h3><span class="num">⚙</span>Behind the scenes · 系统</h3>
+    <ul>
+      <li><b>Schedule + food list</b> live in the Google Sheet (read-only).</li>
+      <li><b>Expenses + edit-overrides</b> live in Firebase (real-time).</li>
+      <li><b>Ah Zai</b> talks to MiniMax directly from the browser.</li>
+      <li>The whole app is a single HTML file — open dev tools to see it.</li>
+    </ul>
+  </div>
+
+  <div class="callout pink">
+    <div class="callout-icon">!</div>
+    <div class="callout-body">
+      <div class="callout-title">If something breaks during the trip</div>
+      <div class="callout-text">
+        Worst case: every hotel + activity is in your phone notes too (you set this up before leaving SG, right?). The app is a convenience, not life support. <span class="cn">应用是辅助工具，不是必需品。</span>
+        <br><br>
+        Ping Danzel for any tech issues. He built it.
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-icon">♥</div>
+    <div class="callout-body">
+      <div class="callout-title">Have a great trip · 旅途愉快</div>
+      <div class="callout-text">You and Danzel are the two people who can keep this entire 21-person convoy moving. The app is here to make that easier — not to replace your judgment. Adjust on the fly.</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>YAP FAMILY · CALIFORNIA 2026</span>
+    <span>v2.5 · MANAGER · 管理指南</span>
+  </div>
+</div>
+
+</body>
+</html>
