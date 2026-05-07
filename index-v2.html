@@ -3185,14 +3185,7 @@ const FOOD_LOCAL = [
    bestFor: 'Big group dinner',
    photo: 'img/food/cheesecake-factory.jpeg',
    map: 'https://locations.thecheesecakefactory.com/ca/brea-88.html'},
-  {name: 'Eddie World',
-   cuisine: 'Travel center · Snacks',
-   city: 'Yermo, CA · I-15',
-   why: 'Iconic giant ice-cream-cone-shaped travel stop on the I-15 between LA and Vegas. Best snack break for the long drive.',
-   price: '$',
-   bestFor: 'Pit stop · candy wall · jerky run',
-   photo: 'img/food/eddieworld.jpeg',
-   map: 'https://maps.google.com/?q=Eddie+World+Yermo'},
+  // Eddie World is in the sheet — don't add a FOOD_LOCAL twin or it dupes.
 ];
 
 // Photo overrides — fill in / replace a sheet entry's photo without touching the sheet.
@@ -3272,13 +3265,23 @@ function applyFoodWhen(f){
 }
 
 function getAllFood(){
-  // 1. Sheet entries
-  // 2. Hardcoded FOOD_LOCAL supplements (Cheesecake Factory, EddieWorld)
-  // 3. Manager-added entries from Firebase (with _fbId tag for editing)
+  // Layered sources, with later wins on slug collision:
+  //   1. FOOD_LOCAL (hardcoded supplements — only fills gaps)
+  //   2. Sheet entries (state.food)
+  //   3. Manager-added entries from Firebase (override anything with the same name)
   const fbAdds = Object.entries(state.foodAdds || {}).map(([id, f]) =>
     Object.assign({_fbId: id}, f)
   );
-  const merged = (state.food || []).concat(FOOD_LOCAL).concat(fbAdds);
+  const layered = FOOD_LOCAL.concat(state.food || []).concat(fbAdds);
+  // De-dupe by slug so Eddie World, etc., don't render twice when both sheet
+  // + FOOD_LOCAL define them. Last write wins (Firebase > sheet > FOOD_LOCAL).
+  const bySlug = {};
+  layered.forEach(f => {
+    const slug = foodSlug(f.name);
+    if(!slug) return;
+    bySlug[slug] = f;
+  });
+  const merged = Object.values(bySlug);
   // Apply layers in order: photo override → menu override → day/time annotation
   return applyFoodOverrides(merged).map(applyMenuOverrides).map(applyFoodWhen);
 }
