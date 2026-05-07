@@ -1415,6 +1415,57 @@ body.manager .nav-btn.manager-only{display:flex}
 .food-modal-actions{
   display:flex;flex-direction:column;gap:10px;
 }
+/* Popular dishes section + manager rec inside the food modal */
+.food-modal-section{margin-bottom:18px}
+.food-modal-section-head{
+  font-family:var(--font-mono);font-size:11px;font-weight:800;letter-spacing:1.4px;
+  text-transform:uppercase;color:var(--neon-cyan);
+  margin-bottom:8px;display:flex;align-items:center;gap:6px;
+  text-shadow:0 0 6px rgba(0,229,255,0.40);
+}
+.food-modal-section-head .cn{font-family:var(--font-cn);font-weight:700;color:var(--neon-cyan);font-size:11px;letter-spacing:1px;margin-left:4px}
+.food-modal-section-head .material-symbols-outlined{font-size:16px}
+.pill.popular{
+  background:rgba(0,229,255,0.10);
+  border:1px solid rgba(0,229,255,0.35);
+  color:var(--text);
+  font-family:var(--font-en);font-size:12.5px;font-weight:600;
+  text-transform:none;letter-spacing:0.2px;
+}
+.food-modal-rec{
+  background:linear-gradient(135deg,rgba(255,46,136,0.10),rgba(255,214,0,0.06));
+  border:1px solid rgba(255,46,136,0.35);
+  border-left:3px solid var(--neon-pink);
+  border-radius:0 12px 12px 0;
+  padding:12px 14px;margin-bottom:18px;
+}
+.food-modal-rec-head{
+  font-family:var(--font-mono);font-size:11px;font-weight:800;letter-spacing:1.4px;
+  text-transform:uppercase;color:var(--neon-pink);
+  margin-bottom:6px;display:flex;align-items:center;gap:6px;
+  text-shadow:0 0 6px rgba(255,46,136,0.45);
+}
+.food-modal-rec-head .cn{font-family:var(--font-cn);font-weight:700;color:var(--neon-pink);font-size:11px;letter-spacing:1px;margin-left:4px}
+.food-modal-rec-head .material-symbols-outlined{font-size:16px;color:var(--neon-yellow)}
+.food-modal-rec-body{font-size:14.5px;color:var(--text-soft);line-height:1.55}
+/* When chip — "Day X · time" */
+.food-modal-when{
+  display:inline-flex;align-items:center;gap:6px;
+  margin-bottom:14px;padding:6px 12px;border-radius:999px;
+  background:rgba(255,214,0,0.10);border:1px solid rgba(255,214,0,0.40);
+  color:var(--neon-yellow);
+  font-family:var(--font-mono);font-size:12px;font-weight:700;letter-spacing:0.5px;
+  text-shadow:0 0 6px rgba(255,214,0,0.40);
+}
+.food-modal-when .material-symbols-outlined{font-size:14px}
+/* Day/time chip on food card preview */
+.pill.when-chip{
+  background:rgba(255,214,0,0.12);
+  border:1px solid rgba(255,214,0,0.40);
+  color:var(--neon-yellow);
+  font-weight:800;
+  text-shadow:0 0 5px rgba(255,214,0,0.40);
+}
 
 /* ── Settings panel ── */
 .settings-bg{
@@ -2407,6 +2458,95 @@ body.ahzai-hidden .ahzai-avatar{display:none}
   </div>
 </div>
 
+<!-- Food entry add/edit modal (manager-only) -->
+<div class="form-modal-bg" id="foodEditModal">
+  <div class="form-modal">
+    <h3 id="foodEditTitle">Add food spot · 加美食</h3>
+    <p class="hint">MANAGER ONLY · 管理员 · saves to Firebase, syncs to all phones</p>
+    <input type="hidden" id="foodEditId">
+    <input type="hidden" id="foodEditMode">
+    <div class="form-row">
+      <label class="form-label">Name · 名称</label>
+      <input type="text" class="form-input" id="foodEditName" placeholder="Boston Lobster">
+    </div>
+    <div class="form-row-pair">
+      <div class="form-row">
+        <label class="form-label">Cuisine · 菜系</label>
+        <input type="text" class="form-input" id="foodEditCuisine" placeholder="Cantonese · Seafood">
+      </div>
+      <div class="form-row">
+        <label class="form-label">City · 城市</label>
+        <input type="text" class="form-input" id="foodEditCity" placeholder="Arcadia, CA">
+      </div>
+    </div>
+    <div class="form-row-pair">
+      <div class="form-row">
+        <label class="form-label">Price · 价位</label>
+        <input type="text" class="form-input" id="foodEditPrice" placeholder="$$ / $50 pp">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Best for · 适合</label>
+        <input type="text" class="form-input" id="foodEditBest" placeholder="Big group dinner">
+      </div>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Why · 为什么 (the pitch)</label>
+      <textarea class="form-textarea" id="foodEditWhy" placeholder="Why this spot? What makes it worth a stop?"></textarea>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Photo URL · 图片链接</label>
+      <input type="url" class="form-input" id="foodEditPhoto" placeholder="img/food/foo.jpg or https://…">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Map link · 地图链接</label>
+      <input type="url" class="form-input" id="foodEditMap" placeholder="https://maps.google.com/?q=…">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Popular dishes · 招牌菜 (one per line)</label>
+      <textarea class="form-textarea" id="foodEditPopular" placeholder="Live lobster (HK style)
+Salt-and-pepper crab
+Walnut shrimp"></textarea>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Recommendation · 推荐</label>
+      <textarea class="form-textarea" id="foodEditRec" placeholder="What you'd tell the family — what to order, what to skip."></textarea>
+    </div>
+    <div class="form-row-pair">
+      <div class="form-row">
+        <label class="form-label">When · 哪一天</label>
+        <select class="form-input" id="foodEditDay">
+          <option value="">— not scheduled —</option>
+          <option value="1">Day 1 · May 14</option>
+          <option value="2">Day 2 · May 15</option>
+          <option value="3">Day 3 · May 16</option>
+          <option value="4">Day 4 · May 17</option>
+          <option value="5">Day 5 · May 18</option>
+          <option value="6">Day 6 · May 19</option>
+          <option value="7">Day 7 · May 20</option>
+          <option value="8">Day 8 · May 21</option>
+          <option value="9">Day 9 · May 22</option>
+          <option value="10">Day 10 · May 23</option>
+          <option value="11">Day 11 · May 24</option>
+          <option value="12">Day 12 · May 25</option>
+          <option value="13">Day 13 · May 26</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label class="form-label">Time · 时间</label>
+        <input type="text" class="form-input" id="foodEditTime" placeholder="Lunch · 12:00 PM · After dinner">
+      </div>
+    </div>
+    <p id="foodEditReadOnlyHint" class="hint" style="display:none;color:var(--neon-yellow);text-shadow:0 0 6px rgba(255,214,0,0.40)">
+      This spot is from the Google Sheet (read-only here). You can still set <b>When</b> and Save · 保存 below — that gets stored separately.
+    </p>
+    <div class="form-actions">
+      <button class="btn danger" id="foodEditDelete" style="display:none">Delete</button>
+      <button class="btn" id="foodEditCancel">Cancel</button>
+      <button class="btn solid" id="foodEditSave">Save · 保存</button>
+    </div>
+  </div>
+</div>
+
 <!-- Day-level edit modal (manager-only) — date / dow / location / stay / drive / vibe / summary / notes -->
 <div class="form-modal-bg" id="dayEditModal">
   <div class="form-modal">
@@ -3043,18 +3183,72 @@ const FOOD_LOCAL = [
    why: 'The split-point dinner. Last meal where the whole family eats together before Pixar Hotel and Commerce Casino split off for the night.',
    price: '$$',
    bestFor: 'Big group dinner',
-   photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Baked_cheesecake_with_raspberries_and_blueberries.jpg/800px-Baked_cheesecake_with_raspberries_and_blueberries.jpg',
+   photo: 'img/food/cheesecake-factory.jpeg',
    map: 'https://locations.thecheesecakefactory.com/ca/brea-88.html'},
+  {name: 'Eddie World',
+   cuisine: 'Travel center · Snacks',
+   city: 'Yermo, CA · I-15',
+   why: 'Iconic giant ice-cream-cone-shaped travel stop on the I-15 between LA and Vegas. Best snack break for the long drive.',
+   price: '$',
+   bestFor: 'Pit stop · candy wall · jerky run',
+   photo: 'img/food/eddieworld.jpeg',
+   map: 'https://maps.google.com/?q=Eddie+World+Yermo'},
 ];
 
 // Photo overrides — fill in / replace a sheet entry's photo without touching the sheet.
-// Keyed by a substring of the food name (case-insensitive). Stable Wikimedia Commons URLs.
+// Keyed by a substring of the food name (case-insensitive). Local images shipped with the repo.
 const FOOD_PHOTO_OVERRIDES = {
-  'boston lobster':  'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Lobster_in_Boston.jpg/800px-Lobster_in_Boston.jpg',
-  'victory diner':   'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Diner_by_David_Shankbone.jpg/800px-Diner_by_David_Shankbone.jpg',
-  'spring mountain': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Chinese_DimSum_%289023590541%29.jpg/800px-Chinese_DimSum_%289023590541%29.jpg',
-  'chinatown':       'https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Chinese_DimSum_%289023590541%29.jpg/800px-Chinese_DimSum_%289023590541%29.jpg',
+  'boston lobster':  'img/food/boston-lobster.jpeg',
+  'victory diner':   'img/food/victory-diner.jpg',
+  'spring mountain': 'img/food/vegas-chinatown.jpeg',
+  'chinatown':       'img/food/vegas-chinatown.jpeg',
+  'eddie world':     'img/food/eddieworld.jpeg',
+  'eddieworld':      'img/food/eddieworld.jpeg',
 };
+
+// Menu info + manager-style recommendation per spot. Keyed by name substring
+// (case-insensitive). Each entry: { popular: [...], rec: "..." }.
+const FOOD_MENU_OVERRIDES = {
+  'boston lobster': {
+    popular: ['Live lobster (HK-style garlic-scallion)', 'Salt-and-pepper crab', 'Walnut shrimp', 'Peking duck', 'Salt-baked chicken'],
+    rec: "Get the lobster — it's the whole point. Splash for the live one and have it prepared HK-style. Order family-style and share around the table. Skip the Western entrées."
+  },
+  'victory diner': {
+    popular: ['Carne Asada Fries', 'The Hangover Burger', 'French Toast Stack', 'Country Fried Steak', 'Big Breakfast plate'],
+    rec: "Heavy-duty American breakfast. The Hangover Burger is exactly what it sounds like. Bring a stretchy belt — the artery warning was real."
+  },
+  'cheesecake factory': {
+    popular: ['Avocado Egg Rolls', 'Bang Bang Chicken & Shrimp', 'Thai Lettuce Wraps', 'Original Cheesecake', 'Oreo Dream Extreme'],
+    rec: "Skip the entrées and order three appetizers + a couple of cheesecakes to share. Avocado Egg Rolls are non-negotiable. They have 50+ cheesecake flavors — Original or Strawberry are the safest bets."
+  },
+  'spring mountain': {
+    popular: ['Chengdu Taste (Sichuan)', 'Marche Bacchus (French bistro on the lake)', 'Monta Ramen (tonkotsu)', 'Lemongrass (Thai)', 'Pho Kim Long (24 hr)'],
+    rec: "Last big Asian-food window of the trip. Spring Mountain Rd has every kind of Chinese / Japanese / Thai / Vietnamese. Pho Kim Long is open 24 hr if Vegas nights run long."
+  },
+  'chinatown': {
+    popular: ['Chengdu Taste (Sichuan)', 'Marche Bacchus (French bistro on the lake)', 'Monta Ramen (tonkotsu)', 'Lemongrass (Thai)', 'Pho Kim Long (24 hr)'],
+    rec: "Last big Asian-food window of the trip. Spring Mountain Rd has every kind of Chinese / Japanese / Thai / Vietnamese. Pho Kim Long is open 24 hr if Vegas nights run long."
+  },
+  'eddie world': {
+    popular: ['Beef jerky wall (every flavor)', 'Hot dogs + burgers', 'Slushies', 'Candy wall', 'Souvenirs + ice cream'],
+    rec: "Best stop on the I-15 between LA and Vegas. Aunties love the candy wall. Stretch your legs, hit the bathroom, grab jerky for the rest of the drive."
+  },
+  'eddieworld': {
+    popular: ['Beef jerky wall (every flavor)', 'Hot dogs + burgers', 'Slushies', 'Candy wall', 'Souvenirs + ice cream'],
+    rec: "Best stop on the I-15 between LA and Vegas. Aunties love the candy wall. Stretch your legs, hit the bathroom, grab jerky for the rest of the drive."
+  },
+};
+
+function applyMenuOverrides(f){
+  const name = String(f.name || '').toLowerCase().replace(/[''`]/g, '');
+  for(const k of Object.keys(FOOD_MENU_OVERRIDES)){
+    if(name.includes(k)){
+      const o = FOOD_MENU_OVERRIDES[k];
+      return Object.assign({}, f, {popular: f.popular || o.popular, rec: f.rec || o.rec});
+    }
+  }
+  return f;
+}
 
 function applyFoodOverrides(list){
   return list.map(f => {
@@ -3070,8 +3264,23 @@ function applyFoodOverrides(list){
   });
 }
 
+function applyFoodWhen(f){
+  const slug = foodSlug(f.name);
+  const w = state.foodWhen[slug];
+  if(!w) return f;
+  return Object.assign({}, f, {day: w.day || f.day, time: w.time || f.time});
+}
+
 function getAllFood(){
-  return applyFoodOverrides((state.food || []).concat(FOOD_LOCAL));
+  // 1. Sheet entries
+  // 2. Hardcoded FOOD_LOCAL supplements (Cheesecake Factory, EddieWorld)
+  // 3. Manager-added entries from Firebase (with _fbId tag for editing)
+  const fbAdds = Object.entries(state.foodAdds || {}).map(([id, f]) =>
+    Object.assign({_fbId: id}, f)
+  );
+  const merged = (state.food || []).concat(FOOD_LOCAL).concat(fbAdds);
+  // Apply layers in order: photo override → menu override → day/time annotation
+  return applyFoodOverrides(merged).map(applyMenuOverrides).map(applyFoodWhen);
 }
 
 // USD → SGD conversion. Hardcoded approx; manager can update if rate moves.
@@ -3091,6 +3300,8 @@ let state = {
   budget: {target: 0, currency: 'USD'},
   locationOverrides: {hotel:{}, activity:{}, food:{}}, // Firebase override map
   timelineOverrides: {},                 // Firebase: {day: [rows]}
+  foodAdds: {},                          // Firebase: {pushId: foodEntry} — manager-added spots
+  foodWhen: {},                          // Firebase: {nameSlug: {day, time}} — per-spot annotations
   announcements: {},                     // Firebase: {pushId: announcement}
   ahzaiHistory: [],
   ahzaiPending: false,
@@ -3931,6 +4142,7 @@ function activeFoodSet(){
     .replace(/[''`]/g, '');
   const stripWord = (s) => s.replace(/[''`]/g, '').toLowerCase();
   return all.filter(f => {
+    if(f._fbId) return true;  // manager-added spots always show
     const name = stripWord(String(f.name || ''));
     if(!name) return false;
     if(haystack.includes(name)) return true;
@@ -3944,10 +4156,12 @@ function activeFoodSet(){
 // ─── Food render (lifted from v1 with neon styling) ─────────────────────
 function renderFood(){
   const c = document.getElementById('foodContent');
+  const addCard = `<div class="annc-add" id="foodAddCard"><span class="material-symbols-outlined">add_circle</span>Add food spot<span class="annc-add-cn">加美食</span></div>`;
   if(!state.food.length){
     c.innerHTML = `
       <div class="section" style="margin-top:6px">
         <div class="section-title"><h2>Food picks<span class="cn">美食</span></h2></div>
+        ${addCard}
         <div class="empty">Loading restaurants from the sheet…</div>
       </div>`;
     return;
@@ -3958,6 +4172,7 @@ function renderFood(){
     c.innerHTML = `
       <div class="section" style="margin-top:6px">
         <div class="section-title"><h2>Food picks<span class="cn">美食</span></h2></div>
+        ${addCard}
         <div class="empty">No food spots match the detailed itinerary yet.</div>
       </div>`;
     return;
@@ -3987,20 +4202,31 @@ function renderFood(){
         <h2>Food picks<span class="cn">美食</span></h2>
         <span class="meta">${activeFood.length} ON THE PLAN</span>
       </div>
+      ${addCard}
       ${finalOrder.map(b => `
         <div class="city-section fade">
           <div class="city-head">
             <div class="city-name">${esc(b)}</div>
             <div class="city-count">${buckets[b].length} spots</div>
           </div>
-          ${buckets[b].map(f => `
+          ${buckets[b].map(f => {
+            const slug = foodSlug(f.name);
+            const editArg = f._fbId
+              ? `mode=fb&id=${esc(f._fbId)}`
+              : `mode=sheet&slug=${esc(slug)}`;
+            const whenChip = (f.day || f.time)
+              ? `<span class="pill when-chip">${ico('schedule')} ${f.day ? 'Day '+esc(f.day) : 'TBD day'}${f.time ? ' · ' + esc(f.time) : ''}</span>`
+              : '';
+            return `
             <div class="card fade food" data-food-name="${esc(f.name)}" style="cursor:pointer">
+              <button class="edit-pencil food-edit-pencil" data-food-edit="${editArg}" aria-label="Edit"><span class="material-symbols-outlined">edit</span></button>
               ${f.photo
                 ? `<img class="food-img" src="${esc(f.photo)}" alt="${esc(f.name)}" loading="lazy" onerror="this.outerHTML='<div class=&quot;food-ph&quot;><span class=&quot;mono-mark&quot;>${esc((f.name||'·').trim()[0]||'·')}</span></div>'">`
                 : `<div class="food-ph"><span class="mono-mark">${esc((f.name||'·').trim()[0]||'·')}</span></div>`}
               <div class="food-body">
                 <div class="food-name">${esc(f.name)}</div>
                 <div class="food-pills">
+                  ${whenChip}
                   ${f.cuisine ? `<span class="pill">${esc(f.cuisine)}</span>` : ''}
                   ${f.price ? `<span class="pill">${esc(f.price)}</span>` : ''}
                   ${f.city ? `<span class="pill city">${esc(f.city)}</span>` : ''}
@@ -4012,7 +4238,8 @@ function renderFood(){
                   <span class="material-symbols-outlined" style="font-size:18px">arrow_forward</span>
                 </div>
               </div>
-            </div>`).join('')}
+            </div>`;
+          }).join('')}
         </div>`).join('')}
     </div>`;
 }
@@ -4287,7 +4514,7 @@ function applyManagerMode(on){
     // Manager mode just dropped — close any open edit modals + re-render
     // the day cards so editing affordances are removed from the DOM, not
     // just CSS-hidden.
-    ['tlRowModal', 'dayEditModal', 'locModal', 'expModal', 'anncModal'].forEach(id => {
+    ['tlRowModal', 'dayEditModal', 'foodEditModal', 'locModal', 'expModal', 'anncModal'].forEach(id => {
       const m = document.getElementById(id);
       if(m) m.classList.remove('show');
     });
@@ -4392,13 +4619,28 @@ function openFoodModal(name){
   const heroHTML = f.photo
     ? `<img class="food-modal-hero" src="${esc(f.photo)}" alt="${esc(f.name)}" onerror="this.outerHTML='<div class=&quot;food-modal-hero-ph&quot;><span>${esc(fileChar)}</span></div>'">`
     : `<div class="food-modal-hero-ph"><span>${esc(fileChar)}</span></div>`;
-  const editLink = state.isManager
-    ? `<a class="btn gold" href="https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit" target="_blank" rel="noopener">${ico('edit')} Edit in Sheet · 编辑</a>`
+  const sheetLink = state.isManager
+    ? `<a class="btn gold" href="https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit" target="_blank" rel="noopener">${ico('edit')} Sheet · 表</a>`
     : '';
+  const popularHTML = (Array.isArray(f.popular) && f.popular.length) ? `
+    <div class="food-modal-section">
+      <div class="food-modal-section-head">${ico('local_dining')}Popular dishes<span class="cn">招牌菜</span></div>
+      <div class="food-modal-pills">${f.popular.map(p => `<span class="pill popular">${esc(p)}</span>`).join('')}</div>
+    </div>` : '';
+  const recHTML = f.rec ? `
+    <div class="food-modal-rec">
+      <div class="food-modal-rec-head">${ico('star')}Recommendation<span class="cn">推荐</span></div>
+      <div class="food-modal-rec-body">${esc(f.rec)}</div>
+    </div>` : '';
+  const whenHTML = (f.day || f.time) ? `
+    <div class="food-modal-when">
+      ${ico('schedule')}<span>${f.day ? `Day ${esc(f.day)}` : 'TBD day'}${f.time ? ' · ' + esc(f.time) : ''}</span>
+    </div>` : '';
   document.getElementById('foodModalContent').innerHTML = `
     ${heroHTML}
     <div class="food-modal-body">
       <div class="food-modal-name">${esc(f.name)}</div>
+      ${whenHTML}
       <div class="food-modal-pills">
         ${f.cuisine ? `<span class="pill">${esc(f.cuisine)}</span>` : ''}
         ${f.price ? `<span class="pill">${esc(f.price)}</span>` : ''}
@@ -4406,10 +4648,13 @@ function openFoodModal(name){
         ${f.bestFor ? `<span class="pill">${esc(f.bestFor)}</span>` : ''}
       </div>
       ${f.why ? `<div class="food-modal-why">${esc(f.why)}</div>` : ''}
+      ${popularHTML}
+      ${recHTML}
       <div class="food-modal-actions">
         ${f.map ? `<a class="btn solid big" href="${esc(f.map)}" target="_blank" rel="noopener">${ico('directions')} Directions · 路线</a>` : ''}
-        ${f.map ? `<a class="btn cyan" href="${esc(f.map)}" target="_blank" rel="noopener">${ico('open_in_new')} Open in Google Maps</a>` : ''}
-        ${editLink}
+        ${f.map ? `<a class="btn cyan" href="${esc(f.map)}" target="_blank" rel="noopener">${ico('open_in_new')} Open in Maps</a>` : ''}
+        ${state.isManager && f._fbId ? `<button class="btn" data-food-edit="${esc(f._fbId)}">${ico('edit')} Edit · 编辑</button>` : ''}
+        ${sheetLink}
       </div>
     </div>`;
   document.getElementById('foodModal').classList.add('show');
@@ -4434,11 +4679,41 @@ document.getElementById('dayModal').addEventListener('click', e => {
 });
 // Delegated click handler on the food tab
 document.getElementById('tabFood').addEventListener('click', e => {
+  // "+ Add food spot" card (manager only)
+  const addBtn = e.target.closest('#foodAddCard');
+  if(addBtn){
+    if(!state.isManager){ toast('Manager mode required', 'error'); return; }
+    openFoodEditModal({mode:'add'});
+    return;
+  }
+  // Pencil on a food card (manager only) → open edit modal
+  const pen = e.target.closest('.food-edit-pencil[data-food-edit]');
+  if(pen){
+    if(!state.isManager){ toast('Manager mode required', 'error'); return; }
+    e.stopPropagation();
+    const opts = {};
+    pen.dataset.foodEdit.split('&').forEach(p => {
+      const [k,v] = p.split('=');
+      if(k && v) opts[k] = decodeURIComponent(v);
+    });
+    openFoodEditModal(opts);
+    return;
+  }
   const card = e.target.closest('.card.food[data-food-name]');
   if(!card) return;
-  // Don't open if user clicked an inline link
+  // Don't open if user clicked an inline link or the pencil
   if(e.target.closest('a')) return;
+  if(e.target.closest('.food-edit-pencil')) return;
   openFoodModal(card.dataset.foodName);
+});
+
+// Food modal "Edit · 编辑" button (manager only) — opens the edit modal for FB-added entries
+document.getElementById('foodModal').addEventListener('click', e => {
+  const btn = e.target.closest('button[data-food-edit]');
+  if(!btn) return;
+  if(!state.isManager){ toast('Manager mode required', 'error'); return; }
+  closeFoodModal();
+  openFoodEditModal({mode:'fb', id: btn.dataset.foodEdit});
 });
 
 // ─── Settings panel ────────────────────────────────────────────────────
@@ -4547,6 +4822,17 @@ function initFirebase(){
       renderToday();
       renderFamily();
     });
+    // Food: manager-added spots + per-spot day/time annotations
+    db.ref('yap-trip/food').on('value', snap => {
+      state.foodAdds = snap.val() || {};
+      renderFood();
+      renderToday();
+    });
+    db.ref('yap-trip/food-when').on('value', snap => {
+      state.foodWhen = snap.val() || {};
+      renderFood();
+      renderToday();
+    });
     // Day-level overrides — manager edits to date / dow / location / accommodation
     // / drive time / vibe / events / notes. Field-level merge over the Sheet+FALLBACK base.
     db.ref('yap-trip/days').on('value', snap => {
@@ -4592,6 +4878,14 @@ function fbExpensesRef(){ return db && db.ref('yap-trip/expenses'); }
 function fbLocRef(type, id){ return db && db.ref('yap-trip/locations/'+type+'/'+id); }
 function fbTimelineRef(day){ return db && db.ref('yap-trip/timelines/'+day); }
 function fbDayRef(day){ return db && db.ref('yap-trip/days/'+day); }
+function fbFoodRef(){ return db && db.ref('yap-trip/food'); }
+function fbFoodWhenRef(slug){ return db && db.ref('yap-trip/food-when/'+slug); }
+function foodSlug(name){
+  return String(name || '').toLowerCase()
+    .replace(/[''`]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
 
 // Re-merges state.scheduleBase + state.dayOverrides into state.schedule.
 // Called after Sheet-load AND whenever Firebase day-overrides change.
@@ -4800,6 +5094,113 @@ function computeSettle(expenses){
     share: share[n] || 0,
     net: (paid[n] || 0) - (share[n] || 0),
   }));
+}
+
+// ─── Food entry add / edit / remove (manager-only) ─────────────────────
+let foodEditing = null;  // {mode: 'add'|'fb'|'sheet', id?: pushId, slug?: string}
+
+function openFoodEditModal(opts){
+  if(!requireManager()) return;
+  foodEditing = opts || {mode:'add'};
+  const all = getAllFood();
+  let f = {};
+  if(foodEditing.mode === 'fb' && foodEditing.id){
+    const found = all.find(x => x._fbId === foodEditing.id);
+    if(found) f = found;
+  } else if(foodEditing.mode === 'sheet' && foodEditing.slug){
+    const found = all.find(x => foodSlug(x.name) === foodEditing.slug);
+    if(found) f = found;
+  }
+  document.getElementById('foodEditTitle').innerHTML = foodEditing.mode === 'add'
+    ? 'Add food spot · 加美食'
+    : 'Edit food spot · 编辑';
+  document.getElementById('foodEditId').value = (foodEditing.mode === 'fb' ? foodEditing.id : '') || '';
+  document.getElementById('foodEditMode').value = foodEditing.mode;
+  document.getElementById('foodEditName').value     = f.name || '';
+  document.getElementById('foodEditCuisine').value  = f.cuisine || '';
+  document.getElementById('foodEditCity').value     = f.city || '';
+  document.getElementById('foodEditPrice').value    = f.price || '';
+  document.getElementById('foodEditBest').value     = f.bestFor || '';
+  document.getElementById('foodEditWhy').value      = f.why || '';
+  document.getElementById('foodEditPhoto').value    = f.photo || '';
+  document.getElementById('foodEditMap').value      = f.map || '';
+  document.getElementById('foodEditPopular').value  = Array.isArray(f.popular) ? f.popular.join('\n') : '';
+  document.getElementById('foodEditRec').value      = f.rec || '';
+  document.getElementById('foodEditDay').value      = f.day != null ? String(f.day) : '';
+  document.getElementById('foodEditTime').value     = f.time || '';
+
+  // Sheet/local entries: most fields are read-only here. Only When stays editable.
+  const readOnly = (foodEditing.mode === 'sheet');
+  ['foodEditName','foodEditCuisine','foodEditCity','foodEditPrice','foodEditBest','foodEditWhy','foodEditPhoto','foodEditMap','foodEditPopular','foodEditRec'].forEach(id => {
+    document.getElementById(id).readOnly = readOnly;
+    document.getElementById(id).style.opacity = readOnly ? '0.55' : '';
+  });
+  document.getElementById('foodEditReadOnlyHint').style.display = readOnly ? 'block' : 'none';
+  document.getElementById('foodEditDelete').style.display = (foodEditing.mode === 'fb') ? 'inline-flex' : 'none';
+  document.getElementById('foodEditModal').classList.add('show');
+}
+function closeFoodEditModal(){
+  document.getElementById('foodEditModal').classList.remove('show');
+}
+
+async function saveFoodEntry(){
+  if(!requireManager()) return;
+  if(!db){ toast('Firebase not connected — see Money tab', 'error'); return; }
+  if(!foodEditing){ closeFoodEditModal(); return; }
+
+  const day = document.getElementById('foodEditDay').value.trim();
+  const time = document.getElementById('foodEditTime').value.trim();
+  const dayTimeObj = {};
+  if(day) dayTimeObj.day = Number(day);
+  if(time) dayTimeObj.time = time;
+
+  if(foodEditing.mode === 'sheet'){
+    // Sheet entry — only persist When (day/time) to /food-when/{slug}
+    if(!foodEditing.slug){ closeFoodEditModal(); return; }
+    if(Object.keys(dayTimeObj).length){
+      await fbFoodWhenRef(foodEditing.slug).set(dayTimeObj);
+    } else {
+      await fbFoodWhenRef(foodEditing.slug).remove();
+    }
+  } else {
+    // FB add or edit — full record
+    const name = document.getElementById('foodEditName').value.trim();
+    if(!name){ toast('Name required', 'error'); return; }
+    const popularLines = document.getElementById('foodEditPopular').value.split('\n').map(s => s.trim()).filter(Boolean);
+    const obj = {
+      name,
+      cuisine:  document.getElementById('foodEditCuisine').value.trim() || '',
+      city:     document.getElementById('foodEditCity').value.trim() || '',
+      price:    document.getElementById('foodEditPrice').value.trim() || '',
+      bestFor:  document.getElementById('foodEditBest').value.trim() || '',
+      why:      document.getElementById('foodEditWhy').value.trim() || '',
+      photo:    document.getElementById('foodEditPhoto').value.trim() || '',
+      map:      document.getElementById('foodEditMap').value.trim() || '',
+      popular:  popularLines.length ? popularLines : null,
+      rec:      document.getElementById('foodEditRec').value.trim() || '',
+      day:      dayTimeObj.day || null,
+      time:     dayTimeObj.time || '',
+      createdBy: (state.profile && state.profile.name) || 'manager',
+      createdAt: Date.now(),
+    };
+    Object.keys(obj).forEach(k => { if(obj[k] === '' || obj[k] === null) delete obj[k]; });
+    if(foodEditing.mode === 'fb' && foodEditing.id){
+      await db.ref('yap-trip/food/' + foodEditing.id).update(obj);
+    } else {
+      await fbFoodRef().push(obj);
+    }
+  }
+  closeFoodEditModal();
+  toast('Saved · 保存', 'good');
+}
+
+async function deleteFoodEntry(){
+  if(!requireManager()) return;
+  if(!foodEditing || foodEditing.mode !== 'fb' || !foodEditing.id) return;
+  if(!confirm('Delete this food spot?')) return;
+  await db.ref('yap-trip/food/' + foodEditing.id).remove();
+  closeFoodEditModal();
+  toast('Deleted · 已删除', 'good');
 }
 
 // ─── Day-level edit (date / dow / location / stay / drive / vibe / summary / notes) ──
@@ -5421,6 +5822,14 @@ document.querySelectorAll('#expSplitMode .split-mode-btn').forEach(b => {
     document.querySelectorAll('#expSplitMode .split-mode-btn').forEach(x => x.classList.toggle('selected', x === b));
     document.getElementById('expCustomRow').style.display = expSplitMode === 'custom' ? 'block' : 'none';
   });
+});
+
+// Food editor modal buttons
+document.getElementById('foodEditCancel').addEventListener('click', closeFoodEditModal);
+document.getElementById('foodEditSave').addEventListener('click', saveFoodEntry);
+document.getElementById('foodEditDelete').addEventListener('click', deleteFoodEntry);
+document.getElementById('foodEditModal').addEventListener('click', e => {
+  if(e.target.id === 'foodEditModal') closeFoodEditModal();
 });
 
 // Day-edit modal buttons
