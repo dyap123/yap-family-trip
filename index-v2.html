@@ -3964,15 +3964,21 @@ const DAY_TO_HOTEL = {
 };
 
 const ACTIVITIES = [
-  {name:'Disneyland Park', lat:33.812, lng:-117.919, label:'Day 7 · DISNEY · 迪士尼', day:7, short:'Disney'},
+  {name:'Cal Poly Pomona · Graduation', lat:34.057, lng:-117.821, label:"Day 3 · Danzel's graduation · 毕业", day:3, short:'Grad'},
+  {name:"Grand Avenue Park · Photos", lat:33.989, lng:-117.711, label:'Day 3 · 1 hr photo session · 拍照', day:3, short:'Photos'},
+  {name:'Eddie World', lat:34.945, lng:-116.823, label:'Day 4 · I-15 stop · 中途', day:4, short:'Eddie'},
   {name:'Las Vegas Motor Speedway · EDC', lat:36.272, lng:-115.011, label:'EDC Nights · Group 1', day:3, short:'EDC'},
-  {name:'El Matador Beach', lat:34.038, lng:-118.876, label:'Day 8 · sunset · 海滩', day:8, short:'Beach'},
+  {name:'Disneyland Park', lat:33.812, lng:-117.919, label:'Day 7 · DISNEY · 迪士尼', day:7, short:'Disney'},
+  {name:'Cheesecake Factory · Brea', lat:33.918, lng:-117.886, label:'Day 6 · split-point dinner · 分开点', day:6, short:'Brea'},
+  {name:'El Matador Beach', lat:34.038, lng:-118.876, label:'Day 8 · sunset walks · 海滩', day:8, short:'Beach'},
   {name:'Tin City Paso', lat:35.580, lng:-120.640, label:'Day 9 · wine · 酒庄', day:9, short:'Wine'},
 ];
 
 const AIRPORTS = [
   {code:'SFO', lat:37.621, lng:-122.379, label:'SFO · arrival May 14 · 抵达', day:1},
-  {code:'LAX', lat:33.942, lng:-118.408, label:'LAX · Eugene + Vanessa midnight pickup May 16 · 接机', day:3},
+  {code:'SJC', lat:37.364, lng:-121.929, label:'SJC · Coke Yi Yi + Ah Gong fly to ONT (10:40 AM May 15) · 出发', day:2},
+  {code:'ONT', lat:34.056, lng:-117.601, label:'ONT · Coke Yi Yi + Ah Gong arrive · 抵达', day:2},
+  {code:'LAX', lat:33.942, lng:-118.408, label:'LAX · Eugene + Vanessa midnight pickup May 16 · 接机 / depart 3:36 PM May 21 · 离开', day:3},
 ];
 
 function renderMap(){
@@ -5714,6 +5720,20 @@ ARRIVALS / DEPARTURES (get these right):
 - May 26 → Family departs SFO heading home.
 
 VEHICLES: 1 large van (12 seats) + 2 Teslas (5 each). 22 seats for 17 family. NO truck.
+
+SINGAPORE AIRLINES LUGGAGE ALLOWANCE (per person, weight-based, all routes except Canada/USA — for the SG↔SFO leg this is what applies):
+- Suites / First: 50 kg base
+- Business: 40 kg base
+- Premium Economy: 35 kg base
+- Economy Flexi or Standard: 30 kg base
+- Economy Value or Lite: 25 kg base
+KrisFlyer Elite tiers add bonus kg on top:
+- PPS Club: doubles the base allowance (e.g. Economy Standard 30 → 60 kg)
+- KrisFlyer Elite Gold / Star Alliance Gold: +20 kg
+- KrisFlyer Elite Silver: +10 kg
+Rule: total combined weight across all checked bags must be under the cap. Multiple bags is fine, just stay under total.
+
+TICKETS: The "real Ah Zai" (Danzel) handles all 19 SQ tickets and holds them for the whole family. If anyone asks "where are my tickets" — Danzel has them.
 
 DAY-BY-DAY SCHEDULE:
 ${schedule}
