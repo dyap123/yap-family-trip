@@ -1589,6 +1589,22 @@ body.manager .nav-btn.manager-only{display:flex}
   100%{opacity:1;transform:translateY(0)}
 }
 
+/* ── Language modes ── default is bilingual; user can switch to EN-only or ZH-only.
+   English-only hides .cn-tagged spans (most major bilingual labels are wrapped this way).
+   Chinese-only is best-effort — many inline "· 中文" patterns will leak English. */
+body.lang-en .cn,
+body.lang-en .nav-cn,
+body.lang-en .name-cn,
+body.lang-en .brand-cn,
+body.lang-en .cn-deco { display: none !important; }
+
+body.lang-zh .nav-en,
+body.lang-zh .name-en,
+body.lang-zh .brand-en { display: none !important; }
+/* In Chinese mode, the .en class is rare but we add support proactively for any
+   future spans wrapped with class="en". */
+body.lang-zh .en { display: none !important; }
+
 /* ── Profile picker overlay ── */
 .profile-overlay{
   position:fixed;inset:0;z-index:48;
@@ -2683,6 +2699,14 @@ Walnut shrimp"></textarea>
   <div class="settings-panel">
     <h3>Settings<span class="cn">设置</span></h3>
     <p class="help">Tap to change · 点击修改</p>
+    <div class="settings-row" style="display:block">
+      <div class="settings-label" style="margin-bottom:8px">Language · 语言<small>SHOW · 显示</small></div>
+      <div class="split-modes" id="langPicker" style="grid-template-columns:1fr 1fr 1fr">
+        <button class="split-mode-btn" data-lang="bilingual">Both<span class="cn">双语</span></button>
+        <button class="split-mode-btn" data-lang="en">English</button>
+        <button class="split-mode-btn" data-lang="zh">中文</button>
+      </div>
+    </div>
     <div class="settings-row">
       <div class="settings-label">Skip welcome screen<small>WELCOME · 欢迎页</small></div>
       <div class="toggle-switch" id="toggleSkipWelcome"></div>
@@ -3182,7 +3206,7 @@ const HOTELS = [
   {nights:'May 19 – 21',name:'Pixar Place Hotel · Anaheim',city:'Anaheim · OC',who:'Group 1 + Jujuhub + Da ma — closer to Disneyland.',map:'https://disneyland.disney.go.com/hotels/pixar-place-hotel/',note:'Split-night #1. Different hotel from Commerce.',lat:33.812,lng:-117.919},
   {nights:'May 19 – 21',name:'Commerce Casino · LA',city:'Commerce · LA',who:'Yi ma · Aunty Coke · Mom · Dad · Uncle Jimy · Steve Susu · Ah Gong · Margaret.',map:'https://www.commercecasino.com/',note:'Split-night #2. Different hotel from Pixar.',lat:33.999,lng:-118.144},
   {nights:'May 21 – 22',name:'Malibu Airbnb',city:'Malibu',who:'Whole remaining family (Eugene departed).',map:'https://maps.google.com/?q=Malibu',note:'1 night. Beach + PCH sunset.',lat:34.026,lng:-118.780},
-  {nights:'May 22 – 23',name:'Paso Robles Hotel',city:'Paso Robles',who:'Whole family.',map:'https://maps.google.com/?q=Paso+Robles+CA',note:'1 night. Wine country.',lat:35.627,lng:-120.691},
+  {nights:'May 22 – 23',name:'Courtyard by Marriott · Paso Robles',city:'Paso Robles',who:'Whole family · 5 rooms × 2 queens (10 beds total).',map:'https://www.marriott.com/en-us/hotels/sbppr-courtyard-paso-robles/overview/',note:'1 night. Wine country.',lat:35.627,lng:-120.691},
   {nights:'May 23 – 26',name:'885 Dorel Drive',city:'San Jose · family home',who:'Whole family — final stretch + departures.',map:'https://maps.google.com/?q=885+Dorel+Drive+San+Jose',note:'Back to the SJ home base.',lat:37.276,lng:-121.842},
 ];
 
@@ -4769,6 +4793,22 @@ toggleSkipWelcome.addEventListener('click', () => {
     toggleSkipWelcome.classList.add('on');
   }
 });
+
+// ─── Language toggle (Bilingual / English / 中文) ──────────────────────
+function applyLang(lang){
+  const valid = (lang === 'en' || lang === 'zh') ? lang : 'bilingual';
+  document.body.classList.remove('lang-en', 'lang-zh');
+  if(valid === 'en') document.body.classList.add('lang-en');
+  else if(valid === 'zh') document.body.classList.add('lang-zh');
+  localStorage.setItem('yap_lang', valid);
+  document.querySelectorAll('#langPicker .split-mode-btn').forEach(b => {
+    b.classList.toggle('selected', b.dataset.lang === valid);
+  });
+}
+document.querySelectorAll('#langPicker .split-mode-btn').forEach(b => {
+  b.addEventListener('click', () => applyLang(b.dataset.lang));
+});
+applyLang(localStorage.getItem('yap_lang') || 'bilingual');
 document.getElementById('reloadDataBtn').addEventListener('click', async () => {
   localStorage.removeItem(CACHE_KEY);
   closeSettings();
