@@ -2774,7 +2774,7 @@ const VIBE_CN = {
 const FALLBACK = [
   {day:1,date:'May 14',dow:'Thursday',location:'San Jose',
    accommodation:'885 Dorel Drive — San Jose home',
-   events:'First SFO pickup 19:50 (Terminal 1) — Angel, Alvin, Alyssa, Amazi, Jujuhub, Da Ma. Drive to 885 Dorel Drive. Dinner ~9:30 PM with Ah Gong + Coke Yi Yi who are already at home.',
+   events:'First SFO pickup 19:50 (Terminal 1) — Angel, Alvin, Amazi, Jujuhub, Da Ma. Drive to 885 Dorel Drive. Dinner ~9:30 PM with Ah Gong + Coke Yi Yi who are already at home.',
    driveTime:'1 hr (SFO → SJ)',vibe:'chill',
    notes:'Ah Gong + Coke Yi Yi already at 885 Dorel Drive. Dad picks up the rental van from Costco before the SFO run.',
    timeline:[
@@ -2786,7 +2786,7 @@ const FALLBACK = [
       who:'Dad', icon:'directions_car',
       note:'Large van — same one used the next morning to drive Coke Yi Yi + Ah Gong to SJC.'},
      {time:'19:50 (7:50 PM)', event:'First pickup · SFO Terminal 1',
-      who:'Angel · Alvin · Alyssa · Amazi · Jujuhub · Da Ma',
+      who:'Angel · Alvin · Amazi · Jujuhub · Da Ma',
       icon:'flight_land',
       note:'Hard arrival time — be there a few minutes early. Terminal 1 is the international arrivals terminal. ~1 hr drive SFO → 885 Dorel Drive after pickup.'},
      {time:'~9:30 PM', event:'First dinner at 885 Dorel Drive',
@@ -3523,19 +3523,23 @@ document.getElementById('welcomeEnter').addEventListener('click', dismissWelcome
 // ─── Today render ───────────────────────────────────────────────────────
 // Latest manager-posted announcement, rendered as a big featured "spotlight"
 // card. Shown at the top of Today (after the hero). Empty if no announcements.
+// Clickable for managers — opens the edit modal so they can update on the fly.
 function spotlightHTML(){
-  const list = Object.values(state.announcements || {})
-    .sort((a,b) => (b.createdAt||0) - (a.createdAt||0));
-  if(!list.length) return '';
-  const a = list[0];
+  const entries = Object.entries(state.announcements || {})
+    .sort((a,b) => (b[1].createdAt||0) - (a[1].createdAt||0));
+  if(!entries.length) return '';
+  const [id, a] = entries[0];
   const cls = String(a.priority||'').includes('urgent') ? 'urgent'
             : String(a.priority||'').includes('important') ? 'warn'
             : 'cyan';
+  const clickable = state.isManager;
   return `
-    <div class="callout ${cls} fade" style="margin-bottom:14px">
+    <div class="callout ${cls} fade ${clickable?'spotlight-editable':''}"
+         style="margin-bottom:14px${clickable?';cursor:pointer':''}"
+         ${clickable ? `data-spotlight-id="${esc(id)}"` : ''}>
       <div class="callout-ico">${ico('campaign')}</div>
       <div class="callout-body">
-        <div class="callout-title">Latest · ${esc(a.from || 'Trip team')} · ${esc(a.date || '')} ${esc(a.time || '')}</div>
+        <div class="callout-title">${clickable ? 'Spotlight (tap to edit) · ' : 'Latest · '}${esc(a.from || 'Trip team')} · ${esc(a.date || '')} ${esc(a.time || '')}</div>
         <div class="callout-text" style="white-space:pre-line">${escMl(a.message || '')}</div>
         ${a.message_cn ? `<div class="callout-text" style="white-space:pre-line;margin-top:8px;color:var(--text-soft);font-family:var(--font-cn)">${escMl(a.message_cn)}</div>` : ''}
       </div>
@@ -3568,7 +3572,7 @@ function renderToday(){
         <div class="callout-ico">${ico('flight')}</div>
         <div class="callout-body">
           <div class="callout-title">First SFO pickup · 19:50 May 14 · Terminal 1</div>
-          <div class="callout-text"><b>Angel · Alvin · Alyssa · Amazi · Jujuhub · Da Ma</b> arriving on the first SFO landing. Hard pickup time — be there a few minutes before. Ah Gong + Coke Yi Yi already at home.</div>
+          <div class="callout-text"><b>Angel · Alvin · Amazi · Jujuhub · Da Ma</b> arriving on the first SFO landing. Hard pickup time — be there a few minutes before. Ah Gong + Coke Yi Yi already at home.</div>
         </div>
       </div>
 
@@ -3586,14 +3590,6 @@ function renderToday(){
           <div class="callout-title">Stay plan</div>
           <div class="callout-text">Day 1 at <b>885 Dorel Drive</b> (SJ home). May 15–16 at <b>Bicycle Club</b>. May 19–20 splits <b>Commerce</b> + <b>Pixar Hotel</b>.</div>
         </div>
-      </div>
-
-      <div class="section">
-        <div class="section-title">
-          <h2>Convoy<span class="cn">车队</span></h2>
-          <span class="meta">${ARRIVALS.length} ARRIVALS</span>
-        </div>
-        ${convoyHTML()}
       </div>
 
       <div class="section">
@@ -6114,6 +6110,12 @@ document.addEventListener('click', e => {
   const annc = e.target.closest('.update[data-annc-id]');
   if(annc && state.isManager){
     const id = annc.dataset.anncId;
+    const existing = Object.assign({_id: id}, state.announcements[id] || {});
+    openAnncModal(existing);
+  }
+  const spotlight = e.target.closest('.spotlight-editable[data-spotlight-id]');
+  if(spotlight && state.isManager){
+    const id = spotlight.dataset.spotlightId;
     const existing = Object.assign({_id: id}, state.announcements[id] || {});
     openAnncModal(existing);
   }
