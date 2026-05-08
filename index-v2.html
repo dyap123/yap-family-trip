@@ -2774,17 +2774,27 @@ const VIBE_CN = {
 const FALLBACK = [
   {day:1,date:'May 14',dow:'Thursday',location:'San Jose',
    accommodation:'885 Dorel Drive — San Jose home',
-   events:'Family arrives SFO ~7 PM. Dinner at 885 Dorel Drive ~9:30 PM. Rest.',
+   events:'First SFO pickup 19:50 (Terminal 1) — Angel, Alvin, Alyssa, Amazi, Jujuhub, Da Ma. Drive to 885 Dorel Drive. Dinner ~9:30 PM with Ah Gong + Coke Yi Yi who are already at home.',
    driveTime:'1 hr (SFO → SJ)',vibe:'chill',
-   notes:'Private home — no hotel check-in. Dad picks up the rental van from Costco today before pickups.',
+   notes:'Ah Gong + Coke Yi Yi already at 885 Dorel Drive. Dad picks up the rental van from Costco before the SFO run.',
    timeline:[
-     {time:'Afternoon', event:'Dad picks up rental van from Costco', who:'Dad', icon:'directions_car',
-      note:'Large van — same one used to drive Coke Yi Yi + Ah Gong on May 15.'},
-     {time:'~7:00 PM', event:'Family arrives at SFO', who:'21 PAX from Singapore', icon:'flight_land'},
-     {time:'~9:00 PM', event:'Out of airport, drive to 885 Dorel Drive', icon:'directions_car',
-      note:'~1 hr drive SFO → SJ.'},
-     {time:'~9:30 PM', event:'First dinner together at 885 Dorel Drive', who:'Whole family', icon:'restaurant'},
-     {time:'After dinner', event:'Refresh, rest for the night', icon:'hotel'},
+     {time:'(already here)', event:'Ah Gong + Coke Yi Yi at home',
+      who:'Ah Gong · Coke Yi Yi',
+      icon:'home',
+      note:'Already in San Jose — they will be at 885 Dorel Drive welcoming the rest of the family in.'},
+     {time:'Afternoon', event:'Dad picks up rental van from Costco',
+      who:'Dad', icon:'directions_car',
+      note:'Large van — same one used the next morning to drive Coke Yi Yi + Ah Gong to SJC.'},
+     {time:'19:50 (7:50 PM)', event:'First pickup · SFO Terminal 1',
+      who:'Angel · Alvin · Alyssa · Amazi · Jujuhub · Da Ma',
+      icon:'flight_land',
+      note:'Hard arrival time — be there a few minutes early. Terminal 1 is the international arrivals terminal. ~1 hr drive SFO → 885 Dorel Drive after pickup.'},
+     {time:'~9:30 PM', event:'First dinner at 885 Dorel Drive',
+      who:'Everyone in San Jose so far',
+      icon:'restaurant',
+      note:'Welcome dinner. Ah Gong + Coke Yi Yi already there.'},
+     {time:'After dinner', event:'Refresh, rest for the night',
+      icon:'hotel'},
    ]
   },
   {day:2,date:'May 15',dow:'Friday',location:'San Jose → LA',
@@ -3511,6 +3521,27 @@ function dismissWelcome(){
 document.getElementById('welcomeEnter').addEventListener('click', dismissWelcome);
 
 // ─── Today render ───────────────────────────────────────────────────────
+// Latest manager-posted announcement, rendered as a big featured "spotlight"
+// card. Shown at the top of Today (after the hero). Empty if no announcements.
+function spotlightHTML(){
+  const list = Object.values(state.announcements || {})
+    .sort((a,b) => (b.createdAt||0) - (a.createdAt||0));
+  if(!list.length) return '';
+  const a = list[0];
+  const cls = String(a.priority||'').includes('urgent') ? 'urgent'
+            : String(a.priority||'').includes('important') ? 'warn'
+            : 'cyan';
+  return `
+    <div class="callout ${cls} fade" style="margin-bottom:14px">
+      <div class="callout-ico">${ico('campaign')}</div>
+      <div class="callout-body">
+        <div class="callout-title">Latest · ${esc(a.from || 'Trip team')} · ${esc(a.date || '')} ${esc(a.time || '')}</div>
+        <div class="callout-text" style="white-space:pre-line">${escMl(a.message || '')}</div>
+        ${a.message_cn ? `<div class="callout-text" style="white-space:pre-line;margin-top:8px;color:var(--text-soft);font-family:var(--font-cn)">${escMl(a.message_cn)}</div>` : ''}
+      </div>
+    </div>`;
+}
+
 function renderToday(){
   const c = document.getElementById('todayContent');
   const dn = tripDay();
@@ -3521,17 +3552,27 @@ function renderToday(){
     const next = state.schedule[0];
     c.innerHTML = `
       <div class="hero fade">
-        <div class="hero-meta">SG → CA · 13 DAYS · 21 FAMILY</div>
+        <div class="hero-meta">SG → CA · 13 DAYS · 17 FAMILY</div>
         <h1>California Awaits<span class="cn">加州 · 等你来</span></h1>
         <div class="hero-sub">Yap family trip · May 14 to 26, 2026</div>
         <div class="hero-stats">
           <div class="stat"><span class="accent">T-${days}</span> days · 天</div>
-          <div class="stat cyan"><span class="accent">21</span> PAX · 人</div>
+          <div class="stat cyan"><span class="accent">17</span> PAX · 人</div>
           <div class="stat gold"><span class="accent">7</span> stays · 站</div>
         </div>
       </div>
 
+      ${spotlightHTML()}
+
       <div class="callout urgent fade">
+        <div class="callout-ico">${ico('flight')}</div>
+        <div class="callout-body">
+          <div class="callout-title">First SFO pickup · 19:50 May 14 · Terminal 1</div>
+          <div class="callout-text"><b>Angel · Alvin · Alyssa · Amazi · Jujuhub · Da Ma</b> arriving on the first SFO landing. Hard pickup time — be there a few minutes before. Ah Gong + Coke Yi Yi already at home.</div>
+        </div>
+      </div>
+
+      <div class="callout warn fade">
         <div class="callout-ico">${ico('flight')}</div>
         <div class="callout-body">
           <div class="callout-title">LAX pickup · 12:00 AM May 16</div>
@@ -3581,6 +3622,7 @@ function renderToday(){
         <h1>Welcome home<span class="cn">回家了</span></h1>
         <div class="hero-sub">13 days · 6 cities · countless memories.</div>
       </div>
+      ${spotlightHTML()}
       <div class="section">
         <div class="section-title"><h2>Recap<span class="cn">回顾</span></h2></div>
         ${state.schedule.map(s => dayCard(s,false)).join('')}
@@ -3602,6 +3644,7 @@ function renderToday(){
         ${today.driveTime && today.driveTime !== '—' ? `<div class="stat cyan"><span class="accent">${esc(today.driveTime)}</span></div>` : ''}
       </div>
     </div>
+    ${spotlightHTML()}
     ${dayCard(today, true)}
     ${tomorrow ? `<div class="section"><div class="section-title"><h2>Tomorrow<span class="cn">明天</span></h2><span class="meta">DAY ${tomorrow.day}</span></div>${dayCard(tomorrow, false)}</div>` : ''}
     <div class="section">
