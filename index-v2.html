@@ -2859,7 +2859,7 @@ const FALLBACK = [
      {time:'~3:30 PM', event:'Rest of family regroups for dinner in LA',
       who:'Group 2 + Angel + Amazi (Group 1 not at EDC tonight)',
       icon:'restaurant', group:'rest',
-      note:"Recs: Chinese (last for a while) · Lucille's BBQ · In-N-Out · Five Guys · Howling Rays."},
+      note:"Recs: Chinese (last for a while) · Lucille's BBQ · In-N-Out · Five Guys · Daybird."},
      {time:'Evening', event:'Bicycle Club group rests, packs for early start',
       icon:'hotel', group:'rest',
       note:'Depart 8 AM tomorrow. Vegas ETA ~2 PM.'},
@@ -3245,6 +3245,22 @@ const FOOD_LOCAL = [
    bestFor: 'Big group dinner',
    photo: 'img/food/cheesecake-factory.jpeg',
    map: 'https://locations.thecheesecakefactory.com/ca/brea-88.html'},
+  {name: 'Amboy Quality Meats',
+   cuisine: 'American · Smashburgers',
+   city: 'Hollywood, LA',
+   why: "Alvin Cailan's (Eggslut founder) take on the classic smashburger. Counter-style, fast-casual, comfort food done right. One of two LA brunch options for May 21.",
+   price: '$',
+   bestFor: 'Day 8 brunch · LA staple',
+   photo: '',
+   map: 'https://amboyqmdb.square.site/'},
+  {name: 'Daybird',
+   cuisine: 'Korean fried chicken sandwiches',
+   city: 'East Hollywood, LA',
+   why: "Sqirl's Korean-inspired fried chicken sandwich shop. Szechuan hot chicken is the headliner. Other LA brunch option for May 21.",
+   price: '$',
+   bestFor: 'Day 8 brunch · spicy chicken sando',
+   photo: 'https://images.squarespace-cdn.com/content/v1/5ef0f9fe44117d5e139b6043/1593027760824-O1Q6GZ5439NHMBVYRCV9/Screen%2BShot%2B2020-06-24%2Bat%2B12.39.12%2BPM.jpg',
+   map: 'https://www.daybirdla.com/'},
   // Eddie World is in the sheet — don't add a FOOD_LOCAL twin or it dupes.
 ];
 
@@ -3289,6 +3305,14 @@ const FOOD_MENU_OVERRIDES = {
   'eddieworld': {
     popular: ['Beef jerky wall (every flavor)', 'Hot dogs + burgers', 'Slushies', 'Candy wall', 'Souvenirs + ice cream'],
     rec: "Best stop on the I-15 between LA and Vegas. Aunties love the candy wall. Stretch your legs, hit the bathroom, grab jerky for the rest of the drive."
+  },
+  'amboy': {
+    popular: ['The Amboy smashburger', 'Double smash', 'Pastrami sandwich', 'Crispy fries', 'Hot dog'],
+    rec: "Counter-style smashburgers from Alvin Cailan (the Eggslut guy). Order at the counter, grab a table, eat fast. Pair the smashburger with the pastrami if you're hungry."
+  },
+  'daybird': {
+    popular: ['Szechuan hot chicken sandwich', 'Original fried chicken sandwich', 'Smashed cucumber salad', 'Garlic noodles', 'Soft serve'],
+    rec: "Sqirl's spinoff. Szechuan hot chicken is the headliner — go medium spice unless you've got a tolerance. The smashed cucumber salad is a perfect side."
   },
 };
 
