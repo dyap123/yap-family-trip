@@ -4593,6 +4593,37 @@ function render(){
   renderFood();
   renderFamily();
   if(state.isManager) renderMoney();
+  wireAnnouncementTaps();
+}
+
+// iOS Safari does not fire delegated click events reliably on plain <div>
+// elements even with cursor:pointer set — managers reported announcements
+// were tappable on desktop but not on phone. Fix: bind click directly on
+// each rendered announcement card after every render, and add role="button"
+// + tabindex so iOS treats them as natively interactive.
+function wireAnnouncementTaps(){
+  document.querySelectorAll('.update[data-annc-id]').forEach(el => {
+    el.setAttribute('role','button');
+    el.setAttribute('tabindex','0');
+    el.onclick = (e) => {
+      if(!state.isManager) return;
+      e.stopPropagation();
+      const id = el.dataset.anncId;
+      const existing = Object.assign({_id: id}, state.announcements[id] || {});
+      openAnncModal(existing);
+    };
+  });
+  document.querySelectorAll('.spotlight-editable[data-spotlight-id]').forEach(el => {
+    el.setAttribute('role','button');
+    el.setAttribute('tabindex','0');
+    el.onclick = (e) => {
+      if(!state.isManager) return;
+      e.stopPropagation();
+      const id = el.dataset.spotlightId;
+      const existing = Object.assign({_id: id}, state.announcements[id] || {});
+      openAnncModal(existing);
+    };
+  });
 }
 
 // ─── Tabs ───────────────────────────────────────────────────────────────
@@ -4963,6 +4994,7 @@ function initFirebase(){
       state.announcements = snap.val() || {};
       renderToday();
       renderFamily();
+      wireAnnouncementTaps();
     });
     // Food: manager-added spots + per-spot day/time annotations
     db.ref('yap-trip/food').on('value', snap => {
