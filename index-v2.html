@@ -3224,9 +3224,10 @@ const NAME_CN = {
 
 // Shared room groupings — reused across every multi-room hotel.
 // 5 groups: two 4-person groups + three smaller ones.
+// First two groups are the studio-suite groups.
 const ROOM_GROUPS = [
   ['Aunty Coke','Ah Gong','Yi ma','Steve Susu'],
-  ['Angel','Alvin','Danzel','Amazi'],
+  ['Angel','Alvin','Danzel','Alyssa','Amazi'],
   ['Dad','Mom','Margaret'],
   ['Eugene','Vanessa'],
   ['Jujuhub'],
@@ -3239,9 +3240,10 @@ const ROOMING = [
     hotel:'Horseshoe Las Vegas', nights:'May 16–19',
     summary:'5 rooms · 2 studio suites + 3 regular',
     note:'The four-person groups take the studio suites; everyone else is in a regular room.',
-    rooms: ROOM_GROUPS.map(people => ({
-      type: people.length === 4 ? 'Studio Suite' : 'Regular Room',
-      cn:   people.length === 4 ? '套房' : '标准房',
+    rooms: ROOM_GROUPS.map((people, i) => ({
+      type:  i < 2 ? 'Studio Suite' : 'Regular Room',
+      cn:    i < 2 ? '套房' : '标准房',
+      suite: i < 2,
       people,
     })),
   },
@@ -4475,7 +4477,7 @@ function renderFamily(){
         </div>
       </div>
       ${stay.rooms ? stay.rooms.map((r, i) => {
-        const accent = r.people.length === 4 ? 'var(--neon-yellow)' : 'var(--neon-cyan)';
+        const accent = r.suite ? 'var(--neon-yellow)' : 'var(--neon-cyan)';
         return `
       <div class="card fade">
         <div class="group-card">
