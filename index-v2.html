@@ -852,6 +852,11 @@ body.manager .tl-reset{display:inline-flex}
   border:1px solid var(--line-soft);
   color:var(--text);
 }
+.chip-tag{
+  margin-left:6px;font-size:10px;font-weight:800;
+  letter-spacing:0.5px;text-transform:uppercase;
+  color:var(--neon-yellow);
+}
 
 /* ── Announcement compose card (manager-only prompt) ── */
 .annc-add{
@@ -3198,11 +3203,15 @@ const FALLBACK = [
 ];
 
 const GROUP_1 = ['Danzel','Alvin','Alyssa','Angel','Eugene','Vanessa','Amazi'];
-const GROUP_2 = ['Da ma','Yi ma','Aunty Coke','Mom','Dad','Uncle Jimy','Steve Susu','Ah Gong','Margaret','Jujuhub'];
+const GROUP_2 = ['Yi ma','Aunty Coke','Mom','Dad','Steve Susu','Ah Gong','Margaret','Jujuhub'];
+// No longer joining the trip: Uncle Jimy, Da ma.
+
+// People who are usually free at attractions — count them for travel/rooming
+// but not for paid admissions/reservations.
+const FREE_PAX = ['Amazi'];
 
 // Optional Chinese label shown under the English name in the profile picker
 const NAME_CN = {
-  'Da ma': '大妈',
   'Yi ma': '二妈',
   'Aunty Coke': '可乐姨',
   'Mom': '妈妈',
@@ -3212,6 +3221,45 @@ const NAME_CN = {
   'Margaret': '婆婆',
   'Jujuhub': '蜘蛛侠',
 };
+
+// Shared room groupings — reused across every multi-room hotel.
+// 5 groups: two 4-person groups + three smaller ones.
+const ROOM_GROUPS = [
+  ['Aunty Coke','Ah Gong','Yi ma','Steve Susu'],
+  ['Angel','Alvin','Danzel','Amazi'],
+  ['Dad','Mom','Margaret'],
+  ['Eugene','Vanessa'],
+  ['Jujuhub'],
+];
+
+// Per-hotel rooming. Horseshoe + Paso Robles use the same groupings;
+// Malibu is a whole-house Airbnb so rooms are picked on arrival.
+const ROOMING = [
+  {
+    hotel:'Horseshoe Las Vegas', nights:'May 16–19',
+    summary:'5 rooms · 2 studio suites + 3 regular',
+    note:'The four-person groups take the studio suites; everyone else is in a regular room.',
+    rooms: ROOM_GROUPS.map(people => ({
+      type: people.length === 4 ? 'Studio Suite' : 'Regular Room',
+      cn:   people.length === 4 ? '套房' : '标准房',
+      people,
+    })),
+  },
+  {
+    hotel:'Malibu Airbnb', nights:'May 21–22',
+    summary:'6 bedrooms · whole house',
+    note:'Eugene has flown home by this night. 6 bedrooms for the remaining family — pick rooms on arrival.',
+    rooms: null,
+  },
+  {
+    hotel:'Courtyard · Paso Robles', nights:'May 22–23',
+    summary:'5 rooms · 2 queen beds each',
+    note:'Same room groups as Vegas. Every room has two queen beds.',
+    rooms: ROOM_GROUPS.map(people => ({
+      type:'2 Queen Room', cn:'双大床房', people,
+    })),
+  },
+];
 
 const HOTELS = [
   {nights:'May 14',name:'885 Dorel Drive',city:'San Jose · family home',who:'Whole family — arrival night',map:'https://maps.google.com/?q=885+Dorel+Drive+San+Jose',note:'Private residence. No hotel check-in.',lat:37.276,lng:-121.842},
@@ -4373,27 +4421,75 @@ function renderFood(){
 // ─── Family render ──────────────────────────────────────────────────────
 function renderFamily(){
   const c = document.getElementById('familyContent');
+  const total   = ALL_NAMES.length;
+  const reserve = total - FREE_PAX.length;
+  const chip = n => `<span class="name-chip">${esc(n)}${FREE_PAX.includes(n) ? ' <span class="chip-tag">free</span>' : ''}</span>`;
+  const roomed     = ROOM_GROUPS.flat();
+  const unassigned = ALL_NAMES.filter(n => !roomed.includes(n));
   c.innerHTML = `
     <div class="section" style="margin-top:6px">
       <div class="section-title">
         <h2>Who's coming<span class="cn">家人</span></h2>
-        <span class="meta">21 PAX · 人</span>
+        <span class="meta">${total} PAX · ${reserve} TO RESERVE</span>
+      </div>
+      <div class="callout cyan fade">
+        <div class="callout-ico">${ico('groups')}</div>
+        <div class="callout-body">
+          <div class="callout-title">${reserve} people to reserve &amp; pay for</div>
+          <div class="callout-text">${total} travelling. Amazi is usually free at attractions — book and pay for <b>${reserve}</b>. Uncle Jimy and Da Ma are no longer joining.</div>
+        </div>
       </div>
       <div class="card fade">
         <div class="group-card">
           <div class="group-head"><span class="group-dot"></span><h3>Group 1<span class="cn">少年组</span></h3></div>
-          <div class="group-sub">EDC · late nights · LA shopping</div>
-          <div class="chips">${GROUP_1.map(n => `<span class="name-chip">${esc(n)}</span>`).join('')}</div>
+          <div class="group-sub">EDC · late nights · LA shopping · ${GROUP_1.length} people</div>
+          <div class="chips">${GROUP_1.map(chip).join('')}</div>
         </div>
       </div>
       <div class="card fade">
         <div class="group-card">
           <div class="group-head"><span class="group-dot g2"></span><h3>Group 2<span class="cn">家人组</span></h3></div>
-          <div class="group-sub">Slower pace · graduation support · meals · sights</div>
-          <div class="chips">${GROUP_2.map(n => `<span class="name-chip">${esc(n)}</span>`).join('')}</div>
+          <div class="group-sub">Slower pace · graduation support · meals · sights · ${GROUP_2.length} people</div>
+          <div class="chips">${GROUP_2.map(chip).join('')}</div>
         </div>
       </div>
+
+      <div class="section-title" style="margin-top:20px">
+        <h2>Rooming<span class="cn">房间</span></h2>
+        <span class="meta">${ROOMING.length} HOTELS</span>
+      </div>
+      ${unassigned.length ? `
+      <div class="callout urgent fade">
+        <div class="callout-ico">${ico('error')}</div>
+        <div class="callout-body">
+          <div class="callout-title">Not assigned a room yet</div>
+          <div class="callout-text"><b>${unassigned.map(esc).join(', ')}</b> — travelling but not placed in any room group. Needs a spot.</div>
+        </div>
+      </div>` : ''}
+      ${ROOMING.map(stay => `
+      <div class="callout warn fade">
+        <div class="callout-ico">${ico('hotel')}</div>
+        <div class="callout-body">
+          <div class="callout-title">${esc(stay.hotel)} · ${esc(stay.nights)}</div>
+          <div class="callout-text">${esc(stay.summary)} — ${esc(stay.note)}</div>
+        </div>
+      </div>
+      ${stay.rooms ? stay.rooms.map((r, i) => {
+        const accent = r.people.length === 4 ? 'var(--neon-yellow)' : 'var(--neon-cyan)';
+        return `
       <div class="card fade">
+        <div class="group-card">
+          <div class="group-head">
+            <span class="group-dot" style="background:${accent};box-shadow:0 0 12px ${accent}"></span>
+            <h3>${r.type}<span class="cn">${r.cn}</span></h3>
+          </div>
+          <div class="group-sub">Room ${i + 1} · ${r.people.length} ${r.people.length === 1 ? 'person' : 'people'}</div>
+          <div class="chips">${r.people.map(chip).join('')}</div>
+        </div>
+      </div>`;
+      }).join('') : ''}`).join('')}
+
+      <div class="card fade" style="margin-top:6px">
         <div class="group-card">
           <div class="group-head"><span class="group-dot" style="background:var(--neon-yellow);box-shadow:0 0 12px var(--neon-yellow)"></span><h3>Logistics<span class="cn">后勤</span></h3></div>
           <div class="row">
@@ -4406,7 +4502,7 @@ function renderFamily(){
           </div>
           <div class="row">
             <div class="row-ico">${ico('directions_car')}</div>
-            <div class="row-text"><div class="row-label">Vehicles<span class="cn">车</span></div><div class="row-value">1 large van (12 seats) · 2 Teslas (5 each)<small style="display:block;color:var(--text-mute);font-size:12px;margin-top:2px;font-weight:500">22 seats · 17 family</small></div></div>
+            <div class="row-text"><div class="row-label">Vehicles<span class="cn">车</span></div><div class="row-value">1 large van (12 seats) · 2 Teslas (5 each)<small style="display:block;color:var(--text-mute);font-size:12px;margin-top:2px;font-weight:500">22 seats · ${total} family</small></div></div>
           </div>
         </div>
       </div>
